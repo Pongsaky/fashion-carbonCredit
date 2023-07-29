@@ -14,7 +14,25 @@
     width: 350px;
     font-family: 'Inter', sans-serif;
     box-shadow: #00000025 3px 7px 5px 0;
+    transition: box-shadow 0.3s ease-in-out;
 }
+
+.shop:hover {
+    box-shadow: #00000055 5px 9px 7px 0;
+    /* Change the box shadow on hover */
+    cursor: pointer;
+    /* Change the cursor to a pointer on hover to indicate interactivity */
+}
+
+.shop .add-btn {
+    transition: background-color 0.3s ease-in-out;
+}
+
+.shop .add-btn:hover {
+    background-color: #333; /* Change the background color on hover */
+    cursor: pointer; /* Change the cursor to a pointer on hover to indicate interactivity */
+}
+
 
 .shop-img-wrapper {
     position: relative;
@@ -113,4 +131,12 @@
     font-size: 18px;
     color: #fff;
     background-color: #000;
+    transition: background-color 0.3s ease-in-out;
+}
+
+#cart-btn:hover {
+    background-color: #333;
+    /* Change the background color on hover */
+    cursor: pointer;
+    /* Change the cursor to a pointer on hover to indicate interactivity */
 }

@@ -1,44 +1,12 @@
-<!-- main.html -->
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Main Page</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
-</head>
+{% block title %}
+Main page
+{% endblock %}
 
-<body>
+{% block content %}
 
-    <h1>Welcome to <strong>{{ firstname }} {{ lastname }}</strong> Chat App</h1>
-    <div id="user_id_placeholder" data-user-id="{{ user_id }}"></div>
-    
-    <!-- Nav bar -->
-    <nav>
-        <div class="logo-group">
-            <!-- <img src="../image/logo_300x300.png" alt="Logo Oreo" id="logo"> -->
-            <h2 class="coala">COALA co.</h2>
-        </div>
-        <div>
-            <ul class="nav-link">
-                <li><a href="/">home</a></li>
-                <li><a href="/shop">shop</a></li>
-                <li><a href="/add_shop">Your Shop</a></li>
-                <li><a href="/edit_user_profile">Edit User Profile</a></li>
-                <li><a href="#">about</a></li>
-                <li><a href="#">support</a></li>
-                {% if user_id %}
-                    <li id="sign-in"><a href="/logout">Logout</a></li>
-                {% else %}
-                    <li id="sign-in"><a href="/login">sign in</a></li>
-                {% endif %}
-            </ul>
-        </div>
-    </nav>
-    <!-- Nav bar -->
+{% endblock %}
 
-
-    <script src="/static/js/main.js"></script>
-</body>
-
-</html>
+<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+<script src="/static/js/main.js"></script>

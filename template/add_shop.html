@@ -1,57 +1,28 @@
-<!-- add_shop.html -->
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Add Shop</title>
-    <link rel="stylesheet" href="/static/css/add_shop.css">
-    <link rel="stylesheet" href="/static/css/style.css">
+{% block title %}
+Add-shop
+{% endblock %}
 
-</head>
-
-<body>
-    <!-- Nav bar -->
-    <nav>
-        <div class="logo-group">
-            <!-- <img src="../image/logo_300x300.png" alt="Logo Oreo" id="logo"> -->
-            <h2 class="coala">COALA co.</h2>
-        </div>
-        <div>
-            <ul class="nav-link">
-                <li><a href="/">home</a></li>
-                <li><a href="/select_chat_shop">shop</a></li>
-                <li><a href="/add_shop">Your Shop</a></li>
-                <li><a href="/edit_user_profile">Edit User Profile</a></li>
-                <li><a href="#">about</a></li>
-                <li><a href="#">support</a></li>
-                {% if user_id %}
-                <li id="sign-in"><a href="/logout">Logout</a></li>
-                {% else %}
-                <li id="sign-in"><a href="/login">sign in</a></li>
-                {% endif %}
-            </ul>
-        </div>
-    </nav>
-    <!-- Nav bar -->
-    <div class="container">
-        <h1>Add New Shop</h1>
-        <div id="user_id_placeholder" data-user-id="{{ user_id }}"></div>
-        <form id="add_shop_form">
-            <label for="shop_name">Shop Name:</label>
-            <input type="text" id="shop_name" name="shop_name" required><br>
-            <input type="submit" class="add-shop-btn" value="Add Shop">
-        </form>
-        <div id="user_shops_list">
-            <h2>Your Shops:</h2>
-            <ul>
-                <!-- Display existing shops here -->
-            </ul>
-        </div>
-        <div id="add_shop_message"></div>
-        <a href="/">Back to Main Page</a>
+{% block content %}
+<div class="container">
+    <h1>Add New Shop</h1>
+    <div id="user_id_placeholder" data-user-id="{{ user_id }}"></div>
+    <form id="add_shop_form">
+        <label for="shop_name">Shop Name:</label>
+        <input type="text" id="shop_name" name="shop_name" required><br>
+        <input type="submit" class="add-shop-btn" value="Add Shop">
+    </form>
+    <div id="user_shops_list">
+        <h2>Your Shops:</h2>
+        <ul>
+            <!-- Display existing shops here -->
+        </ul>
     </div>
-    
-    <script src="/static/js/add_shop.js"></script> <!-- Include the add_shop.js JavaScript file -->
-</body>
+    <div id="add_shop_message"></div>
+    <a href="/">Back to Main Page</a>
+</div>
 
-</html>
+<script src="/static/js/add_shop.js"></script> <!-- Include the add_shop.js JavaScript file -->
+<link rel="stylesheet" href="/static/css/add_shop.css">
+{% endblock %}

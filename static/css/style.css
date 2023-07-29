@@ -112,13 +112,10 @@ ul.nav-link li {
 
 li#sign-in {
     background-color: #000;
-
     & a {
         color: #fff;
     }
 }
-
-
 
 #logo {
     width: 60px;

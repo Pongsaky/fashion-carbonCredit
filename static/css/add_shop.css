@@ -1,112 +1,132 @@
+/* From add_shop.css */
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    /* background-color: #f0f0f0; */
 }
 
 h1 {
-    margin-bottom: 20px;
+    text-align: center;
+    margin-top: 30px;
+    font-size: 28px;
+    font-weight: bold;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    max-width: 300px;
-}
-
-label {
-    margin-bottom: 10px;
-}
-
-input[type="text"] {
-    padding: 5px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-}
-
-input[type="submit"] {
-    padding: 10px 15px;
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-input[type="submit"]:hover {
-    background-color: #45a049;
+.container {
+    margin-top: 40px;
 }
 
 #user_shops_list {
-    margin-top: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
 
 #user_shops_list h2 {
-    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 
 #user_shops_list ul {
     list-style: none;
     padding: 0;
-    margin: 0;
 }
 
 #user_shops_list li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
-}
-
-.edit-button,
-.delete-button {
-    padding: 5px 10px;
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    margin-left: 10px;
-}
-
-.edit-button:hover,
-.delete-button:hover {
-    background-color: #45a049;
-}
-
-.shop-list {
-    list-style: none;
-    padding: 0;
-}
-
-.shop-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
     padding: 10px;
     border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
 }
 
-.shop-name {
-    flex: 1;
+#user_shops_list li:hover {
+    background-color: #f0f0f0;
 }
 
-.shop-actions {
+#add_shop_form {
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+
     display: flex;
-    gap: 5px;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+    height: 165px;
+    text-align: center;
 }
 
-.edit-button,
-.delete-button {
-    padding: 5px 10px;
-    background-color: #4CAF50;
+#add_shop_form label {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#add_shop_form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+#add_shop_form input[type="submit"] {
+    background-color: #000;
     color: #fff;
+    padding: 10px 20px;
     border: none;
-    border-radius: 3px;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: bold;
     cursor: pointer;
 }
 
-.edit-button:hover,
-.delete-button:hover {
-    background-color: #45a049;
+#add_shop_form input[type="submit"]:hover {
+    background-color: #333;
+}
+
+#error_message {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+#success_message {
+    color: green;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #000;
+}
+
+a:hover {
+    color: #333;
+}
+
+.add-shop-btn {
+    margin-top: -20px;
 }

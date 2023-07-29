@@ -20,47 +20,28 @@
         </div>
         <div>
             <ul class="nav-link">
-                <li><a href="/main">home</a></li>
+                <li><a href="/">home</a></li>
                 <li><a href="/select_chat_shop">shop</a></li>
                 <li><a href="/add_shop">Your Shop</a></li>
                 <li><a href="/edit_user_profile">Edit User Profile</a></li>
                 <li><a href="#">about</a></li>
                 <li><a href="#">support</a></li>
-                <li id="sign-in"><a href="form.html">sign in</a></li>
+                {% if user_id %}
+                <li id="sign-in"><a href="/logout">Logout</a></li>
+                {% else %}
+                <li id="sign-in"><a href="/login">sign in</a></li>
+                {% endif %}
             </ul>
         </div>
     </nav>
-
     <!-- Nav bar -->
 
     <div class="container">
-        <div class="t-shirt-group">
+        <div id="product-group">
 
-            <div class="t-shirt">
-                <div class="shirt-img-wrapper">
-                    <img src="/static/image/t-shirt.png" alt="T-shirt-preview">
-                </div>
-                <div class="product-desc">
-                    <h1 class="product-name">Product Name</h1>
-                    <h2 class="shop-name">By Tanuson</h2>
-                    <div class="category-group">
-                        <span class="category">V-shirt</span>
-                        <span class="category">Short</span>
-                        <span class="category">White</span>
-                        <span class="category">Street Fasion</span>
-                        <span class="category">Oversized</span>
-                        <span class="category">Velvet</span>
-                    </div>
-                    <h3 class="price"><span>350 - 450</span> THB</h3>
-                    <div class="star-group">
-                        <div class="star">00000</div>
-                        <span class="user-rating">4,789 +</span>
-                    </div>
-
-                    <button type="button" class="add-btn">Add +</button>
-                </div>
-            </div>
+        </div>
     </div>
+    <div id="product-message"></div>
     <script src="/static/js/product.js"></script>
 </body>
 

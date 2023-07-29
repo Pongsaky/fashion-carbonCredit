@@ -136,7 +136,8 @@ class productDB:
 
         for row_i in row:
             result.append({column[0]: row_i[0], column[1]: row_i[1], column[2]: row_i[2], 
-                                column[3]: row_i[3], column[4]: row_i[4]})
+                           column[3]: row_i[3], column[4]: row_i[4], column[5]: row_i[5], 
+                           column[6]: row_i[6]})
         return result
 
     def select_one(self, id: int):
@@ -476,4 +477,20 @@ class serviceAPI:
             # for idx, r in enumerate(row_i[:-1]):
             result.append({column[0]: row_i[0], column[1]: row_i[1], column[2]: row_i[2], column[3]: row_i[3],
                            column[4]: row_i[4], column[5]: row_i[5]})
+        return result
+    
+    def fetch_product(self, shop_id:int):
+        result = []
+        sql = f"""SELECT * FROM fashion_carboncredit.products 
+                    WHERE shop_id={shop_id};"""
+        self.mycursor.execute(sql)
+        column = ["id", "shop_id", "name", "type", "property", "description", "product_image"]
+        row = self.mycursor.fetchall()
+
+        for row_i in row:
+            # for idx, r in enumerate(row_i[:-1]):
+            result.append({column[0]: row_i[0], column[1]: row_i[1], column[2]: row_i[2], 
+                           column[3]: row_i[3], column[4]: row_i[4], column[5]: row_i[5], 
+                           column[6]: row_i[6]})
+            
         return result

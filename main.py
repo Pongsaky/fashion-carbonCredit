@@ -4,8 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from backend.routers.db import user, shopDB, product, order, review, chatDB, service, product_type
-from backend.routers.web import login, main, select_chat_shop, chat, select_chat_user, edit_user_profile, logout, product
+from backend.routers.db import productDB, user, shopDB, order, review, chatDB, service, product_type
+from backend.routers.web import login, main, select_chat_shop, chat, select_chat_user, edit_user_profile, logout, product, shop
 
 from starlette.middleware.sessions import SessionMiddleware
 from typing import List
@@ -28,7 +28,7 @@ app.add_middleware(
 # Inclduing DB API router
 app.include_router(user.router)
 app.include_router(shopDB.router)
-app.include_router(product.router)
+app.include_router(productDB.router)
 app.include_router(order.router)
 app.include_router(review.router)
 app.include_router(chatDB.router)
@@ -44,6 +44,7 @@ app.include_router(chat.router)
 app.include_router(edit_user_profile.router)
 app.include_router(logout.router)
 app.include_router(product.router)
+app.include_router(shop.router)
 # app.include_router(chat_ws.router)
 
 # Track active WebSocket connections

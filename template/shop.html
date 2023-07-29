@@ -4,7 +4,7 @@
 
 <head>
     <title>Main Page</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/shop.css">
     <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 </head>
 
@@ -12,7 +12,7 @@
 
     <h1>Welcome to <strong>{{ firstname }} {{ lastname }}</strong> Chat App</h1>
     <div id="user_id_placeholder" data-user-id="{{ user_id }}"></div>
-    
+
     <!-- Nav bar -->
     <nav>
         <div class="logo-group">
@@ -22,23 +22,28 @@
         <div>
             <ul class="nav-link">
                 <li><a href="/">home</a></li>
-                <li><a href="/shop">shop</a></li>
+                <li><a href="/select_chat_shop">shop</a></li>
                 <li><a href="/add_shop">Your Shop</a></li>
                 <li><a href="/edit_user_profile">Edit User Profile</a></li>
                 <li><a href="#">about</a></li>
                 <li><a href="#">support</a></li>
                 {% if user_id %}
-                    <li id="sign-in"><a href="/logout">Logout</a></li>
+                <li id="sign-in"><a href="/logout">Logout</a></li>
                 {% else %}
-                    <li id="sign-in"><a href="/login">sign in</a></li>
+                <li id="sign-in"><a href="/login">sign in</a></li>
                 {% endif %}
             </ul>
         </div>
     </nav>
     <!-- Nav bar -->
 
+    <div class="container">
+        <div id="shop-group">
 
-    <script src="/static/js/main.js"></script>
+        </div>
+    </div>
+    <button type="button" id="cart-btn">Cart</button>
+    <script src="/static/js/shop.js"></script>
 </body>
 
 </html>

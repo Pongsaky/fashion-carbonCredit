@@ -60,6 +60,11 @@ async def fetch_chat(user_id:int, user_shop_id:int, shop_id:int):
     res =  serviceAPI().fetch_chat(user_id=user_id, user_shop_id=user_shop_id, shop_id=shop_id)
     return res
 
+@router.get("/fetch-product/{shop_id}", tags=["service"])
+async def fetch_chat(shop_id:int):
+    res =  serviceAPI().fetch_product(shop_id=shop_id)
+    return res
+
 @router.post("/multi-uploadfile/", tags=["service"])
 async def upload_file(files :List[UploadFile] = File(...)):
     url_path = []

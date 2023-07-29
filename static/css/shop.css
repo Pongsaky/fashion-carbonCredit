@@ -1,4 +1,5 @@
-#product-group {
+/* From Product css */
+#shop-group {
     position: relative;
     padding: 50px 80px;
     display: flex;
@@ -8,7 +9,7 @@
     gap: 80px;
 }
 
-.product {
+.shop {
     position: relative;
     width: 350px;
     font-family: 'Inter', sans-serif;
@@ -16,21 +17,21 @@
     transition: box-shadow 0.3s ease-in-out;
 }
 
-.product:hover {
+.shop:hover {
     box-shadow: #00000055 5px 9px 7px 0;
     cursor: pointer;
 }
 
-.product .add-btn {
+.shop .add-btn {
     transition: background-color 0.3s ease-in-out;
 }
 
 .shop .add-btn:hover {
-    background-color: #ffffff;
+    background-color: #333;
     cursor: pointer;
 }
 
-.product-img-wrapper {
+.shop-img-wrapper {
     position: relative;
     width: 100%;
     height: fit-content;
@@ -41,13 +42,13 @@
     }
 }
 
-.product-desc {
+.shop-desc {
     padding: 20px;
     padding-bottom: 30px;
     background-color: #d9d9d9;
 }
 
-.product-desc h1.product-name {
+.shop-desc h1.shop-name {
     font-size: 20px;
     font-weight: 700px;
 }
@@ -76,7 +77,7 @@
 
 }
 
-.product-desc h3.price {
+.shop-desc h3.price {
     font-size: 16px;
     font-weight: 800px;
     color: #737373;
@@ -133,15 +134,4 @@
 #cart-btn:hover {
     background-color: #333;
     cursor: pointer;
-}
-
-#product-message {
-    font-size: 60px;
-    position:absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-weight: bold;
-    white-space: nowrap;
-    text-align: center;
 }

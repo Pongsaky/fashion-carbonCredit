@@ -1,5 +1,4 @@
-/* From Product css */
-#shop-group {
+.t-shirt-group {
     position: relative;
     padding: 50px 80px;
     display: flex;
@@ -9,14 +8,14 @@
     gap: 80px;
 }
 
-.shop {
+.t-shirt {
     position: relative;
     width: 350px;
     font-family: 'Inter', sans-serif;
     box-shadow: #00000025 3px 7px 5px 0;
 }
 
-.shop-img-wrapper {
+.shirt-img-wrapper {
     position: relative;
     width: 100%;
     height: fit-content;
@@ -27,13 +26,13 @@
     }
 }
 
-.shop-desc {
+.product-desc {
     padding: 20px;
     padding-bottom: 30px;
     background-color: #d9d9d9;
 }
 
-.shop-desc h1.shop-name {
+.product-desc h1.product-name {
     font-size: 20px;
     font-weight: 700px;
 }
@@ -62,7 +61,7 @@
 
 }
 
-.shop-desc h3.price {
+.product-desc h3.price {
     font-size: 16px;
     font-weight: 800px;
     color: #737373;

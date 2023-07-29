@@ -3,16 +3,15 @@
 <html>
 
 <head>
-    <title>Main Page</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <title>Product</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/product.css">
     <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 </head>
 
 <body>
-
-    <h1>Welcome to <strong>{{ firstname }} {{ lastname }}</strong> Chat App</h1>
     <div id="user_id_placeholder" data-user-id="{{ user_id }}"></div>
-    
+    <div id="shop_id_placeholder" data-user-id="{{ shop_id }}"></div>
+
     <!-- Nav bar -->
     <nav>
         <div class="logo-group">
@@ -21,31 +20,29 @@
         </div>
         <div>
             <ul class="nav-link">
-                <li><a href="/">home</a></li>
+                <li><a href="/main">home</a></li>
                 <li><a href="/select_chat_shop">shop</a></li>
                 <li><a href="/add_shop">Your Shop</a></li>
                 <li><a href="/edit_user_profile">Edit User Profile</a></li>
                 <li><a href="#">about</a></li>
                 <li><a href="#">support</a></li>
-                {% if user_id %}
-                    <li id="sign-in"><a href="/logout">Logout</a></li>
-                {% else %}
-                    <li id="sign-in"><a href="/login">sign in</a></li>
-                {% endif %}
+                <li id="sign-in"><a href="form.html">sign in</a></li>
             </ul>
         </div>
     </nav>
+
     <!-- Nav bar -->
 
     <div class="container">
-        <div id="shop-group">
+        <div class="t-shirt-group">
 
-            <div class="shop">
-                <div class="shop-img-wrapper">
-                    <img src="https://assets.brandinside.asia/uploads/2021/02/shutterstock-1559575541-unql-1-4-x.jpg" alt="T-shirt-preview">
+            <div class="t-shirt">
+                <div class="shirt-img-wrapper">
+                    <img src="/static/image/t-shirt.png" alt="T-shirt-preview">
                 </div>
-                <div class="shop-desc">
-                    <h1 class="shop-name">Shop Name</h1>
+                <div class="product-desc">
+                    <h1 class="product-name">Product Name</h1>
+                    <h2 class="shop-name">By Tanuson</h2>
                     <div class="category-group">
                         <span class="category">V-shirt</span>
                         <span class="category">Short</span>
@@ -59,15 +56,12 @@
                         <div class="star">00000</div>
                         <span class="user-rating">4,789 +</span>
                     </div>
-    
-                    <!-- <button type="button" class="add-btn">Add +</button> -->
+
+                    <button type="button" class="add-btn">Add +</button>
                 </div>
             </div>
-    
-        </div>
     </div>
-    <button type="button" id="cart-btn">Cart</button>
-    <script src="/static/js/main.js"></script>
+    <script src="/static/js/product.js"></script>
 </body>
 
 </html>

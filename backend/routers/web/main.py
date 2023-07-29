@@ -7,12 +7,12 @@ router = APIRouter()
 templates = Jinja2Templates(directory="template")
 
 # Route for the shop selection page
-@router.get("/main", response_class=HTMLResponse)
+@router.get("/", response_class=HTMLResponse)
 async def get_main_page(request :Request):
     user_id = request.session.get("user_id")
-    if user_id is None:
-        # If user is not authenticated, redirect to the login page
-        return RedirectResponse(url="/login", status_code=302)
+    # if user_id is None:
+    #     # If user is not authenticated, redirect to the login page
+    #     return RedirectResponse(url="/login", status_code=302)
 
     # Set session
     # user_id = request.session.get("user_id")

@@ -113,16 +113,6 @@ h1 {
     margin-bottom: 10px;
 }
 
-a {
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
-    text-decoration: none;
-    color: #000;
-}
-
 a:hover {
     color: #333;
 }

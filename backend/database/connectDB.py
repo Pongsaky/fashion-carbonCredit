@@ -1,0 +1,479 @@
+import mysql.connector
+from dotenv import load_dotenv
+import os
+import json
+
+load_dotenv()
+
+# mydb = mysql.connector.connect(
+#         host=os.getenv("host"),
+#         user=os.getenv("user"),
+#         password=os.getenv("password"),
+#         database=os.getenv("database")
+#     )
+
+mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="Pongsakon_123",
+        database="fashion_carboncredit"
+    )
+
+class userDB:
+    def __init__(self):
+        self.mydb = mydb
+        self.mycursor = self.mydb.cursor()
+
+    def select_all(self, limit=1000):
+        result = {}
+        sql = f"""SELECT * FROM `users` LIMIT {limit}"""
+        self.mycursor.execute(sql)
+        column = ["id", "username", "password", "email", "firstname", "lastname", "user_image"]
+        row = self.mycursor.fetchall()
+
+        for row_i in row:
+            for idx, r in enumerate(row_i[:-1]):
+                result[row_i[0]] = {column[1]:row_i[1], column[2]:row_i[2], column[3]:row_i[3],
+                                    column[4]:row_i[4], column[5]:row_i[5], column[6]:row_i[6]}
+        return result
+
+    def select_one(self, id:int):
+        result = {}
+        sql = f"""SELECT * FROM `users` WHERE users.id={id}"""
+        self.mycursor.execute(sql)
+        column = ["id", "username", "password", "firstname", "lastname", "email", "user_image"]
+        row = self.mycursor.fetchone()
+        if row == None:
+            return {"msg" : f"Not found user_id = {id}"}
+    
+        for idx, r in enumerate(row[:-1]):
+            result[column[idx]] = r
+        return result
+
+    def insert(self, username:str, password:str, email:str, firstname:str, lastname:str, user_image:str):
+        sql = f"INSERT INTO `users` (`username`, `password`, `email`, `firstname`, `lastname`, `user_image`) VALUES ('{username}', '{password}', '{email}', '{firstname}', '{lastname}', '{user_image}');"
+        print(sql)
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        
+        return {"msg": "UserDB INSERT SUCESSFULLY"}
+    
+    def delete(self, id:int):
+        sql = f"DELETE FROM `users` WHERE users.id={id}"
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        return {"msg": "UserDB DELETE SUCESSFULLY"}
+
+    def update(self, id:int, username="", password="", email="", firstname="", lastname="", user_image=""):
+        sql = f"""UPDATE `users` SET `username`='{username}', `password`='{password}', `email`='{email}', `firstname`='{firstname}', `lastname`='{lastname}', `user_image`='{user_image}'
+                WHERE `id`={id};"""
+
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        return {"msg": "UserDB UPDATE SUCESSFULLY"}
+
+class shopDB:
+    def __init__(self):
+        self.mydb = mydb
+        self.mycursor = self.mydb.cursor()
+
+    def select_all(self, limit=1000):
+        result = []
+        sql = f"""SELECT * FROM `shops` LIMIT {limit}"""
+        self.mycursor.execute(sql)
+        column = ["id", "user_id", "name", "shop_image"]
+        row = self.mycursor.fetchall()
+
+        for row_i in row:
+            # for idx, r in enumerate(row_i[:-1]):
+            result.append({column[0]: row_i[0], column[1]: row_i[1], column[2]: row_i[2], column[3]: row_i[3]})
+        return result
+
+    def select_one(self, id: int):
+        result = {}
+        sql = f"""SELECT * FROM `shops` WHERE shops.id={id}"""
+        self.mycursor.execute(sql)
+        column = ["id", "user_id", "name", "shop_image"]
+        row = self.mycursor.fetchone()
+        if row == None:
+            return {"msg": f"Not found user_id = {id}"}
+
+        for idx, r in enumerate(row[:-1]):
+            result[column[idx]] = r
+        return result
+
+    def insert(self, user_id:int, name:str, shop_image:str):
+        sql = f"INSERT INTO `shops` (`user_id`, `name`, `shop_image`) VALUES ('{user_id}', '{name}', '{shop_image}');"
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        return {"msg": "ShopDB INSERT SUCESSFULLY"}
+
+    def delete(self, id: int):
+        sql = f"DELETE FROM `shops` WHERE shops.id={id}"
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        return {"msg": "ShopDB DELETE SUCESSFULLY"}
+
+    def update(self, id: int, user_id="", name="", shop_image=""):
+        sql = f"""UPDATE `shops` SET `user_id`='{user_id}', `name`='{name}', `shop_image`='{shop_image}'
+                WHERE `id`={id};"""
+
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        return {"msg": "ShopDB UPDATE SUCESSFULLY"}
+    
+class productDB:
+    def __init__(self):
+        self.mydb = mydb
+        self.mycursor = self.mydb.cursor()
+
+    def select_all(self, limit=1000):
+        result = []
+        sql = f"""SELECT * FROM `products` LIMIT {limit}"""
+        self.mycursor.execute(sql)
+        column = ["id", "shop_id", "name", "type", "property", "description", "product_image"]
+        row = self.mycursor.fetchall()
+
+        for row_i in row:
+            result.append({column[0]: row_i[0], column[1]: row_i[1], column[2]: row_i[2], 
+                                column[3]: row_i[3], column[4]: row_i[4]})
+        return result
+
+    def select_one(self, id: int):
+        result = {}
+        sql = f"""SELECT * FROM `products` WHERE products.id={id}"""
+        self.mycursor.execute(sql)
+        column = ["id", "shop_id", "name", "type", "property", "description", "product_image"]
+        row = self.mycursor.fetchone()
+        if row == None:
+            return {"msg": f"Not found user_id = {id}"}
+
+        for idx, r in enumerate(row[:-1]):
+            result[column[idx]] = r
+        return result
+
+    def insert(self, shop_id:int, name:str, product_type:str, product_property:dict, description:str, product_image:str):
+        product_property = json.dumps(product_property)
+        product_image = json.dumps(product_image)
+        sql = f"INSERT INTO `products` (`shop_id`, `name`, `type`, `property`, `description`, `product_image`) VALUES ('{shop_id}', '{name}', '{product_type}', '{product_property}', '{description}', '{product_image}');"
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        return {"msg": "ProductDB INSERT sucessfully"}
+    
+    def update(self, id: int, shop_id:int, name:str, product_type:str, product_property:dict, description:str, product_image:str):
+        product_property = json.dumps(product_property)
+        product_image = json.dumps(product_image)
+        sql = f"""UPDATE `products` SET `shop_id`='{shop_id}', `name`='{name}', `type`='{product_type}', `property`='{product_property}', `description`='{description}', `product_image`='{product_image}'
+                WHERE `id`={id};"""
+
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        return {"msg": "ProductDB UPDATE SUCESSFULLY"}
+
+    def delete(self, id: int):
+        sql = f"DELETE FROM `products` WHERE products.id={id}"
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        return {"msg": "ProductDB DELETE SUCESSFULLY"}
+
+class orderDB:
+    def __init__(self):
+        self.mydb = mydb
+        self.mycursor = self.mydb.cursor()
+
+    def select_all(self, limit=1000):
+        result = {}
+        sql = f"""SELECT * FROM `orders` LIMIT {limit}"""
+        self.mycursor.execute(sql)
+        column = ["id", "user_id", "product_id", "select_property", "amount", "neutral_mark"]
+        row = self.mycursor.fetchall()
+
+        for row_i in row:
+            for idx, r in enumerate(row_i[:-1]):
+                result[row_i[0]] = {column[1]: row_i[1], column[2]: row_i[2], column[3]: row_i[3],
+                                    column[4]: row_i[4], column[5]: row_i[5]}
+        return result
+
+    def select_one(self, id: int):
+        result = {}
+        sql = f"""SELECT * FROM `orders` WHERE orders.id={id}"""
+        self.mycursor.execute(sql)
+        column = ["id", "user_id", "product_id", "select_property", "amount", "neutral_mark"]
+
+        row = self.mycursor.fetchone()
+        if row == None:
+            return {"msg": f"Not found user_id = {id}"}
+
+        for idx, r in enumerate(row[:-1]):
+            result[column[idx]] = r
+        return result
+
+    def insert(self, user_id:int, product_id:int, select_property:dict, amount:int, neutral_mark:int):
+        select_property = json.dumps(select_property)
+        sql = f"""INSERT INTO `orders` (`user_id`, `product_id`, `select_property`, `amount`, `neutral_mark`) 
+                VALUES ('{user_id}', '{product_id}', '{select_property}', '{amount}', '{neutral_mark}');"""
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        return {"msg": "OrderDB INSERT sucessfully"}
+
+    def delete(self, id: int):
+        sql = f"DELETE FROM `orders` WHERE orders.id={id}"
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        return {"msg": "OrderDB DELETE SUCESSFULLY"}
+
+    def update(self, id: int, user_id="", product_id="", select_property="", amount="", neutral_mark=""):
+        select_property = json.dumps(select_property)
+        sql = f"""UPDATE `orders` SET `user_id`='{user_id}', `product_id`='{product_id}', `select_property`='{select_property}', `amount`='{amount}', `neutral_mark`='{neutral_mark}'
+                WHERE `id`={id};"""
+
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        return {"msg": "OrderDB UPDATE SUCESSFULLY"}
+
+class reviewDB:
+    def __init__(self):
+        self.mydb = mydb
+        self.mycursor = self.mydb.cursor()
+
+    def select_all(self, limit=1000):
+        result = {}
+        sql = f"""SELECT * FROM `reviews` LIMIT {limit}"""
+        self.mycursor.execute(sql)
+        column = ["id", "user_id", "product_id", "review", "text"]
+        row = self.mycursor.fetchall()
+
+        for row_i in row:
+            for idx, r in enumerate(row_i[:-1]):
+                result[row_i[0]] = {column[1]: row_i[1], column[2]: row_i[2], column[3]: row_i[3],
+                                    column[4]: row_i[4]}
+        return result
+
+    def select_one(self, id: int):
+        result = {}
+        sql = f"""SELECT * FROM `reviews` WHERE reviews.id={id}"""
+        self.mycursor.execute(sql)
+        column = ["id", "user_id", "product_id", "review", "text"]
+
+        row = self.mycursor.fetchone()
+        if row == None:
+            return {"msg": f"Not found user_id = {id}"}
+
+        for idx, r in enumerate(row[:-1]):
+            result[column[idx]] = r
+        return result
+
+    def insert(self, user_id:int, product_id:int, review:int, text:str):
+        sql = f"""INSERT INTO `reviews` (`user_id`, `product_id`, `review`, `text`) 
+                VALUES ('{user_id}', '{product_id}', '{review}', '{text}');"""
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        return {"msg": "ReviewDB INSERT sucessfully"}
+
+    def update(self, id: int, user_id="", product_id="", review="", text=""):
+        sql = f"""UPDATE `reviews` SET `user_id`='{user_id}', `product_id`='{product_id}', `review`='{review}', `text`='{text}'
+                WHERE `id`={id};"""
+
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        return {"msg": "ReviewDB UPDATE SUCESSFULLY"}
+
+    def delete(self, id: int):
+        sql = f"DELETE FROM `reviews` WHERE reviews.id={id}"
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        return {"msg": "ReviewDB DELETE SUCESSFULLY"}
+    
+class chatDB:
+    def __init__(self):
+        self.mydb = mydb
+        self.mycursor = self.mydb.cursor()
+
+    def select_all(self, limit=1000):
+        result = {}
+        sql = f"""SELECT * FROM `chats` LIMIT {limit}"""
+        self.mycursor.execute(sql)
+        column = ["id", "user_id", "user_shop_id", "shop_id", "text", "isShop"]
+        row = self.mycursor.fetchall()
+
+        for row_i in row:
+            for idx, r in enumerate(row_i[:-1]):
+                result[row_i[0]] = {column[1]: row_i[1], column[2]: row_i[2], column[3]: row_i[3],
+                                    column[4]: row_i[4], column[5]: row_i[5]}
+        return result
+
+    def select_one(self, id: int):
+        result = {}
+        sql = f"""SELECT * FROM `chats` WHERE chats.id={id}"""
+        self.mycursor.execute(sql)
+        column = ["id", "user_id", "user_shop_id", "shop_id", "text", "isShop"]
+
+        row = self.mycursor.fetchone()
+        if row == None:
+            return {"msg": f"Not found user_id = {id}"}
+
+        for idx, r in enumerate(row[:-1]):
+            result[column[idx]] = r
+        return result
+
+    def insert(self, user_id:int, user_shop_id:int, shop_id:int, text:str, isShop:int):
+        sql = f"""INSERT INTO `chats` (`user_id`, `user_shop_id`, `shop_id`, `text`, `isShop`) 
+                VALUES ('{user_id}', '{user_shop_id}', '{shop_id}', '{text}', '{isShop}');"""
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        return {"msg": "ChatDB INSERT sucessfully"}
+
+    def update(self, id: int, user_id="", user_shop_id="", shop_id="", text="", isShop=""):
+        sql = f"""UPDATE `chats` SET `user_id`='{user_id}', `user_shop_id`='{user_shop_id}', `shop_id`='{shop_id}', `text`='{text}', `isShop`='{isShop}'
+                WHERE `id`={id};"""
+
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        return {"msg": "ChatDB UPDATE SUCESSFULLY"}
+
+    def delete(self, id: int):
+        sql = f"DELETE FROM `chats` WHERE chats.id={id}"
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        return {"msg": "ChatDB DELETE SUCESSFULLY"}
+
+class product_typeDB:
+    def __init__(self):
+        self.mydb = mydb
+        self.mycursor = self.mydb.cursor()
+
+    def select_all(self, limit=1000):
+        result = {}
+        sql = f"""SELECT * FROM `product_type` LIMIT {limit}"""
+        self.mycursor.execute(sql)
+        column = ["id", "name", "property"]
+        row = self.mycursor.fetchall()
+
+        for row_i in row:
+            for idx, r in enumerate(row_i[:-1]):
+                result[row_i[0]] = {column[1]: row_i[1], column[2]: row_i[2]}
+        return result
+
+    def select_one(self, id: int):
+        result = {}
+        sql = f"""SELECT * FROM `product_type` WHERE product_type.id={id}"""
+        self.mycursor.execute(sql)
+        column = ["id", "name", "property"]
+        row = self.mycursor.fetchone()
+        if row == None:
+            return {"msg": f"Not found user_id = {id}"}
+
+        for idx, r in enumerate(row[:-1]):
+            result[column[idx]] = r
+        return result
+
+    def insert(self, name:int, type_property:dict):
+        type_property = json.dumps(type_property)
+        sql = f"INSERT INTO `product_type` (`name`, `property`) VALUES ('{name}', '{type_property}');"
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        return {"msg": "TypeDB INSERT SUCESSFULLY"}
+
+    def update(self, id: int, name:str, type_property:dict):
+        type_property = json.dumps(type_property)
+        sql = f"""UPDATE `product_type` SET `name`='{name}', `property`='{type_property}'
+                WHERE `id`={id};"""
+
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        return {"msg": "TypeDB UPDATE SUCESSFULLY"}
+
+    def delete(self, id: int):
+        sql = f"DELETE FROM `product_type` WHERE product_type.id={id}"
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        return {"msg": "TypeDB DELETE SUCESSFULLY"}
+
+class serviceAPI:
+    def __init__(self):
+        self.mydb = mydb
+        self.mycursor = self.mydb.cursor()
+
+    def login(self, username, password):
+        result = {}
+        sql = f"""SELECT * FROM `users` WHERE (username='{username}' OR email='{username}') AND password='{password}'; """
+        self.mycursor.execute(sql)
+        column = ["id", "username", "password", "firstname", "lastname", "email", "user_image"]
+        row = self.mycursor.fetchone()
+        if row == None:
+            return {"msg" : f"Not found username or password", "status": 0}
+        for idx, r in enumerate(row[:-1]):
+            result[column[idx]] = r
+        return {"data": result, "status": 1}
+    
+    def register(self, username:str, password:str, email:str, firstname:str, lastname:str, user_image:str):
+        # Check username, email or other avoid same value
+        res = userDB().insert(username, password, email, firstname, lastname, user_image)
+        if res["msg"] == "UserDB INSERT SUCESSFULLY":
+            return {"msg" : "Register is sucessful"}
+        
+    def order(self, user_id:int, product_id:int, order_property:dict, amount:int, neutral_mark:int):
+        res = orderDB().insert(user_id, product_id, order_property, amount, neutral_mark)
+        if res["msg"] == "OrderDB INSERT SUCESSFULLY":
+            return {"msg" : "Ordering is sucessful"}
+        
+    def add_product(self, shop_id:int, product_type:int, product_property:dict, product_image:str):
+        res = productDB().insert(shop_id=shop_id, product_type=product_type, product_property=product_property, product_image=product_image)
+        return res
+        
+    def add_shop(self, user_id:int, name:str, shop_image):
+        res = shopDB().insert(user_id, name, shop_image)
+        if res["msg"] == "ShopDB INSERT SUCESSFULLY":
+            return {"msg" : "Add shop is sucessful"}
+        
+    def fetch_shop(self, user_id:int):
+        result = []
+        sql = f"""SELECT * FROM `shops` WHERE shops.user_id = {user_id}"""
+        self.mycursor.execute(sql)
+        column = ["id", "user_id", "name", "shop_image"]
+        row = self.mycursor.fetchall()
+
+        for row_i in row:
+            # for idx, r in enumerate(row_i[:-1]):
+            result.append({column[0]: row_i[0], column[1]: row_i[1], column[2]: row_i[2], column[3]: row_i[3]})
+        return result
+    
+    def fetch_other_shop(self, user_id:int):
+        result = []
+        sql = f"""SELECT * FROM `shops` WHERE NOT shops.user_id = {user_id}"""
+        self.mycursor.execute(sql)
+        column = ["id", "user_id", "name", "shop_image"]
+        row = self.mycursor.fetchall()
+
+        for row_i in row:
+            # for idx, r in enumerate(row_i[:-1]):
+            result.append({column[0]: row_i[0], column[1]: row_i[1], column[2]: row_i[2], column[3]: row_i[3]})
+        return result
+    
+    def fetch_other_user(self, user_id:int):
+        result = []
+        sql = f"""SELECT * FROM `users` WHERE NOT users.id = {user_id}"""
+        self.mycursor.execute(sql)
+        column = ["id", "username", "password", "email", "firstname", "lastname", "user_image"]
+        row = self.mycursor.fetchall()
+
+        for row_i in row:
+            # for idx, r in enumerate(row_i[:-1]):
+            result.append({column[0]: row_i[0], column[1]: row_i[1], column[2]: row_i[2], column[3]: row_i[3],
+                           column[4]: row_i[4], column[5]: row_i[5], column[6]: row_i[6]})
+        return result
+    
+    def fetch_chat(self, user_id:int, user_shop_id:int, shop_id:int):
+        result = []
+        sql = f"""SELECT * FROM fashion_carboncredit.chats 
+                    WHERE user_id={user_id} AND user_shop_id={user_shop_id} AND shop_id={shop_id}
+                    ORDER BY `created_at` ASC;"""
+        self.mycursor.execute(sql)
+        column = ["id", "user_id", "user_shop_id", "shop_id", "text", "isShop"]
+        row = self.mycursor.fetchall()
+
+        for row_i in row:
+            # for idx, r in enumerate(row_i[:-1]):
+            result.append({column[0]: row_i[0], column[1]: row_i[1], column[2]: row_i[2], column[3]: row_i[3],
+                           column[4]: row_i[4], column[5]: row_i[5]})
+        return result

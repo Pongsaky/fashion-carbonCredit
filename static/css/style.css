@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Default setting */
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-bottom: 10px;
+}
+
+p {
+    margin-bottom: 20px;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: #000;
+    font-size: 16px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a,
+button[type="button"]:hover {
+    cursor: pointer;
+}
+
+/* Container */
+.container {
+    position: relative;
+    width: 100%;
+    height: max-content;
+}
+
+/* Nav bar */
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 25px;
+    background-color: transparent;
+    box-shadow: #00000025 0px 4px 4px 0px;
+    font-family: 'Prompt', sans-serif;
+
+    &>div {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.logo-group {
+    display: flex;
+    flex-wrap: wrap;
+
+    & h2.coala {
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: .04rem;
+        margin: 0;
+    }
+}
+
+
+ul.nav-link {
+    display: flex;
+    list-style: none;
+    text-transform: uppercase;
+}
+
+ul.nav-link li {
+    padding-block: 5px;
+    padding-inline: clamp(12px, 2vw, 35px);
+
+    & a {
+        color: #000;
+        letter-spacing: .1rem;
+        font-weight: 600;
+    }
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+
+li#sign-in {
+    background-color: #000;
+
+    & a {
+        color: #fff;
+    }
+}
+
+
+
+#logo {
+    width: 60px;
+    /* height: 100%; */
+    top: 11px;
+    left: -5px;
+    /* filter: hue-rotate(210deg); */
+}

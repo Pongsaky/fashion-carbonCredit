@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Chat</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/chat.css">
+</head>
+
+<body>
+    <h1>Chat</h1>
+    <div class="chat">
+        <h2 id="user-name">{{ user_id }}</h2>
+        <div id="userMessages"></div>
+        <input type="text" id="messageInputUser" placeholder="Type your message...">
+        <button id="sendButtonUser">Send</button>
+    </div>
+    <div class="chat">
+        <h2 id="shop-name">{{ shop_id }}</h2>
+        <div id="shopMessages"></div>
+        <input type="text" id="messageInputShop" placeholder="Type your message...">
+        <button id="sendButtonShop">Send</button>
+    </div>
+    <script src="/static/js/chat.js"></script>
+    
+</body>
+
+</html>

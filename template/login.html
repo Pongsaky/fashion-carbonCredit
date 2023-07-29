@@ -1,0 +1,64 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <h1>Login</h1>
+        <form id="login-form" action="/login" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br>
+    
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br>
+    
+            <input type="submit" value="Login">
+        </form>
+        <div id="login-warning" style="color: red; display: none;">Invalid credentials</div>
+    </div>
+
+    <script>
+        document.getElementById("login-form").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+
+            const formData = new FormData(event.target);
+            const username = formData.get("username");
+            const password = formData.get("password");
+
+            // Make a POST request to the /login endpoint
+            fetch("/login", {
+                method: "POST",
+                body: new URLSearchParams(formData),
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // If login successful, redirect to the main page
+                        window.location.href = "/main";
+                    } else if (response.status === 401) {
+                        // If login failed, show the warning message on the login page
+                        response.json().then(data => {
+                            document.getElementById("login-warning").textContent = data.detail;
+                            document.getElementById("login-warning").style.display = "block";
+                        });
+                    } else {
+                        // Handle other errors here (if necessary)
+                        console.error("Login error:", response.statusText);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error connecting to the server:", error);
+                });
+        });
+    </script>
+
+</body>
+
+</html>

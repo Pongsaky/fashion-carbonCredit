@@ -1,0 +1,112 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+}
+
+label {
+    margin-bottom: 10px;
+}
+
+input[type="text"] {
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+input[type="submit"] {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+#user_shops_list {
+    margin-top: 20px;
+}
+
+#user_shops_list h2 {
+    margin-bottom: 10px;
+}
+
+#user_shops_list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#user_shops_list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.edit-button,
+.delete-button {
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+    background-color: #45a049;
+}
+
+.shop-list {
+    list-style: none;
+    padding: 0;
+}
+
+.shop-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.shop-name {
+    flex: 1;
+}
+
+.shop-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.edit-button,
+.delete-button {
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+    background-color: #45a049;
+}

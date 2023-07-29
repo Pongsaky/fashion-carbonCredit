@@ -1,0 +1,27 @@
+<!-- shop.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Shop Selection</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/shop.css">
+</head>
+
+<body>
+    <h1>Available Shops:</h1>
+    <ul id="shopList">
+        <li data-shop-id="shop1">Shop 1</li>
+        <li data-shop-id="shop2">Shop 2</li>
+        <!-- Add more shop elements as needed -->
+    </ul>
+    <script>
+        document.getElementById("shopList").addEventListener("click", (event) => {
+            const shopID = event.target.dataset.shopId;
+            if (shopID) {
+                window.location.href = `/chat?shop_id=${shopID}&user_id={{user_id}}`;
+            }
+        });
+    </script>
+</body>
+
+</html>

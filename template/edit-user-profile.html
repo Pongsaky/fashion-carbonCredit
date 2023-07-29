@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Edit Profile</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/edit_profile.css">
+</head>
+
+<body>
+    <div id="user_id_placeholder" data-user-id="{{ user_id }}"></div>
+    <div class="edit-profile-container">
+        <h1>Edit Profile</h1>
+        <div id="edit-warning" style="color: red; display: none;">Invalid credentials</div>
+        <form id="edit-profile-form" enctype="multipart/form-data">
+            <div class="profile-image-container">
+                <!-- Show profile image from the URL -->
+                <img src="https://storage.googleapis.com/carboncredit/coalla_logo.png" alt="Profile Image" id="profile-image">
+                <div class="overlay">
+                    <span id="upload-text">Upload Image</span>
+                </div>
+            </div>
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div>
+                <label for="firstname">Firstname:</label>
+                <input type="text" id="firstname" name="firstname" required>
+            </div>
+            <div>
+                <label for="lastname">Lastname:</label>
+                <input type="text" id="lastname" name="lastname" required>
+            </div>
+            <!-- Add any other profile fields you want to edit -->
+
+            <input type="submit" value="Save">
+            
+        </form>
+
+        <!-- Hidden file input for image upload -->
+        <input type="file" id="profile-image-upload" accept="image/*" style="display: none;">
+    </div>
+
+    <script src="/static/js/edit-user-profile.js"></script>
+</body>
+
+</html>

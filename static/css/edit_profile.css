@@ -3,21 +3,30 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0;
+    background-color: #fff;
+    overflow: hidden;
 }
 
 .edit-profile-container {
     max-width: 400px;
     margin: 50px auto;
+    margin-top: 10px;
     padding: 20px;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
+    /* height: 100vh; */
+    box-shadow: #00000025 3px 7px 5px 0;
+    /* Add box-shadow */
 }
 
 .edit-profile-container h1 {
     text-align: center;
     margin-bottom: 20px;
+    font-size: 24px;
+    /* Adjust font size */
+    font-weight: 700;
+    /* Add font weight */
 }
 
 .edit-profile-container form div {
@@ -33,24 +42,31 @@ body {
 .edit-profile-container input[type="email"],
 .edit-profile-container input[type="password"],
 .edit-profile-container input[type="file"] {
-    width: 95%;
-    padding: 8px;
+    width: 100%;
+    /* Adjust width to fill the container */
+    padding: 10px;
+    /* Increase padding for better spacing */
     border: 1px solid #ccc;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 
 .edit-profile-container input[type="submit"] {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #000;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    /* margin-top: 5px; */
+    font-size: 16px;
+    /* Adjust font size */
+    font-weight: 600;
+    /* Add font weight */
 }
 
 .edit-profile-container input[type="submit"]:hover {
-    background-color: #0056b3;
+    background-color: #303030;
 }
 
 /* Profile Image Styles */
@@ -62,6 +78,8 @@ body {
     overflow: hidden;
     border-radius: 50%;
     cursor: pointer;
+    box-shadow: #00000025 2px 4px 2px 0;
+    /* Add box-shadow */
 }
 
 .profile-image-container img {
@@ -104,6 +122,10 @@ body {
     border-radius: 5px;
     cursor: pointer;
     margin-top: 20px;
+    font-size: 16px;
+    /* Adjust font size */
+    font-weight: 600;
+    /* Add font weight */
 }
 
 .edit-profile-container button:hover {

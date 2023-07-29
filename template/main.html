@@ -1,53 +1,12 @@
-<!-- main.html -->
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Main Page</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
-</head>
+{% block title %}
+Main page
+{% endblock %}
 
-<body>
-    {% if user_id %}
-    <h1>Welcome to <strong>{{ firstname }} {{ lastname }}</strong> Chat App</h1>
-    <div id="user_id_placeholder" data-user-id="{{ user_id }}"></div>
-    
-    <nav>
-        <div class="logo-group">
-            <!-- <img src="../image/logo_300x300.png" alt="Logo Oreo" id="logo"> -->
-            <h2 class="coala">COALA co.</h2>
-        </div>
-        <div>
-            <ul class="nav-link">
-                <li><a href="/main">home</a></li>
-                <li><a href="/select_chat_shop">shop</a></li>
-                <li><a href="/add_shop">Your Shop</a></li>
-                <li><a href="/edit_user_profile">Edit User Profile</a></li>
-                <li><a href="#">about</a></li>
-                <li><a href="#">support</a></li>
-                <li id="sign-in"><a href="form.html">sign in</a></li>
-            </ul>
-        <!-- </div>
-        <div class="navbar-container">
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/select_chat_shop">Start Chatting</a></li>
-                <li><a href="/add_shop">Your Shop</a></li>
-                <li><a href="/edit_user_profile">Edit User Profile</a></li>
-                <!-- Add other navigation links as needed -->
-            </ul>
-        </div> -->
-    </nav>
+{% block content %}
 
-    <div class="product-list">
-        <!-- Dynamically generate the product list using JavaScript -->
-    </div>
-    
-    <!-- Display specific content for logged-in user -->
-    {% else %}
-    <p>Please log in to access the main page.</p>
-    {% endif %}
-    <script src="/static/js/main.js"></script>
-</body>
+{% endblock %}
 
-</html>
+<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+<script src="/static/js/main.js"></script>

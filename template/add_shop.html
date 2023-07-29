@@ -1,19 +1,17 @@
-<!-- add_shop.html -->
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Add Shop</title>
-    <link rel="stylesheet" href="/static/css/add_shop.css">
-</head>
+{% block title %}
+Add-shop
+{% endblock %}
 
-<body>
+{% block content %}
+<div class="container">
     <h1>Add New Shop</h1>
     <div id="user_id_placeholder" data-user-id="{{ user_id }}"></div>
     <form id="add_shop_form">
         <label for="shop_name">Shop Name:</label>
         <input type="text" id="shop_name" name="shop_name" required><br>
-        <input type="submit" value="Add Shop">
+        <input type="submit" class="add-shop-btn" value="Add Shop">
     </form>
     <div id="user_shops_list">
         <h2>Your Shops:</h2>
@@ -22,8 +20,8 @@
         </ul>
     </div>
     <div id="add_shop_message"></div>
-    <a href="/main">Back to Main Page</a>
-    <script src="/static/js/add_shop.js"></script> <!-- Include the add_shop.js JavaScript file -->
-</body>
+</div>
 
-</html>
+<script src="/static/js/add_shop.js"></script> <!-- Include the add_shop.js JavaScript file -->
+<link rel="stylesheet" href="/static/css/add_shop.css">
+{% endblock %}

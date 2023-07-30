@@ -1,42 +1,45 @@
 var productInfo = document.querySelector(".product-info");
 var shirtOption = document.querySelector(".shirt-option");
+var optionParts = document.querySelectorAll(".option-part");
 
-let next_step_btn = document.getElementById("next-step-btn");
-let prev_step_btn = document.getElementById("prev-step-btn");
-let option_parts = document.querySelectorAll(".option-part");
+let nextStepBtn = document.getElementById("next-step-btn");
+let prevStepBtn = document.getElementById("prev-step-btn");
 
-prev_step_btn.addEventListener("click", () => {
+prevStepBtn.addEventListener("click", () => {
     let id = parseInt(document.querySelector(".option-part.current-part").getAttribute("id").substring(6));
     if (id - 1 > 0)
-        show_part(id - 1);
-})
-next_step_btn.addEventListener("click", () => {
+        showPart(id - 1);
+});
+
+nextStepBtn.addEventListener("click", () => {
     let id = parseInt(document.querySelector(".option-part.current-part").getAttribute("id").substring(6));
-    if (id + 1 <= option_parts.length)
-        show_part(id + 1);
-})
+    if (id + 1 <= optionParts.length)
+        showPart(id + 1);
+});
 
+function showPart(id) {
+    optionParts.forEach(optionPart => {
+        optionPart.classList.remove("current-part");
+    });
 
-function show_part(id) {
-    option_parts.forEach(option_part => {
-        option_part.classList.remove("current-part");
-    })
-
-    step_btn_appearance(id)
+    stepBtnAppearance(id);
     document.getElementById(`stage-${id}`).classList.add("current-part");
 }
 
-function step_btn_appearance(id) {
+function stepBtnAppearance(id) {
     if (id === 1) {
-        prev_step_btn.style.visibility = "hidden";
+        prevStepBtn.style.visibility = "hidden";
         shirtOption.classList.add("hidden")
     } else {
+        prevStepBtn.style.visibility = "visible";
         shirtOption.classList.remove("hidden")
-        prev_step_btn.style.visibility = "visible";
     }
 
-    if (id === option_parts.length) next_step_btn.style.visibility = "hidden"
-    else next_step_btn.style.visibility = "visible"
+    if (id === optionParts.length) {
+        nextStepBtn.style.visibility = "hidden";
+    } else {
+        nextStepBtn.style.visibility = "visible";
+    }
 }
 
-step_btn_appearance(1)
+showPart(1); // Show the first part on page load

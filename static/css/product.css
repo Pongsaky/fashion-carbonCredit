@@ -1,6 +1,6 @@
 .product {
     padding: 5% 80px;
-    height: 100%;
+    height: 62%;
     position: relative;
     display: flex;
     align-items: center;
@@ -9,9 +9,9 @@
     z-index: 1;
 }
 
-.container:has(.product) {
+/* .container:has(.product) {
     height: 90vh;
-}
+} */
 
 .product-preview {
     position: relative;
@@ -34,15 +34,6 @@
     height: 100%;
     font-family: 'Inter', sans-serif;
     display: block;
-
-    overflow: hidden;
-    max-height: 1000px;
-    /* Set a large value to allow the element to expand to its full height */
-    padding-top: 20px;
-    /* Set your desired top padding */
-    padding-bottom: 20px;
-    /* Set your desired bottom padding */
-    transition: max-height 0.3s ease-out;
 }
 
 .product-info .product-name {
@@ -165,6 +156,8 @@ button {
 
 form#shirt-option-parts {
     font-family: 'Inter', sans-serif;
+    position: absolute;
+    top: -40px;
 }
 
 div.option-part {
@@ -370,12 +363,12 @@ button[type="button"]:hover {
 
 #prev-step-btn {
     position: absolute;
-    bottom: 85px;
-    left: 700px;
+    bottom: 0px;
+    left: 53.5%;
 }
 
 #next-step-btn {
     position: absolute;
-    bottom: 85px;
-    right: 50px;
+    bottom: 0px;
+    right: 0px;
 }

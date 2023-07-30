@@ -1,3 +1,9 @@
 /backend/cert
 *.pyc
 __pycache__
+__pycache__/main.cpython-37.pyc
+backend/database/__pycache__/connectDB.cpython-37.pyc
+.gitignore
+backend/routers/web/__pycache__/login.cpython-37.pyc
+backend/routers/web/__pycache__/main.cpython-37.pyc
+backend/routers/web/__pycache__/shop.cpython-37.pyc

@@ -1,0 +1,62 @@
+<!-- main.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/nav.css">
+</head>
+
+<body>
+    <div id="user_id_placeholder" data-user-id="{{ user_id }}"></div>
+
+    <!-- Nav bar -->
+    <nav>
+            <div class="logo-group">
+                <h2 class="coala">COALA co.</h2>
+                <ul class="nav-link">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/shop">Shop</a></li>
+                    <li><a href="#">about</a></li>
+                    <li><a href="#">support</a></li>
+                </ul>
+            </div>
+            <div>
+                <input type="text" id="search-bar">
+                <ul class="nav-link">
+                    {% if user_id %}
+                    <li>
+                        <div class="cart-icon"></div>
+                    </li>
+                    
+                    <li class="user-dropdown">
+                        <div class="user-icon"></div>
+                        <ul class="user-menu">
+                            <li><a href="/edit_user_profile">Profile</a></li>
+                            <li><a href="#">Orders</a></li>
+                            <li><a href="/logout">Logout</a></li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li id="sign-in"><a href="/login">sign in</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            <!-- <ul class="nav-link">
+                <li><a href="/">home</a></li>
+                <li><a href="/shop">shop</a></li>
+                <li><a href="/add_shop">Your Shop</a></li>
+                <li><a href="/edit_user_profile">Edit User Profile</a></li>
+                <li><a href="#">about</a></li>
+                <li><a href="#">support</a></li>
+                <li id="sign-in"><a href="/logout">Logout</a></li>
+            </ul> -->
+    </nav>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/js/nav.js"></script>
+    <!-- Nav bar -->
+    {% block content %}{% endblock %}
+</body>
+
+</html>

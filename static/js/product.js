@@ -1,123 +1,58 @@
+// Get the 'Add +' button and the 'product-info' element
+const addButton = document.getElementById('add-btn');
+const productInfo = document.getElementById('product-info');
 
-// Dynamic choice selected
+const contentSet1 = productInfo.innerHTML;
 
-var template_type
+// Define your custom product-info content
+const customContent = `
+  <h1 class="product-name">Custom Product Name</h1>
+  <h2 class="shop-name">By Custom Shop</h2>
+  <h3 class="product-about">Custom description for your product.</h3>
+  <div class="tags">
+    <span class="tag">Tags: </span>
+    <div class="category-group">
+      <span class="category">Custom Tag 1</span>
+      <span class="category">Custom Tag 2</span>
+    </div>
+  </div>
+`;
 
-async function ProductPage() {
-
-    const product_url = 'http://127.0.0.1:3000/product/1';
-    const shop_url = 'http://127.0.0.1:3000/shop/';
-    const type_url = 'http://127.0.0.1:3000/type/';
-
-    const options = {
-        method: "GET",
-        headers: { 'Content-type': 'application/json' }
-    }
-
-    var HTML_template = `<div class="radio-group">
-                        <input type="radio" name="$name" value="$value" id="$name-$value">
-                        <label for="$name-$value" class="radio-label">$value</label>
-                    </div>`
-
-    var keys = ['size', 'color', 'fabric', 'neckline', 'sleeve-length', 'fit']
-
-    await fetch(product_url, options)
-        .then(res => res.json())
-        .then(product => {
-            // console.log(product);
-
-            // Product detail (focus size)
-            fetch(type_url + product['type'], options)
-                .then(res => res.json())
-                .then(product_type => {
-                    template_type = JSON.parse(product_type["property"])
-                    // console.log(template_type)
-
-                    for (const [index, key] of keys.entries()) {
-                        // console.log(key)
-                        let sub_template = template_type[key]
-                        // console.log(sub_template)
-                        
-                        let sub_product = JSON.parse(product['property'])[key]
-                        // console.log(sub_product)
-
-                        // Add Button
-                        for (let i = 0; i < sub_product.length; i++) {
-                            if (sub_product[i] == 1) addButton(key, sub_template[i], HTML_template, index)
-                        }
-                    }
-                    
-                })
-                .catch(error => console.error("Error", error))
-
-            // Shop detail
-            fetch(shop_url + product['shop_id'], options)
-                .then(res => res.json())
-                .then(shop => {
-                    // console.log(shop)
-                    // Shop name
-                    document.getElementsByClassName("shop-name")[0].innerHTML = shop['name'];
-                })
-        })
-        .catch(error => {
-            console.error("Error", error)
-        })
-} 
-
-function addButton(name, value, template, i) {
-    let element = document.getElementsByClassName("input-row-group")[i]
-    template = template.replaceAll('$name', name).replaceAll('$value', value)
-    // console.log(template)
-    element.innerHTML += template
-    element
+// Function to slide up the element
+function slideUp(element) {
+    element.style.transition = 'max-height 0.4s ease-out';
+    element.style.maxHeight = '0';
+    element.style.paddingTop = '0';
+    element.style.paddingBottom = '0';
 }
 
-function order() {
-
-    // Get selected property of product
-    var keys = ['size', 'color', 'fabric', 'neckline', 'sleeve-length', 'fit']
-    var index = 0
-    // console.log(template_type)
-    var selected_property = {}
-    document.querySelectorAll('input[type="radio"]:checked').forEach(e => {
-        let value = e.attributes?.value.value
-        selected_property[keys[index]] = template_type[keys[index]].findIndex(x => x === value)
-        index+=1
-    })
-    console.log(JSON.stringify(selected_property))
-    // selected_property = JSON.stringify(selected_property)
-
-    // Insert order
-    const order_url = 'http://127.0.0.1:3000/order/';
-
-    const data = {
-        "user_id": 1,
-        "product_id": 1,
-        "select_property": selected_property,
-        "amount": 100,
-        "neutral_mark": 1
-    }
-
-    console.log(data)
-    
-    const options = {
-        method: "POST",
-        headers: { 'Content-type': 'application/json' },
-        body : JSON.stringify(data)
-    }
-
-    fetch(order_url, options)
-        .then(res => res.json())
-        .then(data => console.log(data))
-        .catch(error => {
-            console.error("Error : ", error)
-        })
+// Function to slide down the element
+function slideDown(element) {
+    element.style.transition = 'max-height 0.4s ease-out';
+    element.style.maxHeight = element.scrollHeight + 'px';
+    element.style.paddingTop = '0px'; // Adjust this value to your desired padding
+    element.style.paddingBottom = '515px'; // Adjust this value to your desired padding
 }
 
-ProductPage()
+// Keep track of the current state
+let showCustomContent = false;
 
-// document.querySelectorAll("input[type='radio']").forEach(e => {
-//     e.addEventListener("change", () => {
-//         console.log(e.attributes?.value.value)
-//     })
-// })
+// Function to toggle between your custom content and contentSet1 with slide-up and slide-down animation
+function toggleContent() {
+    showCustomContent = !showCustomContent;
+    const newContent = showCustomContent ? customContent : contentSet1;
+
+    // Slide up animation before changing the content
+    slideUp(productInfo);
+
+    setTimeout(() => {
+        // Change the content inside the product-info element
+        productInfo.innerHTML = newContent;
+
+        // Slide down animation after changing the content
+        slideDown(productInfo);
+    }, 400); // 300ms is the duration of the CSS transition
+}
+
+// Add a click event listener to the 'Add +' button
+addButton.addEventListener('click', toggleContent);

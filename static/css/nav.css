@@ -69,6 +69,7 @@ nav {
     background-color: transparent;
     box-shadow: #00000025 0px 4px 4px 0px;
     font-family: 'Prompt', sans-serif;
+    z-index: 998;
 
     &>div {
         position: relative;

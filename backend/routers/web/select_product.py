@@ -7,9 +7,9 @@ router = APIRouter()
 templates = Jinja2Templates(directory="template")
 
 # Route for the shop selection page
-@router.get("/product", response_class=HTMLResponse)
+@router.get("/select_product", response_class=HTMLResponse)
 async def get_main_page(request :Request):
     user_id = request.session.get("user_id")
-    return templates.TemplateResponse("product.html", {"request": request, "user_id": user_id})
+    return templates.TemplateResponse("select_product.html", {"request": request, "user_id": user_id})
 
 

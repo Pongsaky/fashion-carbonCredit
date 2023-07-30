@@ -51,7 +51,7 @@ document.getElementById("shop-group").addEventListener("click", (event) => {
     const shopID = event.target.closest(".shop").dataset.shopId;
     console.log(shopID)
     if (shopID) {
-        window.location.href = `/product?shop_id=${shopID}`;
+        window.location.href = `/select_product?shop_id=${shopID}`;
     }
 
 })

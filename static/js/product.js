@@ -1,58 +1,42 @@
-// Get the 'Add +' button and the 'product-info' element
-const addButton = document.getElementById('add-btn');
-const productInfo = document.getElementById('product-info');
+var productInfo = document.querySelector(".product-info");
+var shirtOption = document.querySelector(".shirt-option");
 
-const contentSet1 = productInfo.innerHTML;
+let next_step_btn = document.getElementById("next-step-btn");
+let prev_step_btn = document.getElementById("prev-step-btn");
+let option_parts = document.querySelectorAll(".option-part");
 
-// Define your custom product-info content
-const customContent = `
-  <h1 class="product-name">Custom Product Name</h1>
-  <h2 class="shop-name">By Custom Shop</h2>
-  <h3 class="product-about">Custom description for your product.</h3>
-  <div class="tags">
-    <span class="tag">Tags: </span>
-    <div class="category-group">
-      <span class="category">Custom Tag 1</span>
-      <span class="category">Custom Tag 2</span>
-    </div>
-  </div>
-`;
+prev_step_btn.addEventListener("click", () => {
+    let id = parseInt(document.querySelector(".option-part.current-part").getAttribute("id").substring(6));
+    if (id - 1 > 0)
+        show_part(id - 1);
+})
+next_step_btn.addEventListener("click", () => {
+    let id = parseInt(document.querySelector(".option-part.current-part").getAttribute("id").substring(6));
+    if (id + 1 <= option_parts.length)
+        show_part(id + 1);
+})
 
-// Function to slide up the element
-function slideUp(element) {
-    element.style.transition = 'max-height 0.4s ease-out';
-    element.style.maxHeight = '0';
-    element.style.paddingTop = '0';
-    element.style.paddingBottom = '0';
+
+function show_part(id) {
+    option_parts.forEach(option_part => {
+        option_part.classList.remove("current-part");
+    })
+
+    step_btn_appearance(id)
+    document.getElementById(`stage-${id}`).classList.add("current-part");
 }
 
-// Function to slide down the element
-function slideDown(element) {
-    element.style.transition = 'max-height 0.4s ease-out';
-    element.style.maxHeight = element.scrollHeight + 'px';
-    element.style.paddingTop = '0px'; // Adjust this value to your desired padding
-    element.style.paddingBottom = '515px'; // Adjust this value to your desired padding
+function step_btn_appearance(id) {
+    if (id === 1) {
+        prev_step_btn.style.visibility = "hidden";
+        shirtOption.classList.add("hidden")
+    } else {
+        shirtOption.classList.remove("hidden")
+        prev_step_btn.style.visibility = "visible";
+    }
+
+    if (id === option_parts.length) next_step_btn.style.visibility = "hidden"
+    else next_step_btn.style.visibility = "visible"
 }
 
-// Keep track of the current state
-let showCustomContent = false;
-
-// Function to toggle between your custom content and contentSet1 with slide-up and slide-down animation
-function toggleContent() {
-    showCustomContent = !showCustomContent;
-    const newContent = showCustomContent ? customContent : contentSet1;
-
-    // Slide up animation before changing the content
-    slideUp(productInfo);
-
-    setTimeout(() => {
-        // Change the content inside the product-info element
-        productInfo.innerHTML = newContent;
-
-        // Slide down animation after changing the content
-        slideDown(productInfo);
-    }, 400); // 300ms is the duration of the CSS transition
-}
-
-// Add a click event listener to the 'Add +' button
-addButton.addEventListener('click', toggleContent);
+step_btn_appearance(1)

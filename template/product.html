@@ -15,7 +15,7 @@ Product
     
         <!-- Product-info -->
 
-        <div class="product-info open" id="product-info">
+        <div class="product-info option-part current-part" id="stage-1">
             <h1 class="product-name">Product Name</h1>
             <h2 class="shop-name">By Tanuson</h2>
             <h3 class="product-about">
@@ -36,11 +36,102 @@ Product
                     <span class="category">Velvet</span>
                 </div>
             </div>
-
+            <!-- <button type="button" id="add-btn">Add +</button> -->
         </div>
-            <!-- Product-info -->
-        <button type="button" id="add-btn">Add +</button>
+        <!-- Product-info -->
 
+        <div class="shirt-option">
+            <form id="shirt-option-parts">
+                <!-- Form: Part 1 -->
+                <div class="option-part " id="stage-2">
+                    <h4 class="progress"><span>Step 1 of 2</span> : Product Design</h4>
+                    <h1 class="product-name">Product Name</h1>
+                    <div class="input-row-group">
+                        <span class="option-name">Fabric</span>
+                        <div class="radio-group">
+                            <input type="radio" name="fabric" value="Cotton" id="fabric-Cotton">
+                            <label for="fabric-Cotton" class="radio-label">Cotton</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" name="fabric" value="Polyester" id="fabric-Polyester">
+                            <label for="fabric-Polyester" class="radio-label">Polyester</label>
+                        </div>
+                    </div>
+                    <div class="input-row-group">
+                        <span class="option-name">Neckline</span>
+                        <div class="radio-group">
+                            <input type="radio" name="neckline" value="Crew-neck" id="neckline-Crew">
+                            <label for="neckline-Crew" class="radio-label">Crew neck</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" name="neckline" value="V-neck" id="neckline-V">
+                            <label for="neckline-V" class="radio-label">V-neck</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" name="neckline" value="Scoop-neck" id="neckline-Scoop">
+                            <label for="neckline-Scoop" class="radio-label">Scoop neck</label>
+                        </div>
+                    </div>
+                    <div class="input-row-group">
+                        <span class="option-name">Sleeve length</span>
+                        <div class="radio-group">
+                            <input type="radio" name="sleeve" value="Sleeveless" id="sleeve-Less">
+                            <label for="sleeve-Less" class="radio-label">Sleeveless</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" name="sleeve" value="Short-sleeves" id="sleeve-Short">
+                            <label for="sleeve-Short" class="radio-label">Short sleeves</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" name="sleeve" value="Long-sleeves" id="sleeve-Long">
+                            <label for="sleeve-Long" class="radio-label">Long sleeves</label>
+                        </div>
+                    </div>
+                    <div class="input-row-group">
+                        <span class="option-name">Fit</span>
+                        <div class="radio-group">
+                            <input type="radio" name="fit" value="Slim-fit" id="fit-Slim">
+                            <label for="fit-Slim" class="radio-label">Slim fit</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" name="fit" value="Regular-fit" id="fit-Regular">
+                            <label for="fit-Regular" class="radio-label">Regular fit</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" name="fit" value="Long-sleeves" id="fit-Long">
+                            <label for="fit-Long" class="radio-label">Oversized</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Form: Part 2 -->
+                <div class="option-part" id="stage-3">
+                    <h4 class="progress"><span>Step 2 of 2</span> : Product Design</h4>
+                    <h1 class="product-name">Product Name</h1>
+                    <div class="input-row-group">
+                        <span class="option-name">Fit</span>
+                        <div class="radio-group">
+                            <input type="radio" name="fit" value="Slim-fit" id="fit-Slim">
+                            <label for="fit-Slim" class="radio-label">Slim fit</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" name="fit" value="Regular-fit" id="fit-Regular">
+                            <label for="fit-Regular" class="radio-label">Regular fit</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" name="fit" value="Long-sleeves" id="fit-Long">
+                            <label for="fit-Long" class="radio-label">Oversized</label>
+                        </div>
+                    </div>
+                </div>
+        
+            </form>     
+        </div>
+
+        <div class="step-btn-group">
+            <button type="button" id="prev-step-btn">Back</button>
+            <button type="button" id="next-step-btn">Next</button>
+        </div>
+        
     </div>
     <!-- Product  -->
 

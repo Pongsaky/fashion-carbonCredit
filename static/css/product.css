@@ -115,10 +115,267 @@ button {
     right: 100px;
 }
 
-.product-info.hidden {
+.hidden {
     display: none;
 }
 
-.product-info.shuffle {
+/* T-shirt options */
 
+.option {
+    padding: 5% 80px;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 80px;
+}
+
+.shirt-preview {
+    position: relative;
+    flex: 450px;
+    height: fit-content;
+    padding: 5% 10px;
+    max-width: 600px;
+
+    border: solid 6px #000;
+
+    & img {
+        width: 100%;
+    }
+}
+
+.shirt-option {
+    position: relative;
+    padding: 20px;
+    width: 50%;
+    height: 100%;
+
+    & form {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        font-family: 'Inter', sans-serif;
+    }
+
+    @media (max-width: 750px) {
+        padding: 10px;
+    }
+}
+
+form#shirt-option-parts {
+    font-family: 'Inter', sans-serif;
+}
+
+div.option-part {
+    display: none;
+    height: 100%;
+
+    &.current-part {
+        display: block;
+    }
+}
+
+.container:has(.option) {
+    height: 90vh;
+}
+
+.option-part h4.progress {
+    font-size: 16px;
+    font-weight: 700;
+    color: #a8a8a8;
+
+    & span {
+        color: #7a7a7a;
+    }
+}
+
+.option-part h1.product-name {
+    font-weight: 800;
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+.input-row-group {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-top: 35px;
+    margin-bottom: 25px;
+    gap: 15px;
+    height: fit-content;
+
+    @media (max-width: 450px) {}
+}
+
+span.option-name {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #616060;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.radio-group {
+    position: relative;
+    display: block;
+    margin-bottom: 5px;
+}
+
+
+label {
+    font-size: 16px;
+
+    @media (max-width: 450px) {
+        font-size: 14px;
+    }
+}
+
+.radio-group input[type="radio"] {
+    position: absolute;
+    appearance: none;
+
+    &:is(:focus, :checked)+label.radio-label::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        border: .2px solid #555;
+    }
+}
+
+.radio-group label.radio-label {
+    position: relative;
+
+    padding: 5px 20px;
+    margin: 5px;
+    border-radius: 10px;
+    background-color: #d9d9d9;
+    user-select: none;
+
+    @media (max-width: 450px) {
+        margin: 0;
+        padding: 5px 10px;
+    }
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+    appearance: none;
+}
+
+
+.input-row-group input[type="number"] {
+    border-radius: 5px;
+    border: solid .2px #333;
+    height: 50px;
+    width: 70px;
+    padding: 10px;
+
+    font-size: 30px;
+    text-align: center;
+
+    @media (max-width: 450px) {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+        padding: 10px;
+    }
+}
+
+.input-row-group input[type="number"]:focus,
+.input-row-group input[type="number"]:active {
+    border: solid .2px #333;
+}
+
+.input-row-group .count-btn {
+    width: 50px;
+    /* height: 50px; */
+    aspect-ratio: 1/1;
+    background-color: #fff;
+    border: solid .2px #333;
+    border-radius: 12px;
+    font-size: 30px;
+    font-weight: 300;
+
+    @media (max-width: 450px) {
+        width: 45px;
+        height: 45px;
+        font-size: 24px;
+    }
+}
+
+.count-input {
+    justify-content: center
+}
+
+button[type="button"]:hover {
+    cursor: pointer;
+}
+
+.cart-buy-group {
+    justify-content: space-between;
+}
+
+.cart-btn,
+.buy-now-btn {
+    width: 45%;
+    height: 40px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 5px;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.cart-btn {
+    border: none;
+    background-color: #eee;
+}
+
+
+.buy-now-btn {
+    border: none;
+    background-color: royalblue;
+    color: #fff;
+}
+
+.step-btn-group {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    width: calc(100% - 200px);
+    bottom: 20px;
+}
+
+#prev-step-btn,
+#next-step-btn {
+    width: fit-content;
+    padding: 10px 25px;
+    font-size: 18px;
+    border-radius: 8px;
+    color: #fff;
+    background-color: #000;
+    border: none;
+    font-weight: 700;
+}
+
+#prev-step-btn {
+    position: absolute;
+    bottom: 85px;
+    left: 700px;
+}
+
+#next-step-btn {
+    position: absolute;
+    bottom: 85px;
+    right: 50px;
 }

@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
     
     products.forEach(product => {
-        let product_template = `<div class="product">
+        let product_template = `<div class="product" data-product-id=${product['id']}>
                 <div class="product-img-wrapper">
                     <img src="/static/image/t-shirt.png" alt="T-shirt-preview">
                 </div>
@@ -47,4 +47,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         product_container.innerHTML += product_template;
     })
+})
+
+// Click shop element to Product page's Shop
+
+document.getElementById("product-group").addEventListener("click", (event) => {
+    // console.log(event.target)
+    const productID = event.target.closest(".product").dataset.productId;
+    console.log(productID)
+    if (productID) {
+        window.location.href = `/product?product_id=${productID}`;
+    }
+
 })

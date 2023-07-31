@@ -5,6 +5,7 @@
 <head>
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="/static/css/nav.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
 <body>
@@ -25,18 +26,33 @@
                 <input type="text" id="search-bar">
                 <ul class="nav-link">
                     {% if user_id %}
-                    <li>
-                        <div class="cart-icon"></div>
-                    </li>
-                    
-                    <li class="user-dropdown">
-                        <div class="user-icon"></div>
-                        <ul class="user-menu">
-                            <li><a href="/edit_user_profile">Profile</a></li>
-                            <li><a href="#">Orders</a></li>
-                            <li><a href="/logout">Logout</a></li>
-                        </ul>
-                    </li>
+                    <div class="UCC-group">
+
+                        <div class="cart-icon">
+                            <span class="notification">99</span>
+                            <i class='bx bxs-cart'></i>
+                        </div>
+
+                        <a id="chat-icon" href="/chat">
+                            <div class="chat-icon">
+                                <span class="notification">99</span>
+                                <i class='bx bxs-conversation'></i>
+                            </div>
+                        </a>
+                        
+
+                        <li class="user-dropdown">
+                            <div class="user-icon">
+                                <i class='bx bxs-user-circle'></i>
+                            </div>
+                            <ul class="user-menu">
+                                <li><a href="/edit_user_profile">Profile</a></li>
+                                <li><a href="#">Orders</a></li>
+                                <li><a href="/logout">Logout</a></li>
+                            </ul>
+                        </li>
+
+                    </div>
                     {% else %}
                     <li id="sign-in"><a href="/login">sign in</a></li>
                     {% endif %}

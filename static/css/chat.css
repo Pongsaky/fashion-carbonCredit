@@ -103,6 +103,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 70%;
     height: 100%;
     background-color: #fff;
@@ -238,3 +240,21 @@ button#send-text-btn {
         font-size: 24px;
     }
 }
+
+/* Begining CSS select chat JS */
+.hidden {
+    display: none;
+}
+
+#availableChat {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.current-chat {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+/* End CSS select chat JS */

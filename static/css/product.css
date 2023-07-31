@@ -186,7 +186,7 @@ div.option-part {
 .option-part h1.product-name {
     font-weight: 800;
     font-size: 28px;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .input-row-group {
@@ -194,7 +194,8 @@ div.option-part {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    padding-top: 35px;
+    /* padding-top: 35px; */
+    padding-left: 140px;
     margin-bottom: 25px;
     gap: 15px;
     height: fit-content;
@@ -372,3 +373,110 @@ button[type="button"]:hover {
     bottom: 0px;
     right: 0px;
 }
+
+/* Form 2 */
+.size-amount-group table {
+    position: relative;
+    width: 100%;
+    border-collapse: collapse;
+
+    & td {
+        text-align: center;
+        vertical-align: baseline;
+        padding: 5px;
+    }
+
+    & td:first-child {
+        width: 55px;
+    }
+}
+
+.size-amount-header {
+    font-size: 14px;
+    font-weight: 500;
+    color: #868686;
+}
+
+.size-amount-row::after {
+    position: relative;
+    height: 25px;
+    width: 100%;
+}
+
+.size {
+    background-color: #000;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 800;
+    width: 100%;
+    vertical-align: baseline;
+
+    padding: 12px;
+    border-radius: 8px;
+    aspect-ratio: 1/1;
+}
+
+.amount-input {
+    height: 30px;
+    background-color: #d9d9d9;
+    border: none;
+    border-radius: 8px;
+    position: relative;
+    padding: 5px 10px;
+    margin-inline: 10px;
+
+    &::placeholder {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 14px;
+        font-weight: 600;
+        user-select: none;
+    }
+
+    &:is(:focus)::placeholder {
+        z-index: -1;
+    }
+}
+
+.LCS-inch {
+    font-size: 14px;
+    font-weight: 600;
+    color: #868686;
+    margin-block: 25px;
+}
+/* Form 2 */
+
+/* T-shirt options */
+
+/* Save world */
+.save-world {
+    position: relative;
+    width: 100%;
+    background-color: #e4e4e4;
+    padding: 10px;
+    padding-left: 50px;
+    border-radius: 15px;
+}
+
+#save-world-check {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    left: 10px;
+    border: solid 1px #888;
+}
+
+.save {
+    font-size: 24px;
+    font-weight: 700;
+    color: #010101;
+}
+
+.must-read {
+    font-size: 14px;
+    font-weight: 500;
+    color: #FB6E4F;
+}
+/* Save world */

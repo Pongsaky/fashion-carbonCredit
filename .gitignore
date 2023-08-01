@@ -8,3 +8,6 @@ backend/routers/web/__pycache__/login.cpython-37.pyc
 backend/routers/web/__pycache__/main.cpython-37.pyc
 backend/routers/web/__pycache__/shop.cpython-37.pyc
 backend/routers/web/__pycache__/shop.cpython-37.pyc
+test.html
+test.css
+test.js

@@ -22,12 +22,12 @@ async def read_data(id:int):
 
 @router.post("/", tags=["order"])
 async def insert_data(order : Order):
-    res =  orderDB().insert(user_id=order.user_id, product_id=order.product_id, select_property=order.select_property, amount=order.amount, neutral_mark=order.neutral_mark)
+    res =  orderDB().insert(user_id=order.user_id, product_id=order.product_id, select_property=order.select_property, neutral_mark=order.neutral_mark, status=order.status)
     return res
 
 @router.put("/{id}", tags=["order"])
 async def update_data(id :int, order : Order):
-    res =  orderDB().update(id=id, user_id=order.user_id, product_id=order.product_id, select_property=order.select_property, amount=order.amount, neutral_mark=order.neutral_mark)
+    res =  orderDB().update(id=id, user_id=order.user_id, product_id=order.product_id, select_property=order.select_property, neutral_mark=order.neutral_mark, status=order.status)
     return res
 
 @router.delete("/{id}", tags=["order"])

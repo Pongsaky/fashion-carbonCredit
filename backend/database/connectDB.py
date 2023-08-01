@@ -209,13 +209,22 @@ class orderDB:
             result[column[idx]] = r
         return result
 
-    def insert(self, user_id:int, product_id:int, select_property:dict, amount:int, neutral_mark:int):
+    def insert(self, user_id:int, product_id:int, select_property:dict, neutral_mark:int, status:int):
         select_property = json.dumps(select_property)
-        sql = f"""INSERT INTO `orders` (`user_id`, `product_id`, `select_property`, `amount`, `neutral_mark`) 
-                VALUES ('{user_id}', '{product_id}', '{select_property}', '{amount}', '{neutral_mark}');"""
+        sql = f"""INSERT INTO `orders` (`user_id`, `product_id`, `select_property`, `neutral_mark`, `status`) 
+                VALUES ('{user_id}', '{product_id}', '{select_property}', '{neutral_mark}', '{status}');"""
         self.mycursor.execute(sql)
         self.mydb.commit()
         return {"msg": "OrderDB INSERT sucessfully"}
+    
+    def update(self, id: int, user_id="", product_id="", select_property="", neutral_mark="", status=""):
+        select_property = json.dumps(select_property)
+        sql = f"""UPDATE `orders` SET `user_id`='{user_id}', `product_id`='{product_id}', `select_property`='{select_property}', `neutral_mark`='{neutral_mark}', `status`='{status}'
+                WHERE `id`={id};"""
+
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        return {"msg": "OrderDB UPDATE SUCESSFULLY"}
 
     def delete(self, id: int):
         sql = f"DELETE FROM `orders` WHERE orders.id={id}"
@@ -223,14 +232,7 @@ class orderDB:
         self.mydb.commit()
         return {"msg": "OrderDB DELETE SUCESSFULLY"}
 
-    def update(self, id: int, user_id="", product_id="", select_property="", amount="", neutral_mark=""):
-        select_property = json.dumps(select_property)
-        sql = f"""UPDATE `orders` SET `user_id`='{user_id}', `product_id`='{product_id}', `select_property`='{select_property}', `amount`='{amount}', `neutral_mark`='{neutral_mark}'
-                WHERE `id`={id};"""
-
-        self.mycursor.execute(sql)
-        self.mydb.commit()
-        return {"msg": "OrderDB UPDATE SUCESSFULLY"}
+    
 
 class reviewDB:
     def __init__(self):
@@ -497,4 +499,23 @@ class serviceAPI:
                            column[3]: row_i[3], column[4]: row_i[4], column[5]: row_i[5], 
                            column[6]: row_i[6]})
             
+        return result
+    
+    def fetch_order(self, user_id:int):
+        result = []
+        sql = f"""SELECT * FROM orders 
+                RIGHT JOIN products
+                ON orders.product_id = products.id
+                WHERE orders.user_id = {user_id} AND status=0
+                ORDER BY orders.product_id ASC, orders.created_at DESC;"""
+        self.mycursor.execute(sql)
+        column = ["id", "product_id", "select_property", "neutral_mark", "status", "shop_id", "name", "product_image"]
+        row = self.mycursor.fetchall()
+
+        for row_i in row:
+            # for idx, r in enumerate(row_i[:-1]):
+            result.append({column[0]: row_i[0], column[1]: row_i[2], column[2]: row_i[3], 
+                           column[3]: row_i[4], column[4]: row_i[5], column[5]: row_i[8], 
+                           column[6]: row_i[9], column[7]: row_i[13]})
+    
         return result

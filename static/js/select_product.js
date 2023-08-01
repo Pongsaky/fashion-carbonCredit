@@ -41,9 +41,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                         <span class="user-rating">4,789 +</span>
                     </div>
 
-                    <button type="button" class="add-btn">Add +</button>
                 </div>
             </div>`
+
+// <button button type = "button" class="add-btn" id = "add-btn" > Add +</button >
 
         product_container.innerHTML += product_template;
     })
@@ -58,5 +59,4 @@ document.getElementById("product-group").addEventListener("click", (event) => {
     if (productID) {
         window.location.href = `/product?product_id=${productID}`;
     }
-
 })

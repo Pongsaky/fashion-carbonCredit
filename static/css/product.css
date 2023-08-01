@@ -154,7 +154,7 @@ button {
     }
 }
 
-form#shirt-option-parts {
+form#shirt-option-form {
     font-family: 'Inter', sans-serif;
     position: absolute;
     top: -40px;
@@ -368,10 +368,11 @@ button[type="button"]:hover {
     left: 53.5%;
 }
 
-#next-step-btn {
+#next-step-btn, #order-btn {
     position: absolute;
     bottom: 0px;
     right: 0px;
+    cursor: pointer;
 }
 
 /* Form 2 */

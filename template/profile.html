@@ -1,0 +1,180 @@
+{% extends "nav.html" %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="/static/css/profile.css">
+
+<!-- Container -->
+<div class="container">
+    <!-- Profile -->
+    <div class="profile">
+        <!-- Aside -->
+        <div class="aside">
+            <div class="user-profile">
+                <div class="user-icon">
+                    <i class='bx bxs-user-circle'></i>
+                </div>
+                <div>
+                    <h2 class="username">Username</h2>
+                    <h3 class="user-id">ID: 9999999</h2>
+                </div>
+            </div>
+            <ul class="profile-list">
+                <li class="select-list current-list">My Account</li>
+                <li class="select-list">Add Profile</li>
+                <li class="select-list">Purchase History</li>
+            </ul>
+        </div>
+        <!-- Aside -->
+
+        <!-- Main content -->
+        <div class="main-content">
+            <!-- My account -->
+            <div class="my-account current-content">
+                <div class="user-info">
+                    <table class="account-data">
+                        <tr>
+                            <th>Account Name :</th>
+                            <td class="user-data">Username</td>
+                        </tr>
+                        <tr>
+                            <th>Account ID :</th>
+                            <td class="user-data">9999999</td>
+                        </tr>
+                        <tr>
+                            <th>Email :</th>
+                            <td class="user-data">TaeTood@gmail.com</td>
+                        </tr>
+                    </table>
+
+                    <button type="button" id="change-password">Change Password</button>
+                </div>
+                <div class="user-img">
+                    <div class="user-img-wrapper">
+                        <img src="../image/logo_300x300.png" alt="user-imgage">
+                    </div>
+                    <input type="file" name="user-img-upload" id="user-img-upload" accept="image/*">
+                </div>
+            </div>
+            <!-- My account -->
+
+            <!-- Purchase history -->
+            <div class="purchase-history">
+                <div class="status-btn-group">
+                    <button type="button" class="status-btn current-status">All</button>
+                    <button type="button" class="status-btn">To Pay</button>
+                    <button type="button" class="status-btn">Complete</button>
+                    <button type="button" class="status-btn">Cancelled</button>
+                </div>
+
+
+                <!-- Status order -->
+                <div class="status-order-group">
+                    <!-- Cart group -->
+                    <div class="cart-group">
+
+                        <div class="shop-header">
+
+                            <h2 class="shop-name">ToodDum Shop</h2>
+                        </div>
+
+                        <div class="product-in-cart cart-table-row">
+
+                            <div class="product-detail">
+                                <div class="product-img-wrapper">
+                                    <img src="../image/t-shirt.png" alt="product-image">
+                                </div>
+                                <div class="product-desc">
+                                    <h1 class="product-name">Product Name</h1>
+                                </div>
+                            </div>
+
+                            <div class="amount">
+                                <div class="amount-per-size">
+                                    <span class="size">XS</span>
+                                    <div class="amount-group">
+                                        <input type="number" name="xs-amount" id="xs-amount" class="amount-number-input"
+                                            value="1" readonly>
+                                    </div>
+                                </div>
+                                <div class="amount-per-size">
+                                    <span class="size">S</span>
+                                    <div class="amount-group">
+                                        <input type="number" name="xs-amount" id="s-amount" class="amount-number-input"
+                                            value="1" readonly>
+                                    </div>
+                                </div>
+                                <div class="amount-per-size">
+                                    <span class="size">M</span>
+                                    <div class="amount-group">
+                                        <input type="number" name="m-amount" id="s-amount" class="amount-number-input"
+                                            value="1" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conclude">
+                                <h5 class="total-product"><span>100</span> Item</h5>
+                                <h5 class="total-price"><span>4,250</span> THB</h5>
+                            </div>
+                        </div>
+
+                        <div class="product-in-cart cart-table-row">
+
+                            <div class="product-detail">
+                                <div class="product-img-wrapper">
+                                    <img src="../image/t-shirt.png" alt="product-image">
+                                </div>
+                                <div class="product-desc">
+                                    <h1 class="product-name">Product Name</h1>
+
+                                </div>
+                            </div>
+
+                            <div class="amount">
+                                <div class="amount-per-size">
+                                    <span class="size">XS</span>
+                                    <div class="amount-group">
+                                        <input type="number" name="xs-amount" id="xs-amount" class="amount-number-input"
+                                            value="1" readonly>
+                                    </div>
+                                </div>
+                                <div class="amount-per-size">
+                                    <span class="size">S</span>
+                                    <div class="amount-group">
+                                        <input type="number" name="xs-amount" id="s-amount" class="amount-number-input"
+                                            value="1" readonly>
+                                    </div>
+                                </div>
+                                <div class="amount-per-size">
+                                    <span class="size">M</span>
+                                    <div class="amount-group">
+                                        <input type="number" name="m-amount" id="s-amount" class="amount-number-input"
+                                            value="1" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conclude">
+                                <h5 class="total-product"><span>100</span> Item</h5>
+                                <h5 class="total-price"><span>4,250</span> THB</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Cart group -->
+                </div>
+                <!-- Status order -->
+            </div>
+            <!-- Purchase History -->
+        </div>
+        <!-- Main content -->
+
+    </div>
+    <!-- Profile -->
+</div>
+<!-- Container -->
+
+
+<script src="/static/js/profile.js"></script>
+{% endblock %}

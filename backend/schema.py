@@ -39,8 +39,8 @@ class Order(BaseModel):
                                "sleeve-length" : 0,
                                "fit" : 1
                             }
-    amount: int
     neutral_mark: int
+    status :int
 
 class Review(BaseModel):
     user_id : int

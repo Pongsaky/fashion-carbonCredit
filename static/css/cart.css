@@ -1,0 +1,260 @@
+.cart {
+    position: relative;
+    width: 100%;
+    min-height: calc(100vh - 72.4px);
+    background-color: #e1e1e1;
+    padding: 30px 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cart-header {
+    position: relative;
+    background-color: #fff;
+    box-shadow: #00000025 0px 4px 4px 0px;
+    padding: 20px;
+}
+
+.cart-table-row {
+    display: flex;
+    align-items: center;
+}
+
+.cart-group {
+    position: relative;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: #00000025 0px 4px 4px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.check-box {
+    padding-right: 20px;
+}
+
+.select-checkbox {
+    width: 25px;
+    height: 25px;
+    border-radius: 8px;
+}
+
+.column-header {
+    font-size: 20px;
+    font-weight: 700;
+    color: #434242;
+    margin: 0;
+
+    text-align: center;
+}
+
+.product-detail {
+    flex: 2;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}
+
+.price-per-item {
+    flex: 1;
+    padding: 10px;
+}
+
+.amount {
+    flex: 1;
+    padding: 10px;
+}
+
+.conclude {
+    flex: 1;
+    padding: 10px;
+}
+
+.shop-header {
+    display: flex;
+    align-items: center;
+}
+
+.shop-name {
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0;
+}
+
+.product-in-cart {
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: -12.5px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 2px;
+        background-color: #b0b0b0;
+    }
+}
+
+.product-img-wrapper {
+    width: 150px;
+
+    & img {
+        width: 100%;
+        padding-block: 25px;
+    }
+}
+
+.product-desc {
+    flex: 1;
+}
+
+.product-desc .product-name {
+    font-size: 22px;
+    font-weight: 700px;
+}
+
+
+.category-group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 10px;
+
+    & span.category {
+        font-size: 10px;
+        font-weight: 700px;
+        padding: 8px 12px;
+        color: #fff;
+        background-color: #000;
+        border-radius: 12px;
+    }
+
+}
+
+.net-zero-check {
+    position: relative;
+    display: flex;
+    height: 25px;
+}
+
+.net-zero {
+    height: 20px;
+    aspect-ratio: 1/1;
+    border: solid #888 1px;
+    border-radius: 5px;
+
+
+    &:checked {
+        background-color: #0075FF;
+    }
+
+    &:checked+.check {
+        display: block;
+
+    }
+
+    &:checked+.net-zero-label {
+        color: #fff;
+        background-color: #0075FF;
+    }
+}
+
+.net-zero-label {
+    border: solid 1px #AFAFAF;
+    padding: 3px 8px;
+    border-radius: 12.5px;
+    height: 100%;
+    font-size: 12px;
+    font-weight: 700;
+    margin-left: 5px;
+}
+
+.price {
+    font-size: 24px;
+    font-weight: 700;
+    color: #000;
+    margin: 0;
+
+    & span {
+        color: #FB6E4F;
+    }
+}
+
+.amount-per-size {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    margin-inline: 15px;
+    height: 30px;
+    margin-bottom: 15px;
+}
+
+.size {
+    font-size: 14px;
+    font-weight: 800;
+    color: #fff;
+    background-color: #000;
+    padding: 5px;
+    line-height: 20px;
+    border-radius: 5px;
+    height: 100%;
+    aspect-ratio: 1/1;
+    text-align: center;
+}
+
+.amount-group {
+    position: relative;
+    display: flex;
+    margin-left: 5px;
+}
+
+.amount-number-input {
+    aspect-ratio: 1.5/1;
+    height: 100%;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 800;
+    background-color: #fff;
+    border: 1px solid #cfcfcf;
+    border-radius: 0;
+}
+
+.amount-btn {
+    flex: 1;
+    aspect-ratio: 1/1;
+    height: 100%;
+    background-color: #fff;
+    border: 1px solid #cfcfcf;
+    border-radius: 0;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.total-product {
+    font-size: 20px;
+    font-weight: 700;
+    color: #6a6a6a;
+    text-align: center;
+
+    & span {
+        font-size: 24px;
+        color: #000;
+    }
+}
+
+.total-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: #6a6a6a;
+    text-align: center;
+
+    & span {
+        font-size: 32px;
+        color: #FB6E4F;
+    }
+}

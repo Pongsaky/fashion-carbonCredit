@@ -5,7 +5,7 @@ $(document).ready(function () {
     $('.user-dropdown').click(function (event) {
         event.stopPropagation();
         $(this).toggleClass('active');
-        $('.shop-dropdown-menu').removeClass('show');
+        $('.shop-dropdown').removeClass('active');
     });
 
     $('.shop-dropdown').click(function (event) {
@@ -16,8 +16,8 @@ $(document).ready(function () {
 
     // Close the drop-downs when clicking outside of them
     $(document).click(function () {
-        $('.user-dropdown').removeClass('active');
         $('.shop-dropdown').removeClass('active');
+        $('.user-dropdown').removeClass('active');
     });
 });
 

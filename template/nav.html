@@ -9,9 +9,10 @@
 </head>
 
 <body>
-    <div id="user_id_placeholder" data-user-id="{{ user_id }}"></div>
 
-    <!-- Nav bar -->
+    <div id="user_id_placeholder" data-user-id="{{ user_id }}"></div>
+    {% if isShop==0 %}
+    <!-- User Nav bar -->
     <nav>
             <div class="logo-group">
                 <h2 class="coala">COALA co.</h2>
@@ -26,6 +27,8 @@
                 <input type="text" id="search-bar">
                 <ul class="nav-link">
                     {% if user_id %}
+
+
                     <div class="UCC-group">
 
                         <div class="cart-icon">
@@ -47,6 +50,14 @@
                             </div>
                             <ul class="user-menu">
                                 <li><a href="/edit_user_profile">Profile</a></li>
+
+                                <li class="shop-dropdown">
+                                    <a href="#">My Shop</a>
+                                    <ul class="shop-dropdown-menu">
+                                        <!-- Add your shop drop-down menu items here -->
+                                    </ul>
+                                </li>
+                                
                                 <li><a href="#">Orders</a></li>
                                 <li><a href="/logout">Logout</a></li>
                             </ul>
@@ -59,19 +70,67 @@
                 </ul>
             </div>
 
-            <!-- <ul class="nav-link">
-                <li><a href="/">home</a></li>
-                <li><a href="/shop">shop</a></li>
-                <li><a href="/add_shop">Your Shop</a></li>
-                <li><a href="/edit_user_profile">Edit User Profile</a></li>
+    </nav>
+    {% else %}
+    <!-- Shop Nav bar -->
+    <nav>
+        <div class="logo-group">
+            <h2 class="coala">COALA co.</h2>
+            <ul class="nav-link">
+                <li><a href="/">Home</a></li>
+                <li><a href="/shop">Dashboard</a></li>
                 <li><a href="#">about</a></li>
                 <li><a href="#">support</a></li>
-                <li id="sign-in"><a href="/logout">Logout</a></li>
-            </ul> -->
+            </ul>
+        </div>
+        <div>
+            <input type="text" id="search-bar">
+            <ul class="nav-link">
+                {% if user_id %}
+    
+    
+                <div class="UCC-group">
+    
+                    <div class="store-icon">
+                        <!-- <span class="notification">99</span> -->
+                        <i class='bx bxs-store'></i>
+                    </div>
+    
+                    <a id="chat-icon" href="/chat">
+                        <div class="chat-icon">
+                            <span class="notification">99</span>
+                            <i class='bx bxs-conversation'></i>
+                        </div>
+                    </a>
+    
+    
+                    <li class="user-dropdown">
+                        <div class="user-icon">
+                            <i class='bx bxs-user-circle'></i>
+                        </div>
+                        <ul class="user-menu">
+                            <li><a href="/edit_user_profile">Profile</a></li>
+                            <li><a onclick="setIsShop(0)">User account</a></li>
+                            <li><a href="#">Orders</a></li>
+                            <li><a href="/logout">Logout</a></li>
+                        </ul>
+                    </li>
+    
+                </div>
+                {% else %}
+                <li id="sign-in"><a href="/login">sign in</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    
     </nav>
+
+    {% endif %}
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/static/js/nav.js"></script>
-    <!-- Nav bar -->
+    <!-- Shop Nav bar -->
+    
     {% block content %}{% endblock %}
 </body>
 

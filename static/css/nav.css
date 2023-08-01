@@ -224,3 +224,91 @@ input[type="text"] {
     color: inherit;
     text-decoration: none;
 }
+
+/* My shop drop down */
+.shop-dropdown {
+    position: relative;
+}
+
+.shop-dropdown>ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.shop-dropdown>a {
+    display: block;
+    /* padding: 8px 16px; */
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    /* border: 1px solid #ccc; */
+    /* border-radius: 4px; */
+    transition: background-color 0.3s ease-in-out;
+}
+
+.shop-dropdown>a:hover {
+    background-color: #f0f0f0;
+}
+
+.shop-dropdown-menu {
+    position: absolute;
+    /* top: 100%; */
+    bottom: -120%;
+    left: -107%;
+    z-index: 999;
+    display: none;
+    width: 150px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.shop-dropdown-menu.show {
+    display: block;
+}
+
+.shop-dropdown-menu li {
+    padding: 8px 16px;
+    list-style: none;
+}
+
+.shop-dropdown-menu li a {
+    color: #000;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.shop-dropdown-menu li a:hover {
+    background-color: #f0f0f0;
+}
+
+.shop-dropdown.active .shop-dropdown-menu {
+    display: block;
+}
+
+/* Adjustments for the shop drop-down text */
+.shop-dropdown a {
+    display: block;
+    white-space: nowrap; /* Prevent the text from wrapping */
+}
+
+/* Add some spacing between drop-down menus */
+.user-menu,
+.shop-dropdown-menu {
+    margin-top: 10px; /* Adjust the spacing as needed */
+}
+/* My shop drop down */
+
+li img {
+    width: 15px;
+    height: 15px;
+}
+
+li p {
+    margin: 0;
+}

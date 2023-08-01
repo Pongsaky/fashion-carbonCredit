@@ -18,7 +18,6 @@ async def get_main_page(request :Request):
     # user_id = request.session.get("user_id")
     firstname = request.session.get("firstname")
     lastname = request.session.get("lastname")
+    isShop = request.session.get("isShop")
 
-    return templates.TemplateResponse("main.html", {"request": request, "user_id": user_id, "firstname": firstname, "lastname": lastname})
-
-
+    return templates.TemplateResponse("main.html", {"request": request, "user_id": user_id, "firstname": firstname, "lastname": lastname, "isShop": isShop})

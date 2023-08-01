@@ -29,6 +29,7 @@ async def login(request :Request, response: Response, username: str = Form(...),
         request.session["user_id"] = user_id
         request.session["firstname"] = res['data']['firstname']
         request.session["lastname"] = res['data']['lastname']
+        request.session["isShop"] = 0
 
         return RedirectResponse(url="/", status_code=302)
     else : raise HTTPException(status_code=401, detail="Invalid credentials")

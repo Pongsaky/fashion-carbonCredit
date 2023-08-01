@@ -11,7 +11,7 @@ templates = Jinja2Templates(directory="template")
 # Route for the login page
 @router.get("/login", response_class=HTMLResponse)
 async def get_login_page(request :Request):
-    return templates.TemplateResponse("login.html", {"request": request})
+    return templates.TemplateResponse("sign-in-up.html", {"request": request, "isRegister": request.session.get("isRegister")})
 
 # Route to handle login form submission
 @router.post("/login")
@@ -33,3 +33,13 @@ async def login(request :Request, response: Response, username: str = Form(...),
 
         return RedirectResponse(url="/", status_code=302)
     else : raise HTTPException(status_code=401, detail="Invalid credentials")
+
+@router.post("/register")
+async def register(request: Request, username: str = Form(...), password: str = Form(...), firstname: str = Form(...), lastname: str = Form(...), email: str = Form(...)):
+    res = serviceAPI().register(username=username, password=password, firstname=firstname, lastname=lastname, email=email)
+    if res['status'] == 1:
+        request.session['isRegister'] = 1
+        return RedirectResponse(url="/login", status_code=200)
+    else : raise HTTPException(status_code=401)
+
+

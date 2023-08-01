@@ -407,11 +407,11 @@ class serviceAPI:
             result[column[idx]] = r
         return {"data": result, "status": 1}
     
-    def register(self, username:str, password:str, email:str, firstname:str, lastname:str, user_image:str):
+    def register(self, username:str, password:str, email:str, firstname:str, lastname:str, user_image:str="https://storage.googleapis.com/carboncredit/coalla_logo.png"):
         # Check username, email or other avoid same value
         res = userDB().insert(username, password, email, firstname, lastname, user_image)
         if res["msg"] == "UserDB INSERT SUCESSFULLY":
-            return {"msg" : "Register is sucessful"}
+            return {"status": 1}
         
     def order(self, user_id:int, product_id:int, order_property:dict, amount:int, neutral_mark:int):
         res = orderDB().insert(user_id, product_id, order_property, amount, neutral_mark)

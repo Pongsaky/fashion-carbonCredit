@@ -1,50 +1,45 @@
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
+var productInfo = document.querySelector(".product-info");
+var shirtOption = document.querySelector(".shirt-option");
+var optionParts = document.querySelectorAll(".option-part");
 
-var shop_id = urlParams.get("shop_id")
-var product_container = document.getElementById("product-group")
-var product_message = document.getElementById("product-message")
+let nextStepBtn = document.getElementById("next-step-btn");
+let prevStepBtn = document.getElementById("prev-step-btn");
 
-// fetch product and show
-document.addEventListener("DOMContentLoaded", async () => {
+prevStepBtn.addEventListener("click", () => {
+    let id = parseInt(document.querySelector(".option-part.current-part").getAttribute("id").substring(6));
+    if (id - 1 > 0)
+        showPart(id - 1);
+});
 
-    const response = await fetch(`service/fetch-product/${shop_id}`, {
-        method : "GET",
-        headers : {"Content-type" : "application/json"}
-    })
+nextStepBtn.addEventListener("click", () => {
+    let id = parseInt(document.querySelector(".option-part.current-part").getAttribute("id").substring(6));
+    if (id + 1 <= optionParts.length)
+        showPart(id + 1);
+});
 
-    const products = await response.json()
+function showPart(id) {
+    optionParts.forEach(optionPart => {
+        optionPart.classList.remove("current-part");
+    });
 
-    if (products.length == 0) {
-        product_message.innerHTML = "This shop have not product yet"
+    stepBtnAppearance(id);
+    document.getElementById(`stage-${id}`).classList.add("current-part");
+}
+
+function stepBtnAppearance(id) {
+    if (id === 1) {
+        prevStepBtn.style.visibility = "hidden";
+        shirtOption.classList.add("hidden")
+    } else {
+        prevStepBtn.style.visibility = "visible";
+        shirtOption.classList.remove("hidden")
     }
-    
-    products.forEach(product => {
-        let product_template = `<div class="product">
-                <div class="product-img-wrapper">
-                    <img src="/static/image/t-shirt.png" alt="T-shirt-preview">
-                </div>
-                <div class="product-desc">
-                    <h1 class="product-name">${product['name']}</h1>
-                    <h2 class="shop-name">By Tanuson</h2>
-                    <div class="category-group">
-                        <span class="category">V-shirt</span>
-                        <span class="category">Short</span>
-                        <span class="category">White</span>
-                        <span class="category">Street Fasion</span>
-                        <span class="category">Oversized</span>
-                        <span class="category">Velvet</span>
-                    </div>
-                    <h3 class="price"><span>350 - 450</span> THB</h3>
-                    <div class="star-group">
-                        <div class="star">00000</div>
-                        <span class="user-rating">4,789 +</span>
-                    </div>
 
-                    <button type="button" class="add-btn">Add +</button>
-                </div>
-            </div>`
+    if (id === optionParts.length) {
+        nextStepBtn.style.visibility = "hidden";
+    } else {
+        nextStepBtn.style.visibility = "visible";
+    }
+}
 
-        product_container.innerHTML += product_template;
-    })
-})
+showPart(1); // Show the first part on page load

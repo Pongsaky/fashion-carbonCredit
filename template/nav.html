@@ -1,0 +1,148 @@
+<!-- main.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/nav.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+
+    <div id="user_id_placeholder" data-user-id="{{ user_id }}"></div>
+    {% if isShop==0 %}
+    <div id="is_shop_placeholder" data-is-shop="{{ isShop }}"></div>
+
+    <!-- User Nav bar -->
+    <nav>
+            <div class="logo-group">
+                <h2 class="coala">COALA co.</h2>
+                <ul class="nav-link">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/shop">Shop</a></li>
+                    <li><a href="#">about</a></li>
+                    <li><a href="#">support</a></li>
+                </ul>
+            </div>
+            <div>
+                <input type="text" id="search-bar">
+                <ul class="nav-link">
+                    {% if user_id %}
+
+
+                    <div class="UCC-group">
+
+                        <div class="cart-icon">
+                            <span class="notification">99</span>
+                            <i class='bx bxs-cart'></i>
+                        </div>
+
+                        <a id="chat-icon" href="/chat">
+                            <div class="chat-icon">
+                                <span class="notification">99</span>
+                                <i class='bx bxs-conversation'></i>
+                            </div>
+                        </a>
+                        
+
+                        <li class="user-dropdown">
+                            <div class="user-icon">
+                                <i class='bx bxs-user-circle'></i>
+                            </div>
+                            <ul class="user-menu">
+                                <li><a href="/edit_user_profile">Profile</a></li>
+
+                                <li class="shop-dropdown">
+                                    <a href="#">All profile</a>
+                                    <ul class="shop-dropdown-menu">
+                                        <!-- Add your shop drop-down menu items here -->
+                                    </ul>
+                                </li>
+                                
+                                <li><a href="#">Orders</a></li>
+                                <li><a href="/logout">Logout</a></li>
+                            </ul>
+                        </li>
+
+                    </div>
+                    {% else %}
+                    <li id="sign-in"><a href="/login">sign in</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+
+    </nav>
+    {% else %}
+    <div id="is_shop_placeholder" data-is-shop="{{ isShop }}"></div>
+    <div id="shop_id_placeholder" data-shop-id="{{ shop_id }}"></div>
+    <!-- Shop Nav bar -->
+    <nav>
+        <div class="logo-group">
+            <h2 class="coala">COALA co.</h2>
+            <ul class="nav-link">
+                <li><a href="/">Home</a></li>
+                <li><a href="/shop">Dashboard</a></li>
+                <li><a href="#">about</a></li>
+                <li><a href="#">support</a></li>
+            </ul>
+        </div>
+        <div>
+            <input type="text" id="search-bar">
+            <ul class="nav-link">
+                {% if user_id %}
+    
+    
+                <div class="UCC-group">
+    
+                    <div class="store-icon">
+                        <!-- <span class="notification">99</span> -->
+                        <i class='bx bxs-store'></i>
+                    </div>
+    
+                    <a id="chat-icon" href="/chat">
+                        <div class="chat-icon">
+                            <span class="notification">99</span>
+                            <i class='bx bxs-conversation'></i>
+                        </div>
+                    </a>
+    
+    
+                    <li class="user-dropdown">
+                        <div class="user-icon">
+                            <i class='bx bxs-user-circle'></i>
+                        </div>
+                        <ul class="user-menu">
+                            <li><a href="/edit_user_profile">Profile</a></li>
+
+                            <li class="shop-dropdown">
+                                <a href="#">All profile</a>
+                                <ul class="shop-dropdown-menu">
+                                    <!-- Add your shop drop-down menu items here -->
+                                </ul>
+                            </li>
+                            
+                            <li><a href="#">Orders</a></li>
+                            <li><a href="/logout">Logout</a></li>
+                        </ul>
+                    </li>
+    
+                </div>
+                {% else %}
+                <li id="sign-in"><a href="/login">sign in</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    
+    </nav>
+
+    {% endif %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/js/nav.js"></script>
+    <!-- Shop Nav bar -->
+    
+    {% block content %}{% endblock %}
+</body>
+
+</html>

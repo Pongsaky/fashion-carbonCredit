@@ -5,10 +5,10 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from backend.routers.db import productDB, user, shopDB, order, review, chatDB, service, product_type
-from backend.routers.web import login, main, select_chat_shop, chat, select_chat_user, edit_user_profile, logout, product, shop
+from backend.routers.web import (login, main, select_chat_shop, chat, select_chat_user, edit_user_profile, logout, select_product, set_isShop, shop, product)
 
 from starlette.middleware.sessions import SessionMiddleware
-from typing import List
+from typing import List, Dict
 
 SECRET_KEY = "mysecretkey"
 
@@ -43,12 +43,14 @@ app.include_router(select_chat_user.router)
 app.include_router(chat.router)
 app.include_router(edit_user_profile.router)
 app.include_router(logout.router)
-app.include_router(product.router)
+app.include_router(select_product.router)
 app.include_router(shop.router)
+app.include_router(product.router)
+app.include_router(set_isShop.router)
 # app.include_router(chat_ws.router)
 
 # Track active WebSocket connections
-active_connections: List[WebSocket] = []
+active_connections: Dict[str, WebSocket] = {}
 
 # Dictionary to store private chat rooms
 private_rooms = []
@@ -59,10 +61,14 @@ chat_messages: dict = {}
 @app.websocket("/ws/{user_id}/{user_shop_id}/{shop_id}/{isShop}")
 async def websocket_endpoint(websocket: WebSocket, user_id: int, user_shop_id: int, shop_id: int, isShop :int):
     await websocket.accept()
-    active_connections.append(websocket)
 
     # Add user and shop to the private room
     room_id = f"{user_id}{user_shop_id}{shop_id}-{user_shop_id}{shop_id}{user_id}"
+
+    room_id_conn = room_id + "-" + str(isShop)
+
+    active_connections[room_id_conn] = websocket # room_id + isShop
+
     if not room_id in private_rooms:
         private_rooms.append(room_id)
 
@@ -77,23 +83,21 @@ async def websocket_endpoint(websocket: WebSocket, user_id: int, user_shop_id: i
 
         while True:
             data = await websocket.receive_text()
-            message = {'user_id': user_id, 'user_shop_id':user_shop_id, 'shop_id': shop_id, "text": data, 'isShop': isShop}
+            message = {'user_id': user_id, 'user_shop_id':user_shop_id, 'shop_id': shop_id, "text": data, "isShop": isShop}
             chat_messages[room_id].append(message)
             # print("Chat message ", chat_messages[room_id])
             # Save the message in your database or data store
             # Here we just print the message for demonstration purposes
             # print(f"Message from {user_id} to {shop_id}: {message['text']}")
 
-            # Display chat when typing
-            for conn in active_connections:
-                # print(conn.path_params['user_id'])
-
-                # Check connection with private room
-                if f"{conn.path_params['user_id']}{conn.path_params['user_shop_id']}{conn.path_params['shop_id']}-{conn.path_params['user_shop_id']}{conn.path_params['shop_id']}{conn.path_params['user_id']}" in private_rooms:
-                    # Send message
+            # Send the message to all connected WebSockets in the same chat room
+            for conn_room_id, conn in active_connections.items():
+                if conn_room_id[:-2] == room_id:
+                    # message['isShop'] = int(conn_room_id[-1])
+                    print(conn_room_id, message)
                     await conn.send_json(message)
 
     except WebSocketDisconnect:
-        active_connections.remove(websocket)
+        active_connections.pop(room_id, None)
         if room_id in private_rooms:
             private_rooms.remove(room_id)

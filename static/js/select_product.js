@@ -1,123 +1,62 @@
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
 
-// Dynamic choice selected
+var shop_id = urlParams.get("shop_id")
+var product_container = document.getElementById("product-group")
+var product_message = document.getElementById("product-message")
 
-var template_type
+// fetch product and show
+document.addEventListener("DOMContentLoaded", async () => {
 
-async function ProductPage() {
-
-    const product_url = 'http://127.0.0.1:3000/product/1';
-    const shop_url = 'http://127.0.0.1:3000/shop/';
-    const type_url = 'http://127.0.0.1:3000/type/';
-
-    const options = {
-        method: "GET",
-        headers: { 'Content-type': 'application/json' }
-    }
-
-    var HTML_template = `<div class="radio-group">
-                        <input type="radio" name="$name" value="$value" id="$name-$value">
-                        <label for="$name-$value" class="radio-label">$value</label>
-                    </div>`
-
-    var keys = ['size', 'color', 'fabric', 'neckline', 'sleeve-length', 'fit']
-
-    await fetch(product_url, options)
-        .then(res => res.json())
-        .then(product => {
-            // console.log(product);
-
-            // Product detail (focus size)
-            fetch(type_url + product['type'], options)
-                .then(res => res.json())
-                .then(product_type => {
-                    template_type = JSON.parse(product_type["property"])
-                    // console.log(template_type)
-
-                    for (const [index, key] of keys.entries()) {
-                        // console.log(key)
-                        let sub_template = template_type[key]
-                        // console.log(sub_template)
-                        
-                        let sub_product = JSON.parse(product['property'])[key]
-                        // console.log(sub_product)
-
-                        // Add Button
-                        for (let i = 0; i < sub_product.length; i++) {
-                            if (sub_product[i] == 1) addButton(key, sub_template[i], HTML_template, index)
-                        }
-                    }
-                    
-                })
-                .catch(error => console.error("Error", error))
-
-            // Shop detail
-            fetch(shop_url + product['shop_id'], options)
-                .then(res => res.json())
-                .then(shop => {
-                    // console.log(shop)
-                    // Shop name
-                    document.getElementsByClassName("shop-name")[0].innerHTML = shop['name'];
-                })
-        })
-        .catch(error => {
-            console.error("Error", error)
-        })
-} 
-
-function addButton(name, value, template, i) {
-    let element = document.getElementsByClassName("input-row-group")[i]
-    template = template.replaceAll('$name', name).replaceAll('$value', value)
-    // console.log(template)
-    element.innerHTML += template
-    element
-}
-
-function order() {
-
-    // Get selected property of product
-    var keys = ['size', 'color', 'fabric', 'neckline', 'sleeve-length', 'fit']
-    var index = 0
-    // console.log(template_type)
-    var selected_property = {}
-    document.querySelectorAll('input[type="radio"]:checked').forEach(e => {
-        let value = e.attributes?.value.value
-        selected_property[keys[index]] = template_type[keys[index]].findIndex(x => x === value)
-        index+=1
+    const response = await fetch(`service/fetch-product/${shop_id}`, {
+        method : "GET",
+        headers : {"Content-type" : "application/json"}
     })
-    console.log(JSON.stringify(selected_property))
-    // selected_property = JSON.stringify(selected_property)
 
-    // Insert order
-    const order_url = 'http://127.0.0.1:3000/order/';
+    const products = await response.json()
 
-    const data = {
-        "user_id": 1,
-        "product_id": 1,
-        "select_property": selected_property,
-        "amount": 100,
-        "neutral_mark": 1
+    if (products.length == 0) {
+        product_message.innerHTML = "This shop have not product yet"
     }
-
-    console.log(data)
     
-    const options = {
-        method: "POST",
-        headers: { 'Content-type': 'application/json' },
-        body : JSON.stringify(data)
+    products.forEach(product => {
+        let product_template = `<div class="product" data-product-id=${product['id']}>
+                <div class="product-img-wrapper">
+                    <img src="/static/image/t-shirt.png" alt="T-shirt-preview">
+                </div>
+                <div class="product-desc">
+                    <h1 class="product-name">${product['name']}</h1>
+                    <h2 class="shop-name">By Tanuson</h2>
+                    <div class="category-group">
+                        <span class="category">V-shirt</span>
+                        <span class="category">Short</span>
+                        <span class="category">White</span>
+                        <span class="category">Street Fasion</span>
+                        <span class="category">Oversized</span>
+                        <span class="category">Velvet</span>
+                    </div>
+                    <h3 class="price"><span>350 - 450</span> THB</h3>
+                    <div class="star-group">
+                        <div class="star">00000</div>
+                        <span class="user-rating">4,789 +</span>
+                    </div>
+
+                    <button type="button" class="add-btn">Add +</button>
+                </div>
+            </div>`
+
+        product_container.innerHTML += product_template;
+    })
+})
+
+// Click shop element to Product page's Shop
+
+document.getElementById("product-group").addEventListener("click", (event) => {
+    // console.log(event.target)
+    const productID = event.target.closest(".product").dataset.productId;
+    console.log(productID)
+    if (productID) {
+        window.location.href = `/product?product_id=${productID}`;
     }
 
-    fetch(order_url, options)
-        .then(res => res.json())
-        .then(data => console.log(data))
-        .catch(error => {
-            console.error("Error : ", error)
-        })
-}
-
-ProductPage()
-
-// document.querySelectorAll("input[type='radio']").forEach(e => {
-//     e.addEventListener("change", () => {
-//         console.log(e.attributes?.value.value)
-//     })
-// })
+})

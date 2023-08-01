@@ -1,0 +1,17 @@
+{% extends "nav.html" %}
+
+{% block title %}
+Main page
+{% endblock %}
+
+{% block content %}
+<div id="shop_id_placeholder" data-user-id="{{ shop_id }}"></div>
+<div class="container">
+    <div id="product-group">
+
+    </div>
+</div>
+<div id="product-message"></div>
+<script src="/static/js/select_product.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/select_product.css">
+{% endblock %}

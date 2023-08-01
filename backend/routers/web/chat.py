@@ -8,6 +8,9 @@ templates = Jinja2Templates(directory="template")
 
 # Route for the chat page
 @router.get("/chat", response_class=HTMLResponse)
-async def get_chat(request :Request, shop_id:str):
+async def get_chat(request :Request):
     user_id = request.session.get("user_id")
-    return templates.TemplateResponse("chat.html", {"request": request, "user_id":user_id, "shop_id": shop_id})
+    isShop = request.session.get("isShop")
+    shop_id = request.session.get("shop_id")
+    if isShop == 0: return templates.TemplateResponse("chat.html", {"request": request, "user_id":user_id, "isShop": isShop})
+    else : return templates.TemplateResponse("chat.html", {"request": request, "user_id":user_id, "isShop": isShop, "shop_id": shop_id})

@@ -20,4 +20,7 @@ async def get_main_page(request :Request):
     lastname = request.session.get("lastname")
     isShop = request.session.get("isShop")
 
-    return templates.TemplateResponse("main.html", {"request": request, "user_id": user_id, "firstname": firstname, "lastname": lastname, "isShop": isShop})
+    shop_id = request.session.get("shop_id")
+
+    if isShop == 0 : return templates.TemplateResponse("main.html", {"request": request, "user_id": user_id, "firstname": firstname, "lastname": lastname, "isShop": isShop})
+    else : return templates.TemplateResponse("main.html", {"request": request, "user_id": user_id, "firstname": firstname, "lastname": lastname, "isShop": isShop, "shop_id" : shop_id})

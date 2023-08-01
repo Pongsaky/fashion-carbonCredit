@@ -429,14 +429,18 @@ class serviceAPI:
         
     def fetch_shop(self, user_id:int):
         result = []
-        sql = f"""SELECT * FROM `shops` WHERE shops.user_id = {user_id}"""
+        sql = f"""SELECT * FROM `shops` 
+                RIGHT JOIN users ON shops.user_id = users.id 
+                WHERE shops.user_id = {user_id}"""
         self.mycursor.execute(sql)
-        column = ["id", "user_id", "name", "shop_image"]
+        column = ["id", "user_id", "name", "shop_image" ,"username", "user_image"]
         row = self.mycursor.fetchall()
 
         for row_i in row:
             # for idx, r in enumerate(row_i[:-1]):
-            result.append({column[0]: row_i[0], column[1]: row_i[1], column[2]: row_i[2], column[3]: row_i[3]})
+            # print(row_i)
+            result.append({column[0]: row_i[0], column[1]: row_i[1], column[2]: row_i[2], column[3]: row_i[3],
+                           column[3]: row_i[3], column[4]: row_i[6], column[5]: row_i[11]})
         return result
     
     def fetch_other_shop(self, user_id:int):

@@ -10,8 +10,11 @@ templates = Jinja2Templates(directory="template")
 @router.get("/edit_user_profile", response_class=HTMLResponse)
 async def get_main_page(request :Request):
     user_id = request.session.get("user_id")
+    isShop = request.session.get("isShop")
+    shop_id = request.session.get("shop_id")
+
     if user_id is None:
         # If user is not authenticated, redirect to the login page
         return RedirectResponse(url="/login", status_code=302)
-
-    return templates.TemplateResponse("edit-user-profile.html", {"request": request, "user_id": user_id})
+    if isShop == 0: return templates.TemplateResponse("edit-user-profile.html", {"request": request, "user_id": user_id, "isShop": isShop})
+    else : return templates.TemplateResponse("edit-user-profile.html", {"request": request, "user_id": user_id, "isShop": isShop, "shop_id": shop_id})

@@ -10,8 +10,8 @@ templates = Jinja2Templates(directory="template")
 
 # Route to handle login form submission
 @router.post("/set-isShop")
-async def set_isShop(request :Request, isShop:int):
+async def set_isShop(request :Request, isShop:int, shop_id:int=-1):
     request.session["isShop"] = isShop
-    
+    request.session["shop_id"] = shop_id
     return RedirectResponse(url="/", status_code=302)
     # else : raise HTTPException(status_code=401, detail="Invalid credentials")

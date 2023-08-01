@@ -18,7 +18,9 @@ async def get_main_page(request :Request):
     # user_id = request.session.get("user_id")
     firstname = request.session.get("firstname")
     lastname = request.session.get("lastname")
+    isShop = request.session.get("isShop")
+    shop_id = request.session.get("shop_id")
 
-    return templates.TemplateResponse("shop.html", {"request": request, "user_id": user_id, "firstname": firstname, "lastname": lastname})
-
+    if isShop == 0: return templates.TemplateResponse("shop.html", {"request": request, "user_id": user_id, "firstname": firstname, "lastname": lastname, "isShop": isShop})
+    else : return templates.TemplateResponse("shop.html", {"request": request, "user_id": user_id, "firstname": firstname, "lastname": lastname, "isShop": isShop, "shop_id": shop_id})
 

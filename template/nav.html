@@ -12,6 +12,8 @@
 
     <div id="user_id_placeholder" data-user-id="{{ user_id }}"></div>
     {% if isShop==0 %}
+    <div id="is_shop_placeholder" data-is-shop="{{ isShop }}"></div>
+
     <!-- User Nav bar -->
     <nav>
             <div class="logo-group">
@@ -52,7 +54,7 @@
                                 <li><a href="/edit_user_profile">Profile</a></li>
 
                                 <li class="shop-dropdown">
-                                    <a href="#">My Shop</a>
+                                    <a href="#">All profile</a>
                                     <ul class="shop-dropdown-menu">
                                         <!-- Add your shop drop-down menu items here -->
                                     </ul>
@@ -72,6 +74,8 @@
 
     </nav>
     {% else %}
+    <div id="is_shop_placeholder" data-is-shop="{{ isShop }}"></div>
+    <div id="shop_id_placeholder" data-shop-id="{{ shop_id }}"></div>
     <!-- Shop Nav bar -->
     <nav>
         <div class="logo-group">
@@ -110,7 +114,14 @@
                         </div>
                         <ul class="user-menu">
                             <li><a href="/edit_user_profile">Profile</a></li>
-                            <li><a onclick="setIsShop(0)">User account</a></li>
+
+                            <li class="shop-dropdown">
+                                <a href="#">All profile</a>
+                                <ul class="shop-dropdown-menu">
+                                    <!-- Add your shop drop-down menu items here -->
+                                </ul>
+                            </li>
+                            
                             <li><a href="#">Orders</a></li>
                             <li><a href="/logout">Logout</a></li>
                         </ul>

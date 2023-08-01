@@ -64,7 +64,10 @@ async def websocket_endpoint(websocket: WebSocket, user_id: int, user_shop_id: i
 
     # Add user and shop to the private room
     room_id = f"{user_id}{user_shop_id}{shop_id}-{user_shop_id}{shop_id}{user_id}"
-    active_connections[room_id] = websocket
+
+    room_id_conn = room_id + "-" + str(isShop)
+
+    active_connections[room_id_conn] = websocket # room_id + isShop
 
     if not room_id in private_rooms:
         private_rooms.append(room_id)
@@ -80,7 +83,7 @@ async def websocket_endpoint(websocket: WebSocket, user_id: int, user_shop_id: i
 
         while True:
             data = await websocket.receive_text()
-            message = {'user_id': user_id, 'user_shop_id':user_shop_id, 'shop_id': shop_id, "text": data, 'isShop': isShop}
+            message = {'user_id': user_id, 'user_shop_id':user_shop_id, 'shop_id': shop_id, "text": data, "isShop": isShop}
             chat_messages[room_id].append(message)
             # print("Chat message ", chat_messages[room_id])
             # Save the message in your database or data store
@@ -89,7 +92,9 @@ async def websocket_endpoint(websocket: WebSocket, user_id: int, user_shop_id: i
 
             # Send the message to all connected WebSockets in the same chat room
             for conn_room_id, conn in active_connections.items():
-                if conn_room_id == room_id:
+                if conn_room_id[:-2] == room_id:
+                    # message['isShop'] = int(conn_room_id[-1])
+                    print(conn_room_id, message)
                     await conn.send_json(message)
 
     except WebSocketDisconnect:

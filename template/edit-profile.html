@@ -5,9 +5,12 @@ Edit user profile
 {% endblock %}
 
 {% block content %}
+
 <div class="edit-profile-container">
     <h1>Edit Profile</h1>
     <div id="edit-warning" style="color: red; display: none;">Invalid credentials</div>
+    {% if isShop == 0 %}
+
     <form id="edit-profile-form" enctype="multipart/form-data">
         <div class="profile-image-container">
             <!-- Show profile image from the URL -->
@@ -41,11 +44,28 @@ Edit user profile
         <input type="submit" value="Save">
         
     </form>
+    {% else %}
+    <form id="edit-shop-form" enctype="multipart/form-data">
+        <div class="profile-image-container">
+            <!-- Show profile image from the URL -->
+            <img src="" alt="Profile Image" id="profile-image">
+            <div class="overlay">
+                <span id="upload-text">Upload Image</span>
+            </div>
+        </div>
+        <div>
+            <label for="shop-name">Name:</label>
+            <input type="text" id="shop-name" name="shop-name" required>
+        </div>
+        <input type="submit" value="Save">
+    
+    </form>
+    {% endif %}
 
     <!-- Hidden file input for image upload -->
     <input type="file" id="profile-image-upload" accept="image/*" style="display: none;">
 </div>
 
-<script src="/static/js/edit-user-profile.js"></script>
+<script src="/static/js/edit-profile.js"></script>
 <link rel="stylesheet" type="text/css" href="/static/css/edit_profile.css">
 {% endblock %}

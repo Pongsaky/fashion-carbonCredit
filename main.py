@@ -5,7 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from backend.routers.db import productDB, user, shopDB, order, review, chatDB, service, product_type
-from backend.routers.web import (sign_in_up, main, select_chat_shop, chat, select_chat_user, edit_user_profile, logout, select_product, set_isShop, shop, product)
+from backend.routers.web import (edit_profile, sign_in_up, main, select_chat_shop, chat, select_chat_user, logout, select_product, set_isShop, shop, product)
 
 from starlette.middleware.sessions import SessionMiddleware
 from typing import List, Dict
@@ -41,7 +41,7 @@ app.include_router(main.router)
 app.include_router(select_chat_shop.router)
 app.include_router(select_chat_user.router)
 app.include_router(chat.router)
-app.include_router(edit_user_profile.router)
+app.include_router(edit_profile.router)
 app.include_router(logout.router)
 app.include_router(select_product.router)
 app.include_router(shop.router)

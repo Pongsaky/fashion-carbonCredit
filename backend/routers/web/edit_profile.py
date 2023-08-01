@@ -7,7 +7,7 @@ router = APIRouter()
 templates = Jinja2Templates(directory="template")
 
 # Route for the shop selection page
-@router.get("/edit_user_profile", response_class=HTMLResponse)
+@router.get("/edit_profile", response_class=HTMLResponse)
 async def get_main_page(request :Request):
     user_id = request.session.get("user_id")
     isShop = request.session.get("isShop")
@@ -16,5 +16,5 @@ async def get_main_page(request :Request):
     if user_id is None:
         # If user is not authenticated, redirect to the login page
         return RedirectResponse(url="/login", status_code=302)
-    if isShop == 0: return templates.TemplateResponse("edit-user-profile.html", {"request": request, "user_id": user_id, "isShop": isShop})
-    else : return templates.TemplateResponse("edit-user-profile.html", {"request": request, "user_id": user_id, "isShop": isShop, "shop_id": shop_id})
+    if isShop == 0: return templates.TemplateResponse("edit-profile.html", {"request": request, "user_id": user_id, "isShop": isShop})
+    else : return templates.TemplateResponse("edit-profile.html", {"request": request, "user_id": user_id, "isShop": isShop, "shop_id": shop_id})

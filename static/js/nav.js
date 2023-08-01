@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     let shops = await response.json()
     let index=0
     shops.forEach(shop => {
-        console.log(shop['user_image'])
         if (index == 0) shopDropMenu.innerHTML += `<li><a onclick="setIsShop(0)"><img src="${shop['user_image'].replace(/"/g, "") }"><p>${shop['username']}</p></a></li>`
         shopDropMenu.innerHTML += shopDrop_template.replaceAll("%shop_id", shop['id'])
                                                    .replace("%shop_img", shop['shop_image'].replace(/"/g, ""))

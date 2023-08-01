@@ -8,7 +8,7 @@ Cart
 <link rel="stylesheet" type="text/css" href="/static/css/cart.css">
 
 <div class="container">
-    <div class="cart">
+    <div class="cart" id="cart">
         <div class="cart-header cart-table-row">
             <div class="check-box">
                 <input type="checkbox" name="select-all" id="select-all" class="select-checkbox">
@@ -217,6 +217,11 @@ Cart
                 </div>
             </div>
         </div>
+    </div>
+    <div class="footer">
+        <div class="sum-item" id="sum-item">Total <span>0</span> items</div>
+        <div class="sum-price" id="sum-price"><span>0</span> THB</div>
+        <div class="order-btn"><button>Order</button></div>
     </div>
 </div>
 

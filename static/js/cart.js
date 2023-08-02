@@ -32,15 +32,15 @@ const orderProduct_template = `<div class="product-in-cart cart-table-row" data-
 
                 <div class="price-per-item">
                     <h3 class="price">
-                        <span>300-450</span> THB
+                        <span>300</span> THB
                     </h3>
                 </div>
 
                 $amount-size
                 
                 <div class="conclude">
-                    <h5 class="total-product"><span>100</span> Item</h5>
-                    <h5 class="total-price"><span>4,250</span> THB</h5>
+                    <h5 class="total-product"><span>%total-product</span> Item</h5>
+                    <h5 class="total-price"><span>%total-price</span> THB</h5>
                 </div>
             </div>`
 
@@ -77,7 +77,7 @@ function getCategoryHTML(select_property, property_template) {
     return categoryGroup.outerHTML
 }
 
-function getSizeHTML(select_property, property_template) {
+function getSizeHTML(select_property) {
     // console.log(select_property)
     const amountDiv = document.createElement("div");
     amountDiv.classList.add("amount")
@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     let i = 0;
 
     let HTML_render = ``
-    // console.log(cartArea.innerHTML)
+    const pricePerItem = 300;
 
     orders.forEach((order) => {
 
@@ -166,6 +166,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     })
 
     cartArea.innerHTML += HTML_render
+
+    // Change total product and total price
+
+    cartArea.querySelectorAll(".amount-group").forEach(amountDiv => {
+        const amount = parseInt(amountDiv.querySelector("input").value);
+
+        const productInCart = amountDiv.closest(".product-in-cart")
+        const price = productInCart.querySelector(".price").innerText
+        console.log(price.split(" ")[0])
+        let total_price = parseInt(price.split(" ")[0]) * amount
+
+        productInCart.innerHTML = productInCart.innerHTML.replace("%total-product", amount).replace("%total-price", total_price)
+    })
+
+    // display total price and item
+    cartArea.innerHTML = cartArea.innerHTML.replace("%total-product", total_product).replace("%total-price", total_price)
+
 })
 
 // Select check box part

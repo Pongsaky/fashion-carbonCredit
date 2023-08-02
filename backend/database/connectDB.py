@@ -5,19 +5,19 @@ import json
 
 load_dotenv()
 
-# mydb = mysql.connector.connect(
-#         host=os.getenv("host"),
-#         user=os.getenv("user"),
-#         password=os.getenv("password"),
-#         database=os.getenv("database")
-#     )
-
 mydb = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="Pongsakon_123",
-        database="fashion_carboncredit"
+        host=os.getenv("host"),
+        user=os.getenv("user"),
+        password=os.getenv("password"),
+        database=os.getenv("database")
     )
+
+# mydb = mysql.connector.connect(
+#         host="localhost",
+#         user="root",
+#         password="Pongsakon_123",
+#         database="fashion_carboncredit"
+#     )
 
 class userDB:
     def __init__(self):

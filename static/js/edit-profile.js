@@ -35,7 +35,7 @@ if (isShop == 0) {
             })
     })
 
-    // Update information (Except Profile image)
+    // Update information
     document.getElementById("edit-profile-form").addEventListener("submit", async function (event) {
         event.preventDefault(); // Prevent the form from submitting normally
 

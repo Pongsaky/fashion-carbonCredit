@@ -164,6 +164,17 @@ table.account-data {
     padding: 10px 20px;
 }
 
+button {
+    color: #fff;
+    background-color: #000;
+    font-size: 18px;
+    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
 .profile-img {
     width: 40%;
     position: relative;
@@ -447,4 +458,8 @@ table.account-data {
 
 .overlay:hover {
     opacity: 1;
+}
+
+.hidden {
+    display: none;
 }

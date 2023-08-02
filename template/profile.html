@@ -64,20 +64,23 @@ Profile
                                 <td class="user-data"><input type="text" id="lastname" name="lastname" value="Lastname" disabled></td>
                             </tr>
                         </table>
+                        <button type="submit" id="submit-user-profile" class="hidden">Save</button>
                     </form>
-                    
-                    <button type="button" id="edit-profile-btn">Edit Profile</button>
+                        <button type="button" id="edit-profile-btn">Edit Profile</button>
                 </div>
 
                 {% else %}
 
                 <div class="user-info">
-                    <table class="account-data">
-                        <tr>
-                            <th>Shop Name :</th>
-                            <td class="user-data">Username</td>
-                        </tr>
-                    </table>
+                    <form id="edit-shop-profile-form" action="#" method="POST">
+                        <table class="account-data">
+                            <tr>
+                                <th><label for="shop-name">Shop name:</label></th>
+                                <td class="user-data"><input type="text" id="shop-name" name="shop-name" value="Shop name" disabled></td>
+                            </tr>
+                        </table>
+                        <button type="submit" id="submit-user-profile" class="hidden">Save</button>
+                    </form>
                 
                     <button type="button" id="edit-profile-btn">Edit Profile</button>
                 </div>

@@ -3,7 +3,7 @@
 var user_id = document.getElementById("user_id_placeholder").dataset.userId
 var shopContainer = document.getElementById('shop-group')
 
-const shop_style = ["vintage", "modern", "minimalist"]
+const shop_style = ["Vintage", "Modern", "Minimalist"]
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);

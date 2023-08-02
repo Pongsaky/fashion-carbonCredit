@@ -9,7 +9,7 @@ Checkout
 <link rel="stylesheet" type="text/css" href="/static/css/checkout.css">
 
 <div class="container">
-    <div class="cart">
+    <div class="cart" id="cart">
         <div class="cart-header cart-table-row">
             <div class="product-detail">
                 <div class="checkout-header">
@@ -23,185 +23,28 @@ Checkout
             <div class="amount">
                 <h1 class="column-header">Amount</h1>
             </div>
-            <div class="conclude">
+            <div class="conclude-head">
                 <h1 class="column-header">Sub Total</h1>
             </div>
         </div>
 
-        <div class="cart-group">
-            <div class="shop-header">
-                <h2 class="shop-name">ToodDum Shop</h2>
-            </div>
-            <div class="product-in-cart cart-table-row">
-                <div class="product-detail">
-                    <div class="product-img-wrapper">
-                        <img src="../image/t-shirt.png" alt="product-image">
-                    </div>
-                    <div class="product-desc">
-                        <h1 class="product-name">Product Name</h1>
-                        <div class="category-group">
-                            <span class="category">V-shirt</span>
-                            <span class="category">Short</span>
-                            <span class="category">Street Fasion</span>
-                            <span class="category">Oversized</span>
-                        </div>
-                        <div class="net-zero-check">
-                            <input type="checkbox" name="net-zero" class="net-zero">
-                            <label for="net-zero" class="net-zero-label">Net-Zero</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="price-per-item">
-                    <h3 class="price">
-                        <span>300-450</span> THB
-                    </h3>
-                </div>
-                <div class="amount">
-                    <div class="amount-per-size">
-                        <span class="size">XS</span>
-                        <div class="amount-group">
-                            <input type="number" name="xs-amount" id="xs-amount" class="amount-number-input" value="1"
-                                readonly>
-                        </div>
-                    </div>
-                    <div class="amount-per-size">
-                        <span class="size">S</span>
-                        <div class="amount-group">
-                            <input type="number" name="xs-amount" id="s-amount" class="amount-number-input" value="1"
-                                readonly>
-                        </div>
-                    </div>
-                    <div class="amount-per-size">
-                        <span class="size">M</span>
-                        <div class="amount-group">
-                            <input type="number" name="m-amount" id="s-amount" class="amount-number-input" value="1">
-                        </div>
-                    </div>
-                </div>
-                <div class="conclude">
-                    <h5 class="total-product"><span>100</span> Item</h5>
-                    <h5 class="total-price"><span>4,250</span> THB</h5>
-                </div>
-            </div>
-        </div>
-        <div class="cart-group">
-            <div class="shop-header">
-                <h2 class="shop-name">ToodDum Shop</h2>
-            </div>
-            <div class="product-in-cart cart-table-row">
-                <div class="product-detail">
-                    <div class="product-img-wrapper">
-                        <img src="../image/t-shirt.png" alt="product-image">
-                    </div>
-                    <div class="product-desc">
-                        <h1 class="product-name">Product Name</h1>
-                        <div class="category-group">
-                            <span class="category">V-shirt</span>
-                            <span class="category">Short</span>
-                            <span class="category">Street Fasion</span>
-                            <span class="category">Oversized</span>
-                        </div>
-                        <div class="net-zero-check">
-                            <input type="checkbox" name="net-zero" class="net-zero">
-                            <label for="net-zero" class="net-zero-label">Net-Zero</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="price-per-item">
-                    <h3 class="price">
-                        <span>300-450</span> THB
-                    </h3>
-                </div>
-                <div class="amount">
-                    <div class="amount-per-size">
-                        <span class="size">XS</span>
-                        <div class="amount-group">
-                            <input type="number" name="xs-amount" id="xs-amount" class="amount-number-input" value="1"
-                                readonly>
-                        </div>
-                    </div>
-                    <div class="amount-per-size">
-                        <span class="size">S</span>
-                        <div class="amount-group">
-                            <input type="number" name="xs-amount" id="s-amount" class="amount-number-input" value="1"
-                                readonly>
-                        </div>
-                    </div>
-                    <div class="amount-per-size">
-                        <span class="size">M</span>
-                        <div class="amount-group">
-                            <input type="number" name="m-amount" id="s-amount" class="amount-number-input" value="1">
-                        </div>
-                    </div>
-                </div>
-                <div class="conclude">
-                    <h5 class="total-product"><span>100</span> Item</h5>
-                    <h5 class="total-price"><span>4,250</span> THB</h5>
-                </div>
-            </div>
-            <div class="product-in-cart cart-table-row">
-                <div class="product-detail">
-                    <div class="product-img-wrapper">
-                        <img src="../image/t-shirt.png" alt="product-image">
-                    </div>
-                    <div class="product-desc">
-                        <h1 class="product-name">Product Name</h1>
-                        <div class="category-group">
-                            <span class="category">V-shirt</span>
-                            <span class="category">Short</span>
-                            <span class="category">Street Fasion</span>
-                            <span class="category">Oversized</span>
-                        </div>
-                        <div class="net-zero-check">
-                            <input type="checkbox" name="net-zero" class="net-zero">
-                            <label for="net-zero" class="net-zero-label">Net-Zero</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="price-per-item">
-                    <h3 class="price">
-                        <span>300-450</span> THB
-                    </h3>
-                </div>
-                <div class="amount">
-                    <div class="amount-per-size">
-                        <span class="size">XS</span>
-                        <div class="amount-group">
-                            <input type="number" name="xs-amount" id="xs-amount" class="amount-number-input" value="1"
-                                readonly>
-                        </div>
-                    </div>
-                    <div class="amount-per-size">
-                        <span class="size">S</span>
-                        <div class="amount-group">
-                            <input type="number" name="xs-amount" id="s-amount" class="amount-number-input" value="1"
-                                readonly>
-                        </div>
-                    </div>
-                    <div class="amount-per-size">
-                        <span class="size">M</span>
-                        <div class="amount-group">
-                            <input type="number" name="m-amount" id="s-amount" class="amount-number-input" value="1"
-                                readonly>
-                        </div>
-                    </div>
-                </div>
-                <div class="conclude">
-                    <h5 class="total-product"><span>100</span> Item</h5>
-                    <h5 class="total-price"><span>4,250</span> THB</h5>
-                </div>
-            </div>
-        </div>
+
     </div>
 
     <div class="footer">
-        <h2 class="product-price">Product Price : <span>3,950</span> THB</h2>
-        <h3 class="cc-support">Carbon Credit support : 300 THB</h3>
-        <h4 class="total-order">Order total: <span>4,250</span> THB</h4>
-        <button type="button" class="purchase-btn">Purchase</button>
+        <h2 class="product-price">Product Price : <span>0</span> THB</h2>
+        <h3 class="cc-support">Carbon Credit support : <span>0</span> THB</h3>
+        <h4 class="total-order">Order total: <span>0</span> THB</h4>
+        <button type="button" class="purchase-btn" id="purchase-btn">Purchase</button>
     </div>
 </div>
 
 <script src="/static/js/checkout.js"></script>
+
+<script>
+    const productSelected = {{ checkoutData | tojson }};
+    fetchSelectedProduct(productSelected)
+    purchase(productSelected)
+</script>
 
 {% endblock %}

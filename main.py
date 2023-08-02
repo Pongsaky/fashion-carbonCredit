@@ -4,7 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from backend.routers.db import productDB, user, shopDB, order, review, chatDB, service, product_type
+from backend.routers.db import (productDB, user, shopDB, order, review, 
+                                chatDB, service, product_type, checkoutDB)
 from backend.routers.web import (edit_profile, sign_in_up, main, select_chat_shop, 
                                  chat, select_chat_user, logout, select_product, 
                                  set_isShop, shop, product, cart, profile, dashboard,
@@ -38,6 +39,7 @@ app.include_router(review.router)
 app.include_router(chatDB.router)
 app.include_router(product_type.router)
 app.include_router(service.router)
+app.include_router(checkoutDB.router)
 
 # Render web page
 app.include_router(sign_in_up.router)

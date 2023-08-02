@@ -80,6 +80,11 @@
     padding: 10px;
 }
 
+.conclude-head {
+    flex: 1;
+    padding: 10px;
+}
+
 .shop-header {
     display: flex;
     align-items: center;
@@ -296,9 +301,9 @@
     color: #5A5A5A;
     margin: 0;
 
-    & span {
+    /* & span {
         color: #FB6E4F;
-    }
+    } */
 }
 
 .total-order {

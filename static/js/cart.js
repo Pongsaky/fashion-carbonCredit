@@ -10,7 +10,7 @@ const header_template = `<div class="cart-group">
                             </div>
                          `
 
-const orderProduct_template = `<div class="product-in-cart cart-table-row" data-order-id=%order_id>
+const orderProduct_template = `<div class="product-in-cart cart-table-row" data-order-id=%order_id data-shop-id=%shop_id>
                 <div class="check-box">
                     <input type="checkbox" name="select-product" class="select-checkbox">
                 </div>
@@ -48,9 +48,10 @@ function getHeaderHTML(shop_name) {
     return header_template.replace("%shop_name", shop_name)
 }
 
-function getOrderProductHTML(order_id, product_name, product_image, neutral_mark, categoryHTML, sizeHTML) {
+function getOrderProductHTML(order_id, shop_id, product_name, product_image, neutral_mark, categoryHTML, sizeHTML) {
     // select property
     return orderProduct_template.replace("%order_id", order_id)
+                                .replace('%shop_id', shop_id)
                                 .replace("%product_image", product_image)
                                 .replace("%product_name", product_name)
                                 .replace("%neutral_mark", neutral_mark)
@@ -148,7 +149,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         let sizeHTML = getSizeHTML(JSON.parse(order['select_property']))
 
         // Add order product 
-        HTML_render += getOrderProductHTML(order['id'], order['product_name'], 
+        HTML_render += getOrderProductHTML(order['id'], order['shop_id'], order['product_name'], 
                                             JSON.parse(order['product_image'])[1].replace(/"/g, ""), 
                                             order['neutral_mark'], categoryHTML, sizeHTML)
 
@@ -260,28 +261,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         checkAllCheckbox();
         // console.log(allPrice, allItems)
     })
-    
-    // Plus and minus btn
-
-    // let plus_btns = document.querySelectorAll(".plus-btn");
-    // let minus_btns = document.querySelectorAll(".minus-btn");
-
-    // plus_btns.forEach(plus_btn => {
-    //     plus_btn.addEventListener("click", () => {
-    //         let parent = plus_btn.parentElement;
-    //         let amount = parent.children[1];
-    //         amount.value = (parseInt(amount.value) + 1).toString()
-    //         // Update Price and Item
-    //     })
-    // })
-
-    // minus_btns.forEach(minus_btn => {
-    //     minus_btn.addEventListener("click", () => {
-    //         let parent = minus_btn.parentElement;
-    //         let amount = parent.children[1];
-    //         if (amount.value > 1) amount.value -= 1
-    //     })
-    // })
 
 })
 
@@ -439,23 +418,47 @@ function addCommasToNumber(number) {
 
 const orderBtn = document.getElementById("order-btn")
 
-orderBtn.addEventListener("click", () => {
+orderBtn.addEventListener("click", async () => {
     let allCheckbox_checked = document.querySelectorAll(".select-checkbox:not(#select-all):not(#select-shop):checked");
     // console.log(allCheckbox_checked);
 
-    let orderData = [];
+    let orderData = {};
 
     allCheckbox_checked.forEach(checkbox_checked => {
+        let subObj = {}
         // Find product element
-        let product = checkbox_checked.closest(".product-in-cart")
-        console.log(product)
-        // console.log(checkbox_checked)
+        let productInCart = checkbox_checked.closest(".product-in-cart")
+        const product_shopID = productInCart.dataset.shopId;
+        const product_orderID = productInCart.dataset.orderId;
 
-        // Find Shop element
-        let shop = checkbox_checked.closest(".cart-group").querySelector(".shop-header")
-        console.log(shop)
+        if (!(product_shopID in orderData)) orderData[product_shopID] = []
 
-        // Send data in form [ {option each product} ] After add with js in checkout page
+        subObj['orderId'] = product_orderID
+        subObj['net-zero'] = productInCart.querySelector("input[name='net-zero']").checked
+        subObj['pricePerItem'] = parseInt(productInCart.querySelector(".price > span").innerText)
         
+        const sizeObj = {}
+        productInCart.querySelectorAll(".amount-per-size").forEach((sizeDiv) => {
+            let size = sizeDiv.querySelector("span").innerText;
+            let amount = parseInt(sizeDiv.querySelector("input").value);
+            sizeObj[size] = amount
+        })
+
+        subObj["size"] = sizeObj
+
+        orderData[product_shopID].push(subObj)
+        // Send data in form [ {option each product} ] After add with js in checkout page
     })
+
+    const response = await fetch("/checkout", {
+        method : "POST",
+        headers : {"Content-type": "application/json"},
+        body : JSON.stringify(orderData)
+    })
+
+    if (response.ok) {
+        window.location.href = "/checkout"
+    }
+
+    console.log(orderData)
 })

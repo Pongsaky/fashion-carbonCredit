@@ -95,6 +95,14 @@ class Product_type(BaseModel):
     ]
   }
 
+class Checkout(BaseModel):
+    user_id : int
+    data : dict
+
+class OrderUpdate(BaseModel):
+    orderList: list
+    status:int
+
 class Login(BaseModel):
     username : str
     password : str

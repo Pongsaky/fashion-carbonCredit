@@ -225,14 +225,24 @@ class orderDB:
         self.mycursor.execute(sql)
         self.mydb.commit()
         return {"msg": "OrderDB UPDATE SUCESSFULLY"}
+    
+    def update_status(self, orderList: list, status:int):
+        order_idx_str = [str(idx) for idx in orderList]
+
+        result_string = "(" + ",".join(order_idx_str) + ")"
+
+        sql = f"""UPDATE `orders` SET `status`='{status}'
+                WHERE `id` IN {result_string};"""
+
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        return {"msg": "Status UPDATE SUCESSFULLY"}
 
     def delete(self, id: int):
         sql = f"DELETE FROM `orders` WHERE orders.id={id}"
         self.mycursor.execute(sql)
         self.mydb.commit()
         return {"msg": "OrderDB DELETE SUCESSFULLY"}
-
-    
 
 class reviewDB:
     def __init__(self):
@@ -392,6 +402,58 @@ class product_typeDB:
         self.mydb.commit()
         return {"msg": "TypeDB DELETE SUCESSFULLY"}
 
+class checkoutDB:
+    def __init__(self):
+        self.mydb = mydb
+        self.mycursor = self.mydb.cursor()
+
+    def select_all(self, limit=1000):
+        result = {}
+        sql = f"""SELECT * FROM `checkouts` LIMIT {limit}"""
+        self.mycursor.execute(sql)
+        column = ["id", "user_id", "data"]
+        row = self.mycursor.fetchall()
+
+        for row_i in row:
+            for idx, r in enumerate(row_i[:-1]):
+                result[row_i[0]] = {column[1]: row_i[1], column[2]: row_i[2]}
+        return result
+
+    def select_one(self, id: int):
+        result = {}
+        sql = f"""SELECT * FROM `checkouts` WHERE checkouts.id={id}"""
+        self.mycursor.execute(sql)
+        column = ["id", "user_id", "data"]
+        row = self.mycursor.fetchone()
+        if row == None:
+            return {"msg": f"Not found user_id = {id}"}
+
+        for idx, r in enumerate(row[:-1]):
+            result[column[idx]] = r
+        return result
+
+    def insert(self, user_id:int, data:dict):
+        data = json.dumps(data)
+        sql = f"INSERT INTO `checkouts` (`user_id`, `data`) VALUES ('{user_id}', '{data}');"
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        return {"msg": "checkoutDB INSERT SUCESSFULLY"}
+
+    def update(self, id: int, user_id:int, data:dict):
+        data = json.dumps(data)
+        sql = f"""UPDATE `checkouts` SET `user_id`='{user_id}', `data`='{data}'
+                WHERE `id`={id};"""
+
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        return {"msg": "checkoutDB UPDATE SUCESSFULLY"}
+
+    def delete(self, id: int):
+        sql = f"DELETE FROM `checkouts` WHERE checkouts.id={id}"
+        self.mycursor.execute(sql)
+        self.mydb.commit()
+        return {"msg": "checkoutDB DELETE SUCESSFULLY"}
+
 class serviceAPI:
     def __init__(self):
         self.mydb = mydb
@@ -530,19 +592,23 @@ class serviceAPI:
 
         result_string = "(" + ",".join(order_idx_str) + ")"
 
-        sql = f"""SELECT * FROM orders
+        sql = f"""SELECT orders.id, orders.product_id, orders.select_property, orders.neutral_mark, 
+                    orders.status, products.shop_id, shops.name, products.name, products.product_image FROM orders
                 RIGHT JOIN products
                 ON orders.product_id = products.id
+                LEFT JOIN shops
+                ON products.shop_id = shops.id
                 WHERE orders.id IN {result_string}
                 ORDER BY orders.created_at DESC, orders.product_id ASC ;"""
         self.mycursor.execute(sql)
-        column = ["id", "product_id", "select_property", "neutral_mark", "status", "shop_id", "name", "product_image"]
+        column = ["id", "product_id", "select_property", "neutral_mark", "status", "shop_id", "shop_name", "product_name", "product_image"]
         row = self.mycursor.fetchall()
 
         for row_i in row:
-            # for idx, r in enumerate(row_i[:-1]):
-            result.append({column[0]: row_i[0], column[1]: row_i[2], column[2]: row_i[3], 
-                           column[3]: row_i[4], column[4]: row_i[5], column[5]: row_i[8], 
-                           column[6]: row_i[9], column[7]: row_i[13]})
+            obj = {}
+            for idx, col in enumerate(column):
+                obj[col] = row_i[idx]
+
+            result.append(obj)
     
         return result

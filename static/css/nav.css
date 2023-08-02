@@ -148,7 +148,7 @@ input[type="text"] {
 }
 
 /* Starting user-dropdown */
-.user-dropdown {
+/* .user-dropdown {
     position: relative;
     z-index: 999;
 }
@@ -162,6 +162,11 @@ input[type="text"] {
     border-radius: 5px;
     box-shadow: #00000025 3px 7px 5px 0;
     display: none;
+
+    &.show {
+            display: block;
+        }
+
 }
 
 .user-dropdown.active .user-menu {
@@ -180,7 +185,7 @@ input[type="text"] {
 
 .user-menu li a:hover {
     background-color: #f0f0f0;
-}
+} */
 /* End user-dropdown */
 
 .UCC-group {
@@ -237,7 +242,7 @@ input[type="text"] {
 }
 
 /* My shop drop down */
-.shop-dropdown {
+/* .shop-dropdown {
     position: relative;
 }
 
@@ -249,23 +254,19 @@ input[type="text"] {
 
 .shop-dropdown>a {
     display: block;
-    /* padding: 8px 16px; */
     color: #000;
     text-decoration: none;
     font-weight: bold;
-    /* border: 1px solid #ccc; */
-    /* border-radius: 4px; */
     transition: background-color 0.3s ease-in-out;
-}
+} */
 
-.shop-dropdown>a:hover {
+/* .shop-dropdown>a:hover {
     background-color: #f0f0f0;
 }
 
 .shop-dropdown-menu {
     position: absolute;
     top: 60%;
-    /* bottom: -107%; */
     left: -80%;
     z-index: 999;
     display: none;
@@ -300,20 +301,203 @@ input[type="text"] {
 
 .shop-dropdown.active .shop-dropdown-menu {
     display: block;
-}
+} */
 
 /* Adjustments for the shop drop-down text */
-.shop-dropdown a {
+/* .shop-dropdown a {
     display: block;
     white-space: nowrap; /* Prevent the text from wrapping */
-}
+} */
 
 /* Add some spacing between drop-down menus */
-.user-menu,
+/* .user-menu,
 .shop-dropdown-menu {
-    margin-top: 10px; /* Adjust the spacing as needed */
+    margin-top: 10px;
+} */
+
+/* Oak My shop drop down */
+
+.user-menu {
+    padding-top: 17px;
+    display: none;
+    position: absolute;
+    right: 0;
+    bottom: -126px;
+    width: max-content;
+    padding-bottom: 5px;
+    border-radius: 8px;
+
+    cursor: default;
+
+    &.show {
+        display: block;
+    }
 }
-/* My shop drop down */
+
+.user-icon-btn {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.user-menu {
+    padding-top: 17px;
+    display: none;
+    position: absolute;
+    right: 0;
+    bottom: -126px;
+    width: max-content;
+    padding-bottom: 5px;
+    border-radius: 8px;
+
+    cursor: default;
+
+    &.show {
+        display: block;
+    }
+}
+
+.drop-down {
+    padding: 5px 20px;
+    font-size: 16px;
+    background-color: #eee;
+
+    &:hover {
+        background-color: #d9d9d9;
+    }
+
+    &:last-child {
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+}
+
+.drop-down a {
+    color: #000;
+}
+
+#switch-account {
+    position: relative;
+}
+
+.account-menu {
+    display: none;
+    position: absolute;
+    left: -127px;
+    padding-block: 8px;
+    background-color: #eee;
+    border-radius: 8px;
+    top: -8px;
+
+    #switch-account:is(:hover, :active) & {
+        display: block;
+    }
+
+    & .current-profile {
+        color: #fff;
+        background-color: royalblue;
+    }
+}
+
+.profile-dropdown {
+    padding: 5px 20px;
+    background-color: #eee;
+
+    &:not(.current-profile):hover {
+        cursor: pointer;
+        background-color: #d9d9d9;
+    }
+}
+
+.profile-dropdown>div {
+    width: fit-content;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 3px;
+
+    & img {
+        width: 30px;
+    }
+}
+
+.drop-down {
+    padding: 5px 20px;
+    font-size: 16px;
+    background-color: #eee;
+
+    &:hover {
+        background-color: #d9d9d9;
+    }
+
+    &:last-child {
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+}
+
+.drop-down a {
+    color: #000;
+}
+
+#switch-account {
+    position: relative;
+}
+
+.account-menu {
+    display: none;
+    position: absolute;
+    left: -127px;
+    padding-block: 8px;
+    background-color: #eee;
+    border-radius: 8px;
+    top: -8px;
+
+    #switch-account:is(:hover, :active) & {
+        display: block;
+    }
+
+    & .current-profile {
+        color: #fff;
+        background-color: royalblue;
+    }
+}
+
+.user-icon-btn {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.profile-dropdown {
+    padding: 5px 20px;
+    background-color: #eee;
+
+    &:not(.current-profile):hover {
+        cursor: pointer;
+        background-color: #d9d9d9;
+    }
+}
+
+.profile-dropdown>div {
+    width: fit-content;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 3px;
+
+    & img {
+        width: 30px;
+    }
+}
+
+li {
+    list-style: none;
+}
 
 li img {
     width: 30px;

@@ -82,8 +82,6 @@ function getSizeHTML(select_property) {
     const amountDiv = document.createElement("div");
     amountDiv.classList.add("amount")
 
-    console.log(select_property['size'])
-
     Object.entries(select_property['size']).forEach(entry => {
         const [size, size_amount] = entry;
         if (size_amount > 0) {
@@ -124,7 +122,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Fetch Order DB
     const response = await fetch(`/service/fetch-order/${user_id}`)
     const orders = await response.json()
-    console.log(orders)
 
     let index = -1;
     let i = 0;
@@ -174,38 +171,124 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const productInCart = amountDiv.closest(".product-in-cart")
         const price = productInCart.querySelector(".price").innerText
-        console.log(price.split(" ")[0])
         let total_price = parseInt(price.split(" ")[0]) * amount
 
         productInCart.innerHTML = productInCart.innerHTML.replace("%total-product", amount).replace("%total-price", total_price)
     })
 
-    // display total price and item
-    cartArea.innerHTML = cartArea.innerHTML.replace("%total-product", total_product).replace("%total-price", total_price)
+    document.getElementById("cart").addEventListener("click", (event) => {
+        const target = event.target;
+
+        if (target.tagName === "INPUT" && target.type === "checkbox") {
+            // click select-product
+            if (target.name === "select-product") {
+
+                // Uncheck
+                if (!target.checked) {
+                    let product_element = target.closest(".product-in-cart")
+                    let price = parseInt((product_element.querySelector(".conclude .total-price span").innerHTML).replace(/,/g, ''))
+                    let total_product = parseInt(product_element.querySelector(".conclude .total-product span").innerHTML)
+
+                    allPrice -= price;
+                    allItems -= total_product;
+                } else {
+                    let product_element = target.closest(".product-in-cart")
+                    let price = parseInt((product_element.querySelector(".conclude .total-price span").innerHTML).replace(/,/g, ''))
+                    let total_product = parseInt(product_element.querySelector(".conclude .total-product span").innerHTML)
+
+                    // console.log("HELLO")
+
+                    allPrice += price;
+                    allItems += total_product;
+                }
+            }
+
+            else if (target.id == "select-shop") selcetShopCheckbox();
+            else if (target.id == "select-all") selectAllCheckbox();
+
+        } else if ((target.className).includes("amount-btn")) {
+
+            if ((target.className).includes("plus-btn")) {
+
+                let parent = target.parentElement;
+                let amount = parent.children[1];
+                amount.value = (parseInt(amount.value) + 1).toString()
+
+                // Update Price
+                // product in cart part
+                let productInCart = target.closest(".product-in-cart")
+                const pricePerItem = productInCart.querySelector(".price > span")
+                let totalProduct = productInCart.querySelector(".total-product > span")
+                let totalPrice = productInCart.querySelector(".total-price > span")
+
+                totalProduct.innerText = amount.value
+                totalPrice.innerHTML = amount.value * parseInt(pricePerItem.innerText)
+
+                // console.log((productInCart.querySelector("input[type='checkbox']")).checked == 1)
+                if ((productInCart.querySelector("input[type='checkbox']")).checked == 1) {
+                    allItems += 1
+                    allPrice += 1 * parseInt(pricePerItem.innerText)
+                }
+
+            } else {
+
+                let parent = target.parentElement;
+                let amount = parent.children[1];
+                if (amount.value > 1) amount.value -= 1
+
+                // Update Price
+                // product in cart part
+                let productInCart = target.closest(".product-in-cart")
+                const pricePerItem = productInCart.querySelector(".price > span")
+                let totalProduct = productInCart.querySelector(".total-product > span")
+                let totalPrice = productInCart.querySelector(".total-price > span")
+
+                totalProduct.innerText = amount.value
+                totalPrice.innerHTML = amount.value * parseInt(pricePerItem.innerText)
+
+                if ((productInCart.querySelector("input[type='checkbox']")).checked == 1) {
+                    allItems -= 1
+                    allPrice -= 1 * parseInt(pricePerItem.innerText)
+                }
+
+            }
+        }
+
+        // Update Price
+        document.getElementById("sum-item").querySelector("span").innerText = addCommasToNumber(allItems)
+        document.getElementById("sum-price").querySelector("span").innerText = addCommasToNumber(allPrice)
+        checkAllCheckbox();
+        // console.log(allPrice, allItems)
+    })
+    
+    // Plus and minus btn
+
+    // let plus_btns = document.querySelectorAll(".plus-btn");
+    // let minus_btns = document.querySelectorAll(".minus-btn");
+
+    // plus_btns.forEach(plus_btn => {
+    //     plus_btn.addEventListener("click", () => {
+    //         let parent = plus_btn.parentElement;
+    //         let amount = parent.children[1];
+    //         amount.value = (parseInt(amount.value) + 1).toString()
+    //         // Update Price and Item
+    //     })
+    // })
+
+    // minus_btns.forEach(minus_btn => {
+    //     minus_btn.addEventListener("click", () => {
+    //         let parent = minus_btn.parentElement;
+    //         let amount = parent.children[1];
+    //         if (amount.value > 1) amount.value -= 1
+    //     })
+    // })
 
 })
 
 // Select check box part
 
 // console.log(select_checkboxs)
-let plus_btns = document.querySelectorAll(".plus-btn");
-let minus_btns = document.querySelectorAll(".minus-btn");
 
-plus_btns.forEach(plus_btn => {
-    plus_btn.addEventListener("click", () => {
-        let parent = plus_btn.parentElement;
-        let amount = parent.children[1];
-        amount.value = (parseInt(amount.value) + 1).toString()
-    })
-})
-
-minus_btns.forEach(minus_btn => {
-    minus_btn.addEventListener("click", () => {
-        let parent = minus_btn.parentElement;
-        let amount = parent.children[1];
-        if (amount.value > 1) amount.value -= 1
-    })
-})
 
 function allTrue(arr) {
     for (const i of arr) {
@@ -333,45 +416,6 @@ function checkAllCheckbox() {
 // Check update price
 var allPrice = 0;
 var allItems = 0;
-
-document.getElementById("cart").addEventListener("click", (event) => {
-    const target = event.target;
-
-    if (target.tagName === "INPUT" && target.type === "checkbox") {
-        // click select-product
-        if (target.name === "select-product") {
-
-            // Uncheck
-            if (!target.checked) {
-                    let product_element = target.closest(".product-in-cart")
-                    let price = parseInt((product_element.querySelector(".conclude .total-price span").innerHTML).replace(/,/g, ''))
-                    let total_product = parseInt(product_element.querySelector(".conclude .total-product span").innerHTML)
-
-                    allPrice -= price;
-                    allItems -= total_product;
-                } else {
-                    let product_element = target.closest(".product-in-cart")
-                    let price = parseInt((product_element.querySelector(".conclude .total-price span").innerHTML).replace(/,/g, ''))
-                    let total_product = parseInt(product_element.querySelector(".conclude .total-product span").innerHTML)
-
-                    // console.log("HELLO")
-
-                    allPrice += price;
-                    allItems += total_product;
-                }
-            } 
-
-            else if (target.id == "select-shop") selcetShopCheckbox();
-            else if (target.id == "select-all") selectAllCheckbox();
-
-        }
-        
-        // Update Price
-        document.getElementById("sum-item").querySelector("span").innerText = addCommasToNumber(allItems)
-        document.getElementById("sum-price").querySelector("span").innerText = addCommasToNumber(allPrice)
-        checkAllCheckbox();
-        // console.log(allPrice, allItems)
-    })
 
 function addCommasToNumber(number) {
     // Convert the number to a string

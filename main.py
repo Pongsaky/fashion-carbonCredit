@@ -7,7 +7,8 @@ from fastapi.templating import Jinja2Templates
 from backend.routers.db import productDB, user, shopDB, order, review, chatDB, service, product_type
 from backend.routers.web import (edit_profile, sign_in_up, main, select_chat_shop, 
                                  chat, select_chat_user, logout, select_product, 
-                                 set_isShop, shop, product, cart, profile, dashboard)
+                                 set_isShop, shop, product, cart, profile, dashboard,
+                                 checkout)
 
 from starlette.middleware.sessions import SessionMiddleware
 from typing import List, Dict
@@ -53,7 +54,7 @@ app.include_router(set_isShop.router)
 app.include_router(cart.router)
 app.include_router(profile.router)
 app.include_router(dashboard.router)
-# app.include_router(chat_ws.router)
+app.include_router(checkout.router)
 
 # Track active WebSocket connections
 active_connections: Dict[str, WebSocket] = {}

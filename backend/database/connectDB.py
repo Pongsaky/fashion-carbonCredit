@@ -503,11 +503,38 @@ class serviceAPI:
     
     def fetch_order(self, user_id:int):
         result = []
-        sql = f"""SELECT * FROM orders 
+        sql = f"""SELECT orders.id, orders.product_id, orders.select_property, orders.neutral_mark, 
+                    orders.status, products.shop_id, shops.name, products.name, products.product_image  FROM orders 
+                    RIGHT JOIN products
+                    ON orders.product_id = products.id
+                    LEFT JOIN shops
+                    ON products.shop_id = shops.id
+                    WHERE orders.user_id = {user_id} AND orders.status=0
+                    ORDER BY orders.created_at DESC, orders.product_id ASC;"""
+        self.mycursor.execute(sql)
+        column = ["id", "product_id", "select_property", "neutral_mark", "status", "shop_id", "shop_name", "product_name", "product_image"]
+        row = self.mycursor.fetchall()
+
+        for row_i in row:
+            obj = {}
+            for idx, col in enumerate(column):
+                obj[col] = row_i[idx]
+
+            result.append(obj)
+    
+        return result
+    
+    def fetch_chcekout(self, orderList:list):
+        result = []
+        order_idx_str = [str(idx) for idx in orderList]
+
+        result_string = "(" + ",".join(order_idx_str) + ")"
+
+        sql = f"""SELECT * FROM orders
                 RIGHT JOIN products
                 ON orders.product_id = products.id
-                WHERE orders.user_id = {user_id} AND status=0
-                ORDER BY orders.product_id ASC, orders.created_at DESC;"""
+                WHERE orders.id IN {result_string}
+                ORDER BY orders.created_at DESC, orders.product_id ASC ;"""
         self.mycursor.execute(sql)
         column = ["id", "product_id", "select_property", "neutral_mark", "status", "shop_id", "name", "product_image"]
         row = self.mycursor.fetchall()

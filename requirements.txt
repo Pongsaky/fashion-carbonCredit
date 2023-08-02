@@ -3,3 +3,4 @@ mysql-connector-python
 uvicorn[standard]
 google-cloud-storage
 python-multipart
+jinja2

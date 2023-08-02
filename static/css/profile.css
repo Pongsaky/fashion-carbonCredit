@@ -154,7 +154,7 @@ table.account-data {
     overflow-wrap: break-all;
 }
 
-#change-password {
+#edit-profile-btn {
     color: #fff;
     background-color: #000;
     font-size: 18px;
@@ -164,7 +164,7 @@ table.account-data {
     padding: 10px 20px;
 }
 
-.user-img {
+.profile-img {
     width: 40%;
     position: relative;
     padding: 50px;
@@ -173,19 +173,31 @@ table.account-data {
     align-items: center;
 }
 
-.user-img-wrapper {
+.profile-img-wrapper {
     position: relative;
-    padding: 20px;
-    aspect-ratio: 1/1;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto 20px;
+    overflow: hidden;
     border-radius: 50%;
+    cursor: pointer;
+    box-shadow: #00000025 2px 4px 2px 0;
+    /* Add box-shadow */
 
     & img {
         width: 100%;
+        height: 100%;
         object-fit: cover;
     }
 }
 
-#user-img-upload {
+#upload-text {
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#profile-img-upload {
     margin-top: 20px;
     color: #fff;
     background-color: #000;
@@ -417,4 +429,22 @@ table.account-data {
         font-size: 32px;
         color: #FB6E4F;
     }
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.overlay:hover {
+    opacity: 1;
 }

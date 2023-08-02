@@ -34,32 +34,69 @@ Profile
         <div class="main-content">
             <!-- My account -->
             <div class="my-account current-content">
+                {% if isShop == 0 %}
+
+                <div class="user-info">
+                    <form id="edit-user-profile-form" action="#" method="POST">
+                        <table class="account-data">
+                            <tr>
+                                <th><label for="username">Username:</label></th>
+                                <td class="user-data"><input type="text" id="username" name="username" value="Username" disabled></td>
+                            </tr>
+                            <!-- <tr>
+                                <th>Account ID :</th>
+                                <td class="user-data">9999999</td>
+                            </tr> -->
+                            <tr>
+                                <th><label for="password">Password:</label></th>
+                                <td class="user-data"><input type="password" id="password" name="password" value="Password" disabled></td>
+                            </tr>
+                            <tr>
+                                <th><label for="email">Email:</label></th>
+                                <td class="user-data"><input type="email" id="email" name="email" value="Email" disabled></td>
+                            </tr>
+                            <tr>
+                                <th><label for="firstname">Firstname:</label></th>
+                                <td class="user-data"><input type="text" id="firstname" name="firstname" value="Firstname" disabled></td>
+                            </tr>
+                            <tr>
+                                <th><label for="lastname">Lastname:</label></th>
+                                <td class="user-data"><input type="text" id="lastname" name="lastname" value="Lastname" disabled></td>
+                            </tr>
+                        </table>
+                    </form>
+                    
+                    <button type="button" id="edit-profile-btn">Edit Profile</button>
+                </div>
+
+                {% else %}
+
                 <div class="user-info">
                     <table class="account-data">
                         <tr>
-                            <th>Account Name :</th>
+                            <th>Shop Name :</th>
                             <td class="user-data">Username</td>
                         </tr>
-                        <tr>
-                            <th>Account ID :</th>
-                            <td class="user-data">9999999</td>
-                        </tr>
-                        <tr>
-                            <th>Email :</th>
-                            <td class="user-data">TaeTood@gmail.com</td>
-                        </tr>
                     </table>
-
-                    <button type="button" id="change-password">Change Password</button>
+                
+                    <button type="button" id="edit-profile-btn">Edit Profile</button>
                 </div>
-                <div class="user-img">
-                    <div class="user-img-wrapper">
-                        <img src="../image/logo_300x300.png" alt="user-imgage">
+
+                {% endif %}
+
+                <div class="profile-img">
+                    <div class="profile-img-wrapper">
+                        <img src="https://storage.googleapis.com/carboncredit/coalla_logo.png" alt="Profile Image" id="profile-image">
+                        <div class="overlay">
+                            <span id="upload-text">Upload Image</span>
+                        </div>
                     </div>
-                    <input type="file" name="user-img-upload" id="user-img-upload" accept="image/*">
+                    <input type="file" name="profile-img-upload" id="profile-img-upload" accept="image/*" style="display: none;">
                 </div>
             </div>
             <!-- My account -->
+
+
 
             <!-- Purchase history -->
             <div class="purchase-history">
@@ -85,7 +122,7 @@ Profile
 
                             <div class="product-detail">
                                 <div class="product-img-wrapper">
-                                    <img src="../image/t-shirt.png" alt="product-image">
+                                    <img src="/static/image/t-shirt.png" alt="product-image">
                                 </div>
                                 <div class="product-desc">
                                     <h1 class="product-name">Product Name</h1>
@@ -125,7 +162,7 @@ Profile
 
                             <div class="product-detail">
                                 <div class="product-img-wrapper">
-                                    <img src="../image/t-shirt.png" alt="product-image">
+                                    <img src="/static/image/t-shirt.png" alt="product-image">
                                 </div>
                                 <div class="product-desc">
                                     <h1 class="product-name">Product Name</h1>

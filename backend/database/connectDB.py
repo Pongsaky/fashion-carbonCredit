@@ -534,7 +534,7 @@ class serviceAPI:
     
     def fetch_chat(self, user_id:int, user_shop_id:int, shop_id:int):
         result = []
-        sql = f"""SELECT * FROM fashion_carboncredit.chats 
+        sql = f"""SELECT * FROM chats 
                     WHERE user_id={user_id} AND user_shop_id={user_shop_id} AND shop_id={shop_id}
                     ORDER BY `created_at` ASC;"""
         self.mycursor.execute(sql)
@@ -549,7 +549,7 @@ class serviceAPI:
     
     def fetch_product(self, shop_id:int):
         result = []
-        sql = f"""SELECT * FROM fashion_carboncredit.products 
+        sql = f"""SELECT * FROM products 
                     WHERE shop_id={shop_id};"""
         self.mycursor.execute(sql)
         column = ["id", "shop_id", "name", "type", "property", "description", "product_image"]

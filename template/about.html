@@ -1,0 +1,53 @@
+{% extends "nav.html" %}
+
+{% block title %}
+About
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="/static/css/about.css">
+
+<div class="container">
+    <div class="about-group">
+        <h1 class="footprint-troll">The Carbon Footprint Toll</h1>
+        <div class="footprint-group">
+            <h4 class="footprint-caption">Average Impact for a shirt</h4>
+            <div class="aside">
+                <ul>
+                    <li>Linen</li>
+                    <li class="current-list">Polyester</li>
+                    <li>Nylon</li>
+                    <li>Cotton</li>
+                    <li>Viscose</li>
+                    <li>Wool</li>
+                </ul>
+            </div>
+
+            <div class="footprint-content">
+                <h1 class="content-header">Polyester</h1>
+                <h2 class="footprint">
+                    Standard Polyester
+                    <div class="high"><span class="carbon"></span>5.7 kg</div>
+                    <span>per shirt</span>
+                </h2>
+                <div class="absorb">
+                    <i class='bx bxs-tree'></i>
+                    <h3><span>2.5</span> trees absorbing CO2 for a year</h3>
+                </div>
+                <div class="might-interest">
+                    <h4 class="interest">You might be interested to know :</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore
+                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                        commodo con
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                        pariatu
+                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+                        anim id es
+                        Sed ut perspiciatis unde omnis iste natus error sit </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

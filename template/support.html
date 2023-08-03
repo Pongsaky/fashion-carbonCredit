@@ -1,0 +1,28 @@
+{% extends "nav.html" %}
+
+{% block title %}
+About
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="/static/css/support.css">
+
+<div class="container">
+    <div class="support">
+        <div class="help">
+            <h1 class="greeting">Hello, Can i help you?</h1>
+            <input type="text" name="search" id="search" class="search" placeholder="search">
+            <div class="btn-group">
+                <button type="button">Contact us</button>
+                <button type="button">General Topic</button>
+                <button type="button">Product</button>
+                <button type="button">Purchase</button>
+            </div>
+        </div>
+        <div class="serial">
+            <h1 class="greeting">You can check serial number of mark here!</h1>
+            <input type="text" name="serial-search" id="serial-search" class="search" placeholder="Serial Number">
+        </div>
+    </div>
+</div>
+{% endblock %}

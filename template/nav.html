@@ -21,8 +21,8 @@
                 <ul class="nav-link">
                     <li><a href="/">Home</a></li>
                     <li><a href="/shop">Shop</a></li>
-                    <li><a href="#">about</a></li>
-                    <li><a href="#">support</a></li>
+                    <li><a href="/about">about</a></li>
+                    <li><a href="/support">support</a></li>
                 </ul>
             </div>
             <div>
@@ -91,9 +91,12 @@
             <h2 class="coala">COALA co.</h2>
             <ul class="nav-link">
                 <li><a href="/">Home</a></li>
+                {% if user_id %}
                 <li><a href="/dashboard">Dashboard</a></li>
-                <li><a href="#">about</a></li>
-                <li><a href="#">support</a></li>
+                {% else %}
+                {% endif %}
+                <li><a href="/about">about</a></li>
+                <li><a href="/support">support</a></li>
             </ul>
         </div>
         <div>

@@ -18,11 +18,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (products.length == 0) {
         product_message.innerHTML = "This shop have not product yet"
     }
+
+    // Test only
+
+    const product_name = ["T-shirt-1", "T-shirt-2", "T-shirt-3"]
+    const shop_img = ["/static/image/preview-product/green-shirt.jpg", "/static/image/preview-product/polyester-shirt.jpg" , "/static/image/preview-product/mint-shirt.jpg"]
+    const description = ["A classic and versatile wardrobe staple, this cotton T-shirt offers unbeatable comfort and breathability. Crafted from 100% natural cotton fibers, it provides a soft and smooth texture against the skin, making it ideal for everyday wear. Whether you're heading to the gym or just relaxing with friends, this cotton T-shirt will keep you cool and comfortable throughout the day.",
+                        "Designed for active individuals, this polyester performance T-shirt is engineered to wick away moisture and promote quick drying. The lightweight and durable fabric ensure a snug fit without restricting movement, making it perfect for sports and outdoor activities. Its moisture-wicking properties keep you dry and comfortable even during intense workouts or hot weather.",
+                        "ndulge in the luxurious softness of a modal T-shirt. Made from sustainably sourced beech tree pulp, modal fabric offers excellent draping and a silky-smooth texture. It is known for its ability to resist shrinking, fading, and pilling, ensuring your T-shirt remains in top-notch condition for a long time."]
+
+    // Test only
+
     
-    products.forEach(product => {
+    products.forEach((product, n) => {
         let product_template = `<div class="product" data-product-id=${product['id']}>
                 <div class="product-img-wrapper">
-                    <img src="/static/image/t-shirt.png" alt="T-shirt-preview">
+                    <img src="${shop_img[n]}" alt="T-shirt-preview">
                 </div>
                 <div class="product-desc">
                     <h1 class="product-name">${product['name']}</h1>

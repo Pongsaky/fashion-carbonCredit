@@ -127,3 +127,27 @@ orderBtn.addEventListener("click", async (event) => {
     })
 
 })
+
+// test only
+
+const product_name = ["T-shirt-1", "T-shirt-2", "T-shirt-3"]
+const shop_img = ["/static/image/preview-product/green-shirt.jpg", "/static/image/preview-product/polyester-shirt.jpg", "/static/image/preview-product/mint-shirt.jpg"]
+const description = ["A classic and versatile wardrobe staple, this cotton T-shirt offers unbeatable comfort and breathability. Crafted from 100% natural cotton fibers, it provides a soft and smooth texture against the skin, making it ideal for everyday wear. Whether you're heading to the gym or just relaxing with friends, this cotton T-shirt will keep you cool and comfortable throughout the day.",
+    "Designed for active individuals, this polyester performance T-shirt is engineered to wick away moisture and promote quick drying. The lightweight and durable fabric ensure a snug fit without restricting movement, making it perfect for sports and outdoor activities. Its moisture-wicking properties keep you dry and comfortable even during intense workouts or hot weather.",
+    "Indulge in the luxurious softness of a modal T-shirt. Made from sustainably sourced beech tree pulp, modal fabric offers excellent draping and a silky-smooth texture. It is known for its ability to resist shrinking, fading, and pilling, ensuring your T-shirt remains in top-notch condition for a long time."]
+
+const productName = document.querySelector(".product-name")
+const productPreivew = document.querySelector(".product-preview > img")
+const productAbout = document.querySelector(".product-about")
+
+console.log(productPreivew)
+console.log(productAbout)
+
+for (let i=1;i<4;i++) {
+    if (urlParams.get("product_id") == i) {
+        productName.innerText = product_name[i-1]
+        productPreivew.src = shop_img[i-1]
+        productAbout.innerText = description[i-1]
+    }
+}
+// test only

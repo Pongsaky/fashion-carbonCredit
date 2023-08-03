@@ -11,3 +11,4 @@ backend/routers/web/__pycache__/shop.cpython-37.pyc
 test.html
 test.css
 test.js
+backend/.env

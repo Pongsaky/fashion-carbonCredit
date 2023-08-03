@@ -167,14 +167,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Change total product and total price
 
-    cartArea.querySelectorAll(".amount-group").forEach(amountDiv => {
-        const amount = parseInt(amountDiv.querySelector("input").value);
-
+    cartArea.querySelectorAll(".amount").forEach(amountDiv => {
+        let total_price = 0;
+        let total_item = 0;
         const productInCart = amountDiv.closest(".product-in-cart")
-        const price = productInCart.querySelector(".price").innerText
-        let total_price = parseInt(price.split(" ")[0]) * amount
 
-        productInCart.innerHTML = productInCart.innerHTML.replace("%total-product", amount).replace("%total-price", total_price)
+        amountDiv.querySelectorAll(".amount-per-size").forEach((amountPerSize) => {
+            const amount = parseInt(amountPerSize.querySelector("input").value);
+            const price = productInCart.querySelector(".price > span").innerText
+
+            total_item += amount
+            total_price += parseInt(price.split(" ")[0]) * amount
+        })
+        
+
+        productInCart.innerHTML = productInCart.innerHTML.replace("%total-product", total_item).replace("%total-price", total_price)
     })
 
     document.getElementById("cart").addEventListener("click", (event) => {
@@ -222,8 +229,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                 let totalProduct = productInCart.querySelector(".total-product > span")
                 let totalPrice = productInCart.querySelector(".total-price > span")
 
-                totalProduct.innerText = amount.value
-                totalPrice.innerHTML = amount.value * parseInt(pricePerItem.innerText)
+                let current_price = parseInt(totalPrice.innerText)
+                let current_item = parseInt(totalProduct.innerText)
+
+                totalProduct.innerText = current_item + 1
+                totalPrice.innerHTML = current_price + parseInt(pricePerItem.innerText)
 
                 // console.log((productInCart.querySelector("input[type='checkbox']")).checked == 1)
                 if ((productInCart.querySelector("input[type='checkbox']")).checked == 1) {
@@ -244,8 +254,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                 let totalProduct = productInCart.querySelector(".total-product > span")
                 let totalPrice = productInCart.querySelector(".total-price > span")
 
-                totalProduct.innerText = amount.value
-                totalPrice.innerHTML = amount.value * parseInt(pricePerItem.innerText)
+                let current_price = parseInt(totalPrice.innerText)
+                let current_item = parseInt(totalProduct.innerText)
+
+                totalProduct.innerText = current_item - 1
+                totalPrice.innerHTML = current_price - parseInt(pricePerItem.innerText)
 
                 if ((productInCart.querySelector("input[type='checkbox']")).checked == 1) {
                     allItems -= 1

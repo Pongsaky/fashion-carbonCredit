@@ -217,16 +217,21 @@ if (isShop==0) {
             const orderDiv = document.createElement("div")
             orderDiv.classList.add("order-history")
 
+            const orderHeader = document.createElement("div")
+            orderHeader.classList.add("order-history-header")
+
             const orderNum = document.createElement("h2")
             orderNum.innerHTML = `Order #${n+1}`
-            orderDiv.appendChild(orderNum)
+            orderHeader.appendChild(orderNum)
 
             // Receipt button
             const receiptBtn = document.createElement("button")
             receiptBtn.classList.add("receipt-btn")
             receiptBtn.innerText = "Receipt"
             receiptBtn.onclick = getReceipt
-            orderDiv.appendChild(receiptBtn)
+            orderHeader.appendChild(receiptBtn)
+
+            orderDiv.appendChild(orderHeader)
 
             // console.log(hisPurchase)
             console.log(JSON.parse(hisPurchase['data']))
@@ -295,14 +300,21 @@ if (isShop==0) {
 
                 cartGroup.innerHTML = HTML_render
 
-                cartGroup.querySelectorAll(".amount-group").forEach(amountDiv => {
-                    const amount = parseInt(amountDiv.querySelector("input").value);
-
+                cartGroup.querySelectorAll(".amount").forEach(amountDiv => {
+                    let total_price = 0;
+                    let total_item = 0;
                     const productInCart = amountDiv.closest(".product-in-cart")
-                    const price = productInCart.querySelector(".price > span").innerText
-                    let total_price = parseInt(price.split(" ")[0]) * amount
 
-                    productInCart.innerHTML = productInCart.innerHTML.replace("%total-product", amount).replace("%total-price", total_price)
+                    amountDiv.querySelectorAll(".amount-per-size").forEach((amountPerSize) => {
+                        const amount = parseInt(amountPerSize.querySelector("input").value);
+                        const price = productInCart.querySelector(".price > span").innerText
+
+                        total_item += amount
+                        total_price += parseInt(price.split(" ")[0]) * amount
+                    })
+
+
+                    productInCart.innerHTML = productInCart.innerHTML.replace("%total-product", total_item).replace("%total-price", total_price)
                 })
 
                 orderDiv.appendChild(cartGroup)
@@ -357,7 +369,7 @@ if (isShop==0) {
             "lastname": lastname,
             "user_image": user_image
         }
-        console.log(JSON.stringify(data))
+        // console.log(JSON.stringify(data))
 
         // Make a POST request to the /login endpoint
         const response = fetch(`/user/${user_id}`, {

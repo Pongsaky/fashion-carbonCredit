@@ -483,3 +483,11 @@ button:not(:has(i)) {
     }
 
 }
+
+.order-history-header {
+    display: flex;
+
+    & h2, button {
+        margin: 30px;
+    }
+}

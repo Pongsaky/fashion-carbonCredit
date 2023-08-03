@@ -246,8 +246,16 @@ function purchase(productSelected) {
             })
             // Insert checkoutDB
 
-            fetch('/checkout', {
-                method: "POST", 
+            console.log(JSON.stringify({
+                    user_id : user_id,
+                    data: productSelected
+                }))
+
+            fetch('/checkout/', {
+                method: "POST",
+                headers : {
+                    "Content-type" : "application/json"
+                },
                 body: JSON.stringify({
                     user_id : user_id,
                     data: productSelected

@@ -2,3 +2,6 @@ fastapi==0.97.0
 mysql-connector-python
 uvicorn[standard]
 google-cloud-storage
+python-multipart
+jinja2
+starlette-session

@@ -208,10 +208,15 @@ if (isShop==0) {
 
         console.log(historyPurchases)
 
-        historyPurchases.forEach(async (hisPurchase) => {
+        historyPurchases.forEach(async (hisPurchase, n) => {
 
             const orderDiv = document.createElement("div")
             orderDiv.classList.add("order-history")
+
+            const orderNum = document.createElement("h2")
+            orderNum.innerHTML = `Order #${n+1}`
+
+            orderDiv.appendChild(orderNum)
 
             console.log(hisPurchase)
             console.log(JSON.parse(hisPurchase['data']))
@@ -247,7 +252,7 @@ if (isShop==0) {
 
                 checkouts.forEach((checkout) => {
 
-                    console.log(checkout)
+                    // console.log(checkout)
 
                     if (index !== checkout['shop_id']) {
 
@@ -278,8 +283,18 @@ if (isShop==0) {
 
                 })
 
-
                 cartGroup.innerHTML = HTML_render
+
+                cartGroup.querySelectorAll(".amount-group").forEach(amountDiv => {
+                    const amount = parseInt(amountDiv.querySelector("input").value);
+
+                    const productInCart = amountDiv.closest(".product-in-cart")
+                    const price = productInCart.querySelector(".price > span").innerText
+                    let total_price = parseInt(price.split(" ")[0]) * amount
+
+                    productInCart.innerHTML = productInCart.innerHTML.replace("%total-product", amount).replace("%total-price", total_price)
+                })
+
                 orderDiv.appendChild(cartGroup)
             })
 

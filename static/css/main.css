@@ -1,20 +1,23 @@
 .slide-show-wrapper {
     position: relative;
     width: 100%;
-    height: 90vh;
-    padding: 15%;
+    height: calc(100vh - 72.4px);
+    /* padding: 5%; */
+    /* aspect-ratio: 16/9; */
     display: flex;
     justify-content: center;
     align-items: center;
-    /* background-color: #eee; */
+    /* background-color: rgba(0,0,0,0.7); */
 }
 
 .swiper {
-    width: 80%;
+    width: 100%;
+    height: 100%;
 }
 
 .swiper-slide img {
     width: 100%;
+    /* object-fit: cover; */
 }
 
 .swiper .swiper-button-prev,

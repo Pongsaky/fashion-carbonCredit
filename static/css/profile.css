@@ -164,7 +164,7 @@ table.account-data {
     padding: 10px 20px;
 }
 
-button {
+button:not(:has(i)) {
     color: #fff;
     background-color: #000;
     font-size: 18px;

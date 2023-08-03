@@ -160,6 +160,10 @@ editProfileBtn.addEventListener("click", () => {
 var user_id = document.getElementById("user_id_placeholder").dataset.userId;
 var isShop = document.getElementById("is_shop_placeholder").dataset.isShop;
 
+function getReceipt() {
+    window.location.href = "/receipt"
+}
+
 if (isShop==0) {
     // User profile
 
@@ -215,10 +219,16 @@ if (isShop==0) {
 
             const orderNum = document.createElement("h2")
             orderNum.innerHTML = `Order #${n+1}`
-
             orderDiv.appendChild(orderNum)
 
-            console.log(hisPurchase)
+            // Receipt button
+            const receiptBtn = document.createElement("button")
+            receiptBtn.classList.add("receipt-btn")
+            receiptBtn.innerText = "Receipt"
+            receiptBtn.onclick = getReceipt
+            orderDiv.appendChild(receiptBtn)
+
+            // console.log(hisPurchase)
             console.log(JSON.parse(hisPurchase['data']))
 
             Object.entries(JSON.parse(hisPurchase['data'])).forEach(async (entry) => {

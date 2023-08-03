@@ -9,7 +9,7 @@ from backend.routers.db import (productDB, user, shopDB, order, review,
 from backend.routers.web import (edit_profile, sign_in_up, main, select_chat_shop, 
                                  chat, select_chat_user, logout, select_product, 
                                  set_isShop, shop, product, cart, profile, dashboard,
-                                 checkout)
+                                 checkout, receipt)
 
 from starlette.middleware.sessions import SessionMiddleware
 from typing import List, Dict
@@ -57,6 +57,7 @@ app.include_router(cart.router)
 app.include_router(profile.router)
 app.include_router(dashboard.router)
 app.include_router(checkout.router)
+app.include_router(receipt.router)
 
 # Track active WebSocket connections
 active_connections: Dict[str, WebSocket] = {}

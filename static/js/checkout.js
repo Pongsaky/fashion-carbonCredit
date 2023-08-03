@@ -172,19 +172,28 @@ function fetchSelectedProduct(productSelected) {
 
             // Change total product and total price
 
-            cartArea.querySelectorAll(".amount-group").forEach(amountDiv => {
-                const amount = parseInt(amountDiv.querySelector("input").value);
-
+            cartArea.querySelectorAll(".amount").forEach(amountDiv => {
+                let total_price = 0;
+                let total_item = 0;
                 const productInCart = amountDiv.closest(".product-in-cart")
-                const price = productInCart.querySelector(".price").innerText
-                let total_price = parseInt(price.split(" ")[0]) * amount
+                console.log(amountDiv)
+                console.log(productInCart)
 
-                productInCart.innerHTML = productInCart.innerHTML.replace("%total-product", amount).replace("%total-price", total_price)
+                amountDiv.querySelectorAll(".amount-per-size").forEach((amountPerSize) => {
+                    const amount = parseInt(amountPerSize.querySelector("input").value);
+                    const price = productInCart.querySelector(".price > span").innerText
+
+                    total_item += amount
+                    total_price += parseInt(price.split(" ")[0]) * amount
+                })
+
+
+                productInCart.innerHTML = productInCart.innerHTML.replace("%total-product", total_item).replace("%total-price", total_price)
             })
             
         }) 
 
-        document.getElementById("cart").addEventListener("click", (event) => {
+        document.getElementById("cart").addEventListener("mouseover", (event) => {
                 // console.log("HEELL")
                 const target = event.target;
 

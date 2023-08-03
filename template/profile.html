@@ -24,8 +24,13 @@ Profile
             </div>
             <ul class="profile-list">
                 <li class="select-list current-list">My Account</li>
-                <li class="select-list">Add Profile</li>
+                <!-- <li class="select-list">Add Profile</li> -->
+                {% if isShop==0%}
                 <li class="select-list">Purchase History</li>
+                {% else %}
+
+                {% endif %}
+
             </ul>
         </div>
         <!-- Aside -->
@@ -102,7 +107,8 @@ Profile
 
 
             <!-- Purchase history -->
-            <div class="purchase-history">
+            <div class="purchase-history" id="purchase-history">
+
                 <div class="status-btn-group">
                     <button type="button" class="status-btn current-status">All</button>
                     <button type="button" class="status-btn">To Pay</button>
@@ -110,99 +116,99 @@ Profile
                     <button type="button" class="status-btn">Cancelled</button>
                 </div>
 
-
                 <!-- Status order -->
-                <div class="status-order-group">
-                    <!-- Cart group -->
-                    <div class="cart-group">
+                <div class="status-order-group" id="status-order-group">
+                    <!-- order-history -->
 
-                        <div class="shop-header">
+                    <div class="order-history">
+                        <h2>order #1</h2>
 
-                            <h2 class="shop-name">ToodDum Shop</h2>
+                        <!-- Cart group -->
+                        <div class="cart-group">
+                        
+                            <div class="shop-header">
+                        
+                                <h2 class="shop-name">ToodDum Shop</h2>
+                            </div>
+                        
+                            <div class="product-in-cart cart-table-row">
+                        
+                                <div class="product-detail">
+                                    <div class="product-img-wrapper">
+                                        <img src="/static/image/t-shirt.png" alt="product-image">
+                                    </div>
+                                    <div class="product-desc">
+                                        <h1 class="product-name">Product Name</h1>
+                                    </div>
+                                </div>
+                        
+                                <div class="amount">
+                                    <div class="amount-per-size">
+                                        <span class="size">XS</span>
+                                        <div class="amount-group">
+                                            <input type="number" name="xs-amount" id="xs-amount" class="amount-number-input" value="1" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="amount-per-size">
+                                        <span class="size">S</span>
+                                        <div class="amount-group">
+                                            <input type="number" name="xs-amount" id="s-amount" class="amount-number-input" value="1" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="amount-per-size">
+                                        <span class="size">M</span>
+                                        <div class="amount-group">
+                                            <input type="number" name="m-amount" id="s-amount" class="amount-number-input" value="1" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="conclude">
+                                    <h5 class="total-product"><span>100</span> Item</h5>
+                                    <h5 class="total-price"><span>4,250</span> THB</h5>
+                                </div>
+                            </div>
+                        
+                            <div class="product-in-cart cart-table-row">
+                        
+                                <div class="product-detail">
+                                    <div class="product-img-wrapper">
+                                        <img src="/static/image/t-shirt.png" alt="product-image">
+                                    </div>
+                                    <div class="product-desc">
+                                        <h1 class="product-name">Product Name</h1>
+                        
+                                    </div>
+                                </div>
+                        
+                                <div class="amount">
+                                    <div class="amount-per-size">
+                                        <span class="size">XS</span>
+                                        <div class="amount-group">
+                                            <input type="number" name="xs-amount" id="xs-amount" class="amount-number-input" value="1" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="amount-per-size">
+                                        <span class="size">S</span>
+                                        <div class="amount-group">
+                                            <input type="number" name="xs-amount" id="s-amount" class="amount-number-input" value="1" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="amount-per-size">
+                                        <span class="size">M</span>
+                                        <div class="amount-group">
+                                            <input type="number" name="m-amount" id="s-amount" class="amount-number-input" value="1" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="conclude">
+                                    <h5 class="total-product"><span>100</span> Item</h5>
+                                    <h5 class="total-price"><span>4,250</span> THB</h5>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="product-in-cart cart-table-row">
-
-                            <div class="product-detail">
-                                <div class="product-img-wrapper">
-                                    <img src="/static/image/t-shirt.png" alt="product-image">
-                                </div>
-                                <div class="product-desc">
-                                    <h1 class="product-name">Product Name</h1>
-                                </div>
-                            </div>
-
-                            <div class="amount">
-                                <div class="amount-per-size">
-                                    <span class="size">XS</span>
-                                    <div class="amount-group">
-                                        <input type="number" name="xs-amount" id="xs-amount" class="amount-number-input"
-                                            value="1" readonly>
-                                    </div>
-                                </div>
-                                <div class="amount-per-size">
-                                    <span class="size">S</span>
-                                    <div class="amount-group">
-                                        <input type="number" name="xs-amount" id="s-amount" class="amount-number-input"
-                                            value="1" readonly>
-                                    </div>
-                                </div>
-                                <div class="amount-per-size">
-                                    <span class="size">M</span>
-                                    <div class="amount-group">
-                                        <input type="number" name="m-amount" id="s-amount" class="amount-number-input"
-                                            value="1" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conclude">
-                                <h5 class="total-product"><span>100</span> Item</h5>
-                                <h5 class="total-price"><span>4,250</span> THB</h5>
-                            </div>
-                        </div>
-
-                        <div class="product-in-cart cart-table-row">
-
-                            <div class="product-detail">
-                                <div class="product-img-wrapper">
-                                    <img src="/static/image/t-shirt.png" alt="product-image">
-                                </div>
-                                <div class="product-desc">
-                                    <h1 class="product-name">Product Name</h1>
-
-                                </div>
-                            </div>
-
-                            <div class="amount">
-                                <div class="amount-per-size">
-                                    <span class="size">XS</span>
-                                    <div class="amount-group">
-                                        <input type="number" name="xs-amount" id="xs-amount" class="amount-number-input"
-                                            value="1" readonly>
-                                    </div>
-                                </div>
-                                <div class="amount-per-size">
-                                    <span class="size">S</span>
-                                    <div class="amount-group">
-                                        <input type="number" name="xs-amount" id="s-amount" class="amount-number-input"
-                                            value="1" readonly>
-                                    </div>
-                                </div>
-                                <div class="amount-per-size">
-                                    <span class="size">M</span>
-                                    <div class="amount-group">
-                                        <input type="number" name="m-amount" id="s-amount" class="amount-number-input"
-                                            value="1" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conclude">
-                                <h5 class="total-product"><span>100</span> Item</h5>
-                                <h5 class="total-price"><span>4,250</span> THB</h5>
-                            </div>
-                        </div>
+                        <!-- Cart group -->
                     </div>
-                    <!-- Cart group -->
+                    <!-- order-history -->
                 </div>
                 <!-- Status order -->
             </div>

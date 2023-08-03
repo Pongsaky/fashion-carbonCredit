@@ -234,9 +234,11 @@ button {
     }
 }
 
-.purchase-hostory {
+.purchase-history {
     position: relative;
     display: none;
+    height: 100%;
+    overflow-y: scroll;
 
     &.current-content {
         display: block;

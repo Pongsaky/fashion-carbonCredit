@@ -234,9 +234,11 @@ button {
     }
 }
 
-.purchase-hostory {
+.purchase-history {
     position: relative;
     display: none;
+    height: 100%;
+    overflow-y: scroll;
 
     &.current-content {
         display: block;
@@ -462,4 +464,22 @@ button {
 
 .hidden {
     display: none;
+}
+
+.category-group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 10px;
+
+    & span.category {
+        font-size: 10px;
+        font-weight: 700px;
+        padding: 8px 12px;
+        color: #fff;
+        background-color: #000;
+        border-radius: 12px;
+    }
+
 }

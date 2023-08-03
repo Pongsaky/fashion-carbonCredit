@@ -5,19 +5,19 @@ import json
 
 load_dotenv()
 
-# mydb = mysql.connector.connect(
-#         host=os.getenv("host"),
-#         user=os.getenv("user"),
-#         password=os.getenv("password"),
-#         database=os.getenv("database")
-#     )
-
 mydb = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="Pongsakon_123",
-        database="fashion_carboncredit"
+        host=os.getenv("host"),
+        user=os.getenv("user"),
+        password=os.getenv("password"),
+        database=os.getenv("database")
     )
+
+# mydb = mysql.connector.connect(
+#         host="localhost",
+#         user="root",
+#         password="Pongsakon_123",
+#         database="fashion_carboncredit"
+#     )
 
 class userDB:
     def __init__(self):
@@ -612,3 +612,23 @@ class serviceAPI:
             result.append(obj)
     
         return result
+
+    def fetch_historyPurchase(self, user_id:int):
+        result = []
+
+        sql = f"""SELECT * FROM checkouts
+                WHERE checkouts.user_id ={user_id}
+                ORDER BY checkouts.created_at DESC;"""
+        self.mycursor.execute(sql)
+        column = ["id", "user_id", "data"]
+        row = self.mycursor.fetchall()
+
+        for row_i in row:
+            obj = {}
+            for idx, col in enumerate(column):
+                obj[col] = row_i[idx]
+
+            result.append(obj)
+    
+        return result
+

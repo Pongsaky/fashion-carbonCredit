@@ -612,3 +612,23 @@ class serviceAPI:
             result.append(obj)
     
         return result
+
+    def fetch_historyPurchase(self, user_id:int):
+        result = []
+
+        sql = f"""SELECT * FROM checkouts
+                WHERE checkouts.user_id ={user_id}
+                ORDER BY checkouts.created_at DESC;"""
+        self.mycursor.execute(sql)
+        column = ["id", "user_id", "data"]
+        row = self.mycursor.fetchall()
+
+        for row_i in row:
+            obj = {}
+            for idx, col in enumerate(column):
+                obj[col] = row_i[idx]
+
+            result.append(obj)
+    
+        return result
+

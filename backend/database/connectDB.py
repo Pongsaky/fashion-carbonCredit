@@ -153,10 +153,11 @@ class productDB:
             result[column[idx]] = r
         return result
 
-    def insert(self, shop_id:int, name:str, product_type:str, product_property:dict, description:str, product_image:str):
+    def insert(self, shop_id:int, name:str, product_type:str, product_property:dict, description:str, product_image:dict):
         product_property = json.dumps(product_property)
         product_image = json.dumps(product_image)
         sql = f"INSERT INTO `products` (`shop_id`, `name`, `type`, `property`, `description`, `product_image`) VALUES ('{shop_id}', '{name}', '{product_type}', '{product_property}', '{description}', '{product_image}');"
+        print(sql)
         self.mycursor.execute(sql)
         self.mydb.commit()
         return {"msg": "ProductDB INSERT sucessfully"}

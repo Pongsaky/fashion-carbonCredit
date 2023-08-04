@@ -1,0 +1,138 @@
+{% extends "nav.html" %}
+
+{% block title %}
+Shop add T-Shirt
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="/static/css/add_product.css">
+
+<div class="container">
+    <div class="shop-select">
+        <div class="shirt-preview">
+            <img id="product-image" src="https://storage.googleapis.com/carboncredit/coalla_logo.png" alt="T-shirt-Preview">
+            <div class="overlay">
+                <span id="upload-text">Upload Image</span>
+            </div>
+        </div>
+        <div class="shirt-option">
+            <form id="add-product-form" action="/add_product" method="POST">
+                <div class="name-input-group">
+                    <input type="text" class="product-name" name="product-name" placeholder=" ">
+                    <label class="product-name-label" for="product-name">Product Name</label>
+                </div>
+                <!-- Size -->
+                <div class="input-row-group">
+                    <span class="option-name">Size:</span>
+                    <div class="checkbox-group">
+                        <input type="checkbox" name="size" value="XS" id="size-XS">
+                        <label for="size-XS" class="checkbox-label">XS</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" name="size" value="S" id="size-S">
+                        <label for="size-S" class="checkbox-label">S</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" name="size" value="M" id="size-M">
+                        <label for="size-M" class="checkbox-label">M</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" name="size" value="L" id="size-L">
+                        <label for="size-L" class="checkbox-label">L</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" name="size" value="XL" id="size-XL">
+                        <label for="size-XL" class="checkbox-label">XL</label>
+                    </div>
+                </div>
+                <!-- Color -->
+                <div class="input-row-group">
+                    <span class="option-name">Color:</span>
+                    <div class="checkbox-group">
+                        <input type="checkbox" name="color" value="S" id="color-Red">
+                        <label for="color-Red" class="checkbox-label">Red</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" name="color" value="M" id="color-Green">
+                        <label for="color-Green" class="checkbox-label">Green</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" name="color" value="L" id="color-Blue">
+                        <label for="color-Blue" class="checkbox-label">Blue</label>
+                    </div>
+                </div>
+                <!-- Fabric -->
+                <div class="input-row-group">
+                    <span class="option-name">Fabric:</span>
+                    <div class="checkbox-group">
+                        <input type="checkbox" name="fabric" value="Cotton" id="fabric-Cotton">
+                        <label for="fabric-Cotton" class="checkbox-label">Cotton</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" name="fabric" value="Polyester" id="fabric-Polyester">
+                        <label for="fabric-Polyester" class="checkbox-label">Polyester</label>
+                    </div>
+                </div>
+                <!-- Neckline -->
+                <div class="input-row-group">
+                    <span class="option-name">Neckline:</span>
+                    <div class="checkbox-group">
+                        <input type="checkbox" name="neckline" value="Crew-neck" id="neckline-Crew">
+                        <label for="neckline-Crew" class="checkbox-label">Crew neck</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" name="neckline" value="V-neck" id="neckline-V">
+                        <label for="neckline-V" class="checkbox-label">V-neck</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" name="neckline" value="Scoop-neck" id="neckline-Scoop">
+                        <label for="neckline-Scoop" class="checkbox-label">Scoop neck</label>
+                    </div>
+                </div>
+                <!-- Sleeve length -->
+                <div class="input-row-group">
+                    <span class="option-name">Sleeve length:</span>
+                    <div class="checkbox-group">
+                        <input type="checkbox" name="sleeve" value="Sleeveless" id="sleeve-Less">
+                        <label for="sleeve-Less" class="checkbox-label">Sleeveless</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" name="sleeve" value="Short-sleeves" id="sleeve-Short">
+                        <label for="sleeve-Short" class="checkbox-label">Short sleeves</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" name="sleeve" value="Long-sleeves" id="sleeve-Long">
+                        <label for="sleeve-Long" class="checkbox-label">Long sleeves</label>
+                    </div>
+                </div>
+                <!-- Fit -->
+                <div class="input-row-group">
+                    <span class="option-name">Fit:</span>
+                    <div class="checkbox-group">
+                        <input type="checkbox" name="fit" value="Slim-fit" id="fit-Slim">
+                        <label for="fit-Slim" class="checkbox-label">Slim fit</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" name="fit" value="Regular-fit" id="fit-Regular">
+                        <label for="fit-Regular" class="checkbox-label">Regular fit</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" name="fit" value="Long-sleeves" id="fit-Long">
+                        <label for="fit-Long" class="checkbox-label">Oversized</label>
+                    </div>
+                </div>
+                <!-- Buy & Cart -->
+                <div class="input-row-group preview">
+                    <button type="button" id="add-product-btn">Add product</button>
+                </div>
+            </form>
+
+            <!-- Hidden file input for image upload -->
+            <input type="file" id="profile-image-upload" accept="image/*" style="display: none;">
+
+        </div>
+    </div>
+</div>
+
+<script src="/static/js/add_product.js"></script>
+{% endblock %}

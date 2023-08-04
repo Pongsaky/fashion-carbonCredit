@@ -1,0 +1,21 @@
+{% extends "nav.html" %}
+
+{% block title %}
+Store
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="/static/css/store.css">
+
+<div class="container">
+    <div id="product-group">
+        <div class="dialogue">
+            Add Product Successfully!
+        </div>
+    </div>
+</div>
+<div id="product-message"></div>
+<button type="button" id="add-product-btn">+ Add product</button>
+
+<script src="/static/js/store.js"></script>
+{% endblock %}

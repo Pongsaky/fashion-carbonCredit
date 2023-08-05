@@ -125,7 +125,7 @@ if (isShop == 0) {
             body: JSON.stringify(data)
         }).then((res) => {
             if (res.ok) {
-                window.location.href = `/product?product_id=${urlParams.get("product_id")}`
+                window.location.href = `/product?product_id=${urlParams.get("product_id")}&success=1`
             }
         })
 
@@ -242,6 +242,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
         sizeAmountBody.appendChild(sizeAmountRow)
     }
-    
-
 })
+
+if (urlParams.get("success") == 1) {
+    document.querySelector(".dialogue").classList.add("success")
+}

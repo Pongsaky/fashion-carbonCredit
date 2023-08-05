@@ -98,6 +98,8 @@ class Product_type(BaseModel):
 class Checkout(BaseModel):
     user_id : int
     data : dict
+    product_price : int
+    cc_price : int
 
 class OrderUpdate(BaseModel):
     orderList: list

@@ -18,7 +18,7 @@ function fetchSelectedProduct(productSelected) {
                         $category-group
                         
                         <div class="net-zero-check">
-                            <input type="checkbox" name="net-zero" class="net-zero" checked=%neutral_mark disabled>
+                            <input type="checkbox" name="net-zero" class="net-zero" %neutral_mark disabled>
                             <label for="net-zero" class="net-zero-label">Net-Zero</label>
                         </div>
                     </div>
@@ -48,7 +48,7 @@ function fetchSelectedProduct(productSelected) {
             .replace('%shop_id', shop_id)
             .replace("%product_image", product_image)
             .replace("%product_name", product_name)
-            .replace("%neutral_mark", neutral_mark)
+            .replace("%neutral_mark", (neutral_mark == 1) ? "checked" : "")
             .replace("$category-group", categoryHTML)
             .replace("$amount-size", sizeHTML)
     }
@@ -226,6 +226,8 @@ function fetchSelectedProduct(productSelected) {
 function purchase(productSelected) {
     const purchaseBtn = document.getElementById("purchase-btn");
     var user_id = document.getElementById("user_id_placeholder").dataset.userId;
+    let product_price = parseInt(document.querySelector(".product-price > span").innerText)
+    let cc_price = parseInt(document.querySelector(".cc-support > span").innerText)
 
     purchaseBtn.addEventListener("click", async () => {
         Object.entries(productSelected).forEach(async (entry) => {
@@ -246,10 +248,12 @@ function purchase(productSelected) {
             })
             // Insert checkoutDB
 
-            console.log(JSON.stringify({
-                    user_id : user_id,
-                    data: productSelected
-                }))
+            // console.log(JSON.stringify({
+            //         user_id : user_id,
+            //         data: productSelected,
+            //         product_price : product_price,
+            //         cc_price: cc_price
+            //     }))
 
             fetch('/checkout/', {
                 method: "POST",
@@ -258,7 +262,9 @@ function purchase(productSelected) {
                 },
                 body: JSON.stringify({
                     user_id : user_id,
-                    data: productSelected
+                    data: productSelected,
+                    product_price: product_price,
+                    cc_price: cc_price
                 })
             }).then((res) => {
                 if (res.ok) window.location.href = "/"

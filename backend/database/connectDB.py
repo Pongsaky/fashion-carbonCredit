@@ -412,19 +412,19 @@ class checkoutDB:
         result = {}
         sql = f"""SELECT * FROM `checkouts` LIMIT {limit}"""
         self.mycursor.execute(sql)
-        column = ["id", "user_id", "data"]
+        column = ["id", "user_id", "data", "product_price", "cc_price"]
         row = self.mycursor.fetchall()
 
         for row_i in row:
             for idx, r in enumerate(row_i[:-1]):
-                result[row_i[0]] = {column[1]: row_i[1], column[2]: row_i[2]}
+                result[row_i[0]] = {column[1]: row_i[1], column[2]: row_i[2], column[3]: row_i[3], column[4]: row_i[4]}
         return result
 
     def select_one(self, id: int):
         result = {}
         sql = f"""SELECT * FROM `checkouts` WHERE checkouts.id={id}"""
         self.mycursor.execute(sql)
-        column = ["id", "user_id", "data"]
+        column = ["id", "user_id", "data", "product_price", "cc_price"]
         row = self.mycursor.fetchone()
         if row == None:
             return {"msg": f"Not found user_id = {id}"}
@@ -433,16 +433,16 @@ class checkoutDB:
             result[column[idx]] = r
         return result
 
-    def insert(self, user_id:int, data:dict):
+    def insert(self, user_id:int, data:dict, product_price:int, cc_price:int):
         data = json.dumps(data)
-        sql = f"INSERT INTO `checkouts` (`user_id`, `data`) VALUES ('{user_id}', '{data}');"
+        sql = f"INSERT INTO `checkouts` (`user_id`, `data`, `product_price`, `cc_price`) VALUES ('{user_id}', '{data}', '{product_price}', '{cc_price}');"
         self.mycursor.execute(sql)
         self.mydb.commit()
         return {"msg": "checkoutDB INSERT SUCESSFULLY"}
 
-    def update(self, id: int, user_id:int, data:dict):
+    def update(self, id: int, user_id:int, data:dict, product_price:int, cc_price:int):
         data = json.dumps(data)
-        sql = f"""UPDATE `checkouts` SET `user_id`='{user_id}', `data`='{data}'
+        sql = f"""UPDATE `checkouts` SET `user_id`='{user_id}', `data`='{data}', `product_price`='{product_price}', `cc_price`='{cc_price}'
                 WHERE `id`={id};"""
 
         self.mycursor.execute(sql)

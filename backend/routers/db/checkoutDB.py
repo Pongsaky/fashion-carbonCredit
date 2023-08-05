@@ -23,12 +23,12 @@ async def read_data(id:int):
 
 @router.post("/", tags=["type"])
 async def insert_data(checkout : Checkout):
-    res =  checkoutDB().insert(user_id=checkout.user_id, data=checkout.data)
+    res =  checkoutDB().insert(user_id=checkout.user_id, data=checkout.data, product_price=checkout.product_price, cc_price=checkout.cc_price)
     return res
 
 @router.put("/{id}", tags=["type"])
 async def update_data(id :int, checkout : Checkout):
-    res =  checkoutDB().update(id=id, user_id=checkout.user_id, data=checkout.data)
+    res =  checkoutDB().update(id=id, user_id=checkout.user_id, data=checkout.data, product_price=checkout.product_price, cc_price=checkout.cc_price)
     return res
 
 @router.delete("/{id}", tags=["type"])

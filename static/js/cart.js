@@ -24,7 +24,7 @@ const orderProduct_template = `<div class="product-in-cart cart-table-row" data-
                         $category-group
                         
                         <div class="net-zero-check">
-                            <input type="checkbox" name="net-zero" class="net-zero" checked=%neutral_mark>
+                            <input type="checkbox" name="net-zero" class="net-zero" %neurtal_mark>
                             <label for="net-zero" class="net-zero-label">Net-Zero</label>
                         </div>
                     </div>
@@ -54,7 +54,7 @@ function getOrderProductHTML(order_id, shop_id, product_name, product_image, neu
                                 .replace('%shop_id', shop_id)
                                 .replace("%product_image", product_image)
                                 .replace("%product_name", product_name)
-                                .replace("%neutral_mark", neutral_mark)
+                                .replace("%neutral_mark", (neutral_mark == 1) ? "checked" : "")
                                 .replace("$category-group", categoryHTML)
                                 .replace("$amount-size", sizeHTML)
 }
@@ -71,20 +71,24 @@ function getCategoryHTML(select_property, property_template) {
 
         // Encode from select_property to Text for category
         // console.log(property_template[key][value])
-        childCategory.innerHTML = property_template[key][value]
-        categoryGroup.appendChild(childCategory)
+
+        if (property_template[key][value] != undefined){
+            childCategory.innerHTML = property_template[key][value]
+            categoryGroup.appendChild(childCategory)
+        }
     })
     // return Category HTML and replace it
     return categoryGroup.outerHTML
 }
 
 function getSizeHTML(select_property) {
-    // console.log(select_property)
+    console.log(select_property)
     const amountDiv = document.createElement("div");
     amountDiv.classList.add("amount")
 
     Object.entries(select_property['size']).forEach(entry => {
         const [size, size_amount] = entry;
+        console.log(size, size_amount)
         if (size_amount > 0) {
             // console.log(key, value)
             const sizeDiv = document.createElement("div");
@@ -132,7 +136,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     orders.forEach((order) => {
 
-        // console.log(order)
+        console.log(order)
 
         if (index !== order['shop_id']) {
 

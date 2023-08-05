@@ -72,7 +72,7 @@ if (isShop == 0) {
         })
         console.log(formDataObj)
 
-        const sizeOptions = ['xs', 's', "m", "l", "xl"]
+        const sizeOptions = ['XS', 'S', "M", "L", "XL"]
         const col_name = ['fabric', "fit", "neckline", "sleeve"]
 
         const response = await fetch("/type/1", { method: "GET" })
@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     inputRowGroup.forEach((inputGroupDiv, idx) => {
 
         let col = columns[idx]
-        console.log("Col name ", col)
+        // console.log("Col name ", col)
         // console.log(JSON.parse(propertyTemplate['property'])[col])
         let property = JSON.parse(product['property'])
         // console.log(property)
@@ -219,7 +219,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const sizeTemplate = ["XS", "S", "M", "L", "XL"]
     const productSizeProperty = JSON.parse(product['property'])['size']
     const sizeAmountBody = document.querySelector(".size-amount-body")
-    console.log(productSizeProperty)
+    // console.log(productSizeProperty)
 
     const sizeHTMLTemplate = `  <td>
                                 <div class="size">$size</div>

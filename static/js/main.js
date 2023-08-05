@@ -2,7 +2,7 @@ const swiper = new Swiper('.swiper', {
     // Optional parameters
     loop: true,
     autoplay: {
-        delay: 3000,
+        delay: 7000,
         disableOnInteraction: false
     },
 

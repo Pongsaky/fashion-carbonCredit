@@ -197,17 +197,17 @@ function fetchSelectedProduct(productSelected) {
                 productInCart.innerHTML = productInCart.innerHTML.replace("%total-product", total_item).replace("%total-price", total_price)
             })
             
-            console.log(total_all_item)
-            console.log(total_product_price)
-            console.log(total_cc_price)
+            // console.log(total_all_item)
+            // console.log(total_product_price)
+            // console.log(total_cc_price)
 
             // Update footer price
 
             const footer = document.querySelector(".footer")
-            cc_price = total_all_item * 0.2
+            total_cc_price = total_all_item * 0.2
             footer.querySelector(".product-price > span").innerText = total_product_price
-            footer.querySelector(".cc-support > span").innerText = cc_price
-            footer.querySelector(".total-order > span").innerText = total_product_price + cc_price
+            footer.querySelector(".cc-support > span").innerText = total_cc_price
+            footer.querySelector(".total-order > span").innerText = total_product_price + total_cc_price
 
         })
 

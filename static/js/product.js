@@ -102,6 +102,7 @@ if (isShop == 0) {
         select_property["size"] = sizeObj
 
         col_name.forEach((col) => {
+            console.log(formDataObj[col])
             console.log(property_template[col], (formDataObj[col].toLowerCase()).replace(" ", "-"))
             let index = property_template[col].indexOf((formDataObj[col].toLowerCase()).replace(" ", "-"))
             select_property[col] = index

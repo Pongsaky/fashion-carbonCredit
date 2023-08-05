@@ -160,8 +160,11 @@ editProfileBtn.addEventListener("click", () => {
 var user_id = document.getElementById("user_id_placeholder").dataset.userId;
 var isShop = document.getElementById("is_shop_placeholder").dataset.isShop;
 
-function getReceipt() {
-    window.location.href = "/receipt"
+function getReceipt(button) {
+    // console.log(button)
+    const checkoutId = button.dataset.checkoutId
+    // console.log(checkoutId)
+    window.location.href = `/receipt?checkoutId=${checkoutId}`
 }
 
 if (isShop==0) {
@@ -228,7 +231,8 @@ if (isShop==0) {
             const receiptBtn = document.createElement("button")
             receiptBtn.classList.add("receipt-btn")
             receiptBtn.innerText = "Receipt"
-            receiptBtn.onclick = getReceipt
+            receiptBtn.dataset.checkoutId = hisPurchase["id"]
+            receiptBtn.onclick = function() {getReceipt(this)}
             orderHeader.appendChild(receiptBtn)
 
             orderDiv.appendChild(orderHeader)
@@ -248,8 +252,7 @@ if (isShop==0) {
                     orderList.push(data['orderId'])
                 }
 
-                console.log(orderList)
-
+                // console.log(orderList)
 
                 const response = await fetch(`/service/fetch-checkout/`, {
                     method: "POST",
@@ -267,7 +270,7 @@ if (isShop==0) {
 
                 checkouts.forEach((checkout) => {
 
-                    // console.log(checkout)
+                    console.log(checkout)
 
                     if (index !== checkout['shop_id']) {
 
@@ -314,7 +317,7 @@ if (isShop==0) {
                     })
 
 
-                    productInCart.innerHTML = productInCart.innerHTML.replace("%total-product", total_item).replace("%total-price", total_price)
+                    productInCart.innerHTML = productInCart.innerHTML.replace("%total-product", total_item).replace("%total-price", total_price + total_item * 0.2)
                 })
 
                 orderDiv.appendChild(cartGroup)
@@ -329,6 +332,7 @@ if (isShop==0) {
 
     // Update information (Submit Form)
     document.getElementById("edit-user-profile-form").addEventListener("submit", async function (event) {
+        
         event.preventDefault(); // Prevent the form from submitting normally
 
         // Firstly Upload profile image
@@ -392,6 +396,8 @@ if (isShop==0) {
         })
         saveBtn.classList.add("hidden")
         editProfileBtn.classList.remove("hidden")
+    
+        
     })
 
 } else {

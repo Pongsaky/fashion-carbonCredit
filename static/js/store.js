@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     })
 
     const products = await response.json()
+    console.log(products)
 
     if (products.length == 0) {
         product_message.innerHTML = "This shop have not product yet"
@@ -37,7 +38,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     products.forEach((product, n) => {
         let product_template = `<div class="product" data-product-id=${product['id']}>
                 <div class="product-img-wrapper">
-                    <img src="${shop_img[n]}" alt="T-shirt-preview">
+                    <img src="${JSON.parse(product['product_image'])["1"].replace(/"/g, "") }" alt="T-shirt-preview">
                 </div>
                 <div class="product-desc">
                     <h1 class="product-name">${product['name']}</h1>

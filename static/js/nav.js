@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const response = await fetch(`/service/fetch-shop/${user_id}`, {method : "GET"})
     let shops = await response.json()
+    // console.log(shops)
     let index=0
     shops.forEach((shop, i) => {
         if (index == 0) shopDropMenu.innerHTML += `<li class="profile-dropdown" id="user-profile"><a onclick="setIsShop(0)"><img src="${shop['user_image'].replace(/"/g, "") }">${shop['username']}</a></li>`

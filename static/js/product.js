@@ -183,21 +183,30 @@ document.addEventListener("DOMContentLoaded", async () => {
     inputRowGroup.forEach((inputGroupDiv, idx) => {
 
         let col = columns[idx]
-        // console.log("Col name ", col)
+        console.log("Col name ", col)
         // console.log(JSON.parse(propertyTemplate['property'])[col])
         let property = JSON.parse(product['property'])
+        // console.log(property)
 
         const radioGroupDiv = document.createElement("div")
         radioGroupDiv.classList.add("radio-group")
 
-        for (let n = 0; n < property[col].length; n++) {
+        let colPropertyTemplate = col;
+        let colProperty = col;
+        if (colPropertyTemplate == "sleeve") colPropertyTemplate = "sleeve-length"
+        // if (colPropertyTemplate == "neckline") colPropertyTemplate = "Neckline"
+
+        if (colProperty == "neckline" && isShop==0) colProperty = "Neckline"
+        if (colProperty == "sleeve" && isShop==0) colProperty = "sleeve-length"
+
+
+        for (let n = 0; n < property[colProperty].length; n++) {
             // console.log(property[col][n])
-            let colPropertyTemplate = col;
-            if (colPropertyTemplate == "sleeve") colPropertyTemplate = "sleeve-length"
-            const propertyName = JSON.parse(propertyTemplate['property'])[colPropertyTemplate][n]
+            
+            const propertyName = JSON.parse(propertyTemplate['property'])[colPropertyTemplate.toLowerCase()][n]
             // console.log("Property name ", propertyName)
 
-            if (property[col][n] == 1 ) {
+            if (property[colProperty][n] == 1 ) {
                 radioGroupDiv.innerHTML += radio_template.replaceAll("$col", col)
                     .replaceAll("$property", propertyName)
             }     
@@ -222,7 +231,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                                 <h3 class="LCS-inch">29 / 42 / 17.5</h3>
                             </td>`
 
-    for (let n = 0; n < productSizeProperty.length; n++) {
+    for (let n = 0; n < sizeTemplate.length; n++) {
         // console.log(property[col][n])
         // console.log("Property name ", propertyName)
         const sizeAmountRow = document.createElement("tr")

@@ -10,7 +10,7 @@ const header_template = `<div class="cart-group">
                             </div>
                          `
 
-const orderProduct_template = `<div class="product-in-cart cart-table-row" data-order-id=%order_id data-shop-id=%shop_id>
+const orderProduct_template = `<div class="product-in-cart cart-table-row" data-order-id=%order_id data-shop-id=%shop_id data-index=%index>
                 <div class="check-box">
                     <input type="checkbox" name="select-product" class="select-checkbox">
                 </div>
@@ -24,7 +24,7 @@ const orderProduct_template = `<div class="product-in-cart cart-table-row" data-
                         $category-group
                         
                         <div class="net-zero-check">
-                            <input type="checkbox" name="net-zero" class="net-zero" %neurtal_mark>
+                            <input type="checkbox" name="net-zero" class="net-zero" %neutral_mark>
                             <label for="net-zero" class="net-zero-label">Net-Zero</label>
                         </div>
                     </div>
@@ -48,7 +48,7 @@ function getHeaderHTML(shop_name) {
     return header_template.replace("%shop_name", shop_name)
 }
 
-function getOrderProductHTML(order_id, shop_id, product_name, product_image, neutral_mark, categoryHTML, sizeHTML) {
+function getOrderProductHTML(order_id, shop_id, product_name, product_image, neutral_mark, categoryHTML, sizeHTML, index) {
     // select property
     return orderProduct_template.replace("%order_id", order_id)
                                 .replace('%shop_id', shop_id)
@@ -57,6 +57,7 @@ function getOrderProductHTML(order_id, shop_id, product_name, product_image, neu
                                 .replace("%neutral_mark", (neutral_mark == 1) ? "checked" : "")
                                 .replace("$category-group", categoryHTML)
                                 .replace("$amount-size", sizeHTML)
+                                .replace("%index", index)
 }
 
 function getCategoryHTML(select_property, property_template) {
@@ -82,13 +83,13 @@ function getCategoryHTML(select_property, property_template) {
 }
 
 function getSizeHTML(select_property) {
-    console.log(select_property)
+    // console.log(select_property)
     const amountDiv = document.createElement("div");
     amountDiv.classList.add("amount")
 
     Object.entries(select_property['size']).forEach(entry => {
         const [size, size_amount] = entry;
-        console.log(size, size_amount)
+        // console.log(size, size_amount)
         if (size_amount > 0) {
             // console.log(key, value)
             const sizeDiv = document.createElement("div");
@@ -127,6 +128,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Fetch Order DB
     const response = await fetch(`/service/fetch-order/${user_id}`)
     const orders = await response.json()
+    // console.log(orders)
 
     let index = -1;
     let i = 0;
@@ -155,7 +157,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Add order product 
         HTML_render += getOrderProductHTML(order['id'], order['shop_id'], order['product_name'], 
                                             JSON.parse(order['product_image'])[1].replace(/"/g, ""), 
-                                            order['neutral_mark'], categoryHTML, sizeHTML)
+                                            order['neutral_mark'], categoryHTML, sizeHTML, i)
 
 
         i += 1
@@ -191,7 +193,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("cart").addEventListener("click", (event) => {
         const target = event.target;
 
-        if (target.tagName === "INPUT" && target.type === "checkbox") {
+        if (target.tagName === "INPUT" && target.type === "checkbox" && !(target.className).includes("net-zero")) {
             // click select-product
             if (target.name === "select-product") {
 
@@ -269,7 +271,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                     allPrice -= 1 * parseInt(pricePerItem.innerText)
                 }
 
-            }
+            } 
+        } else if ((target.className).includes("net-zero")) {
+            
         }
 
         // Update Price
@@ -277,6 +281,77 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("sum-price").querySelector("span").innerText = addCommasToNumber(allPrice)
         checkAllCheckbox();
         // console.log(allPrice, allItems)
+    })
+
+    // order Btn to checkout page
+
+    const orderBtn = document.getElementById("order-btn")
+
+    orderBtn.addEventListener("click", async () => {
+        let allCheckbox_checked = document.querySelectorAll(".select-checkbox:not(#select-all):not(#select-shop):checked");
+        // console.log(allCheckbox_checked);
+
+        let orderData = {};
+
+        allCheckbox_checked.forEach(checkbox_checked => {
+            let subObj = {}
+            // Find product element
+            let productInCart = checkbox_checked.closest(".product-in-cart")
+            const product_shopID = productInCart.dataset.shopId;
+            const product_orderID = productInCart.dataset.orderId;
+            const product_index = productInCart.dataset.index
+
+            if (!(product_shopID in orderData)) orderData[product_shopID] = []
+
+            subObj['orderId'] = product_orderID
+            subObj['net-zero'] = productInCart.querySelector("input[name='net-zero']").checked
+            subObj['pricePerItem'] = parseInt(productInCart.querySelector(".price > span").innerText)
+
+            const sizeObj = {}
+            productInCart.querySelectorAll(".amount-per-size").forEach((sizeDiv) => {
+                let size = sizeDiv.querySelector("span").innerText;
+                let amount = parseInt(sizeDiv.querySelector("input").value);
+                sizeObj[size] = amount
+            })
+
+            subObj["size"] = sizeObj
+
+            orderData[product_shopID].push(subObj)
+            // Send data in form [ {option each product} ] After add with js in checkout page
+
+            // Update Net-zero and amount size
+            let update_property = JSON.parse(orders[product_index]['select_property'])
+            update_property["size"] = subObj["size"]
+            console.log(update_property)
+
+            orders[product_index]['neutral_mark'] = subObj["net-zero"]
+            orders[product_index]['select_property'] = update_property
+
+            // Re stucture of orders
+            const order_col = ["user_id", "product_id", "select_property", "neutral_mark", "status"]
+            const filteredObj = Object.fromEntries(Object.entries(orders[product_index]).filter(([key, value]) => order_col.includes(key)));
+            filteredObj["user_id"] = user_id
+            console.log(JSON.stringify(filteredObj))
+            const res = fetch(`/order/${product_orderID}`, {
+                method : "PUT",
+                headers : {"Content-type" : "application/json"},
+                body: JSON.stringify(filteredObj)
+            })
+
+            // if (res.ok) console.log(`Updated ${product_orderID} successfully`)
+        })
+
+        const response = await fetch("/checkout", {
+            method: "POST",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify(orderData)
+        })
+
+        if (response.ok) {
+            window.location.href = "/checkout"
+        }
+
+        console.log(orderData)
     })
 
 })
@@ -431,51 +506,3 @@ function addCommasToNumber(number) {
     }
 }
 
-// order Btn to checkout page
-
-const orderBtn = document.getElementById("order-btn")
-
-orderBtn.addEventListener("click", async () => {
-    let allCheckbox_checked = document.querySelectorAll(".select-checkbox:not(#select-all):not(#select-shop):checked");
-    // console.log(allCheckbox_checked);
-
-    let orderData = {};
-
-    allCheckbox_checked.forEach(checkbox_checked => {
-        let subObj = {}
-        // Find product element
-        let productInCart = checkbox_checked.closest(".product-in-cart")
-        const product_shopID = productInCart.dataset.shopId;
-        const product_orderID = productInCart.dataset.orderId;
-
-        if (!(product_shopID in orderData)) orderData[product_shopID] = []
-
-        subObj['orderId'] = product_orderID
-        subObj['net-zero'] = productInCart.querySelector("input[name='net-zero']").checked
-        subObj['pricePerItem'] = parseInt(productInCart.querySelector(".price > span").innerText)
-        
-        const sizeObj = {}
-        productInCart.querySelectorAll(".amount-per-size").forEach((sizeDiv) => {
-            let size = sizeDiv.querySelector("span").innerText;
-            let amount = parseInt(sizeDiv.querySelector("input").value);
-            sizeObj[size] = amount
-        })
-
-        subObj["size"] = sizeObj
-
-        orderData[product_shopID].push(subObj)
-        // Send data in form [ {option each product} ] After add with js in checkout page
-    })
-
-    const response = await fetch("/checkout", {
-        method : "POST",
-        headers : {"Content-type": "application/json"},
-        body : JSON.stringify(orderData)
-    })
-
-    if (response.ok) {
-        window.location.href = "/checkout"
-    }
-
-    console.log(orderData)
-})

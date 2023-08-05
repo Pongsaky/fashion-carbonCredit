@@ -621,7 +621,7 @@ class serviceAPI:
                 WHERE checkouts.user_id ={user_id}
                 ORDER BY checkouts.created_at DESC;"""
         self.mycursor.execute(sql)
-        column = ["id", "user_id", "data"]
+        column = ["id", "user_id", "data", "product_price", "cc_price"]
         row = self.mycursor.fetchall()
 
         for row_i in row:

@@ -1,6 +1,7 @@
 var total_product_price = 0;
 var total_all_item = 0;
 var total_cc_price = 0;
+var total_cc_item = 0;
 
 function fetchSelectedProduct(productSelected) {
     // console.log(productSelected)
@@ -108,6 +109,7 @@ function fetchSelectedProduct(productSelected) {
 
     document.addEventListener("DOMContentLoaded", async () => {
         // Set Template property
+        console.log(productSelected)
 
         const cartArea = document.getElementById("cart")
         const propertyResponse = await fetch("/type/1", { method: "GET" })
@@ -194,6 +196,10 @@ function fetchSelectedProduct(productSelected) {
                 total_all_item += total_item
                 total_product_price += total_price
 
+                if (productInCart.querySelector("input[name='net-zero']").checked) {
+                    total_cc_item += total_item
+                }
+
                 productInCart.innerHTML = productInCart.innerHTML.replace("%total-product", total_item).replace("%total-price", total_price)
             })
             
@@ -204,41 +210,12 @@ function fetchSelectedProduct(productSelected) {
             // Update footer price
 
             const footer = document.querySelector(".footer")
-            total_cc_price = total_all_item * 0.2
+            total_cc_price = total_cc_item * 0.2
             footer.querySelector(".product-price > span").innerText = total_product_price
             footer.querySelector(".cc-support > span").innerText = total_cc_price
             footer.querySelector(".total-order > span").innerText = total_product_price + total_cc_price
 
         })
-
-        
-
-        // document.getElementById("cart").addEventListener("mouseover", (event) => {
-        //         // console.log("HEELL")
-        //         const target = event.target;
-
-        //         const cart = target.closest(".cart")
-
-        //         let totalItem = 0
-        //         let totalProductPrice = 0
-
-        //         // console.log(cart.querySelectorAll(".conclude"))
-        //         cart.querySelectorAll(".conclude").forEach((conclude) => {
-        //             totalItem += parseInt(conclude.querySelector(".total-product > span").innerText)
-        //             totalProductPrice += parseInt(conclude.querySelector(".total-price > span").innerText)
-        //         })
-
-        //         let ccPrice = totalItem * 0.2
-        //         let orderPrice = totalProductPrice + ccPrice
-
-        //         const footer = document.querySelector(".footer")
-        //         footer.querySelector(".product-price > span").innerText = totalProductPrice
-        //         footer.querySelector(".cc-support > span").innerText = ccPrice
-        //         footer.querySelector(".total-order > span").innerText = orderPrice
-
-        //         total_product_price = totalProductPrice
-        //         total_cc_price = ccPrice
-        // });
 
     })
     

@@ -196,17 +196,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (colPropertyTemplate == "sleeve") colPropertyTemplate = "sleeve-length"
         // if (colPropertyTemplate == "neckline") colPropertyTemplate = "Neckline"
 
-        if (colProperty == "neckline" && isShop==0) colProperty = "Neckline"
-        if (colProperty == "sleeve" && isShop==0) colProperty = "sleeve-length"
+        // if (colProperty == "neckline" && isShop==0) colProperty = "Neckline"
+        // if (colProperty == "sleeve" && isShop==0) colProperty = "sleeve-length"
 
 
-        for (let n = 0; n < property[colProperty].length; n++) {
+        for (let n = 0; n < property[col].length; n++) {
             // console.log(property[col][n])
             
             const propertyName = JSON.parse(propertyTemplate['property'])[colPropertyTemplate.toLowerCase()][n]
             // console.log("Property name ", propertyName)
 
-            if (property[colProperty][n] == 1 ) {
+            if (property[col][n] == 1 ) {
                 radioGroupDiv.innerHTML += radio_template.replaceAll("$col", col)
                     .replaceAll("$property", propertyName)
             }     

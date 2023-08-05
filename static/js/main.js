@@ -20,3 +20,11 @@ const swiper = new Swiper('.swiper', {
 
 
 });
+
+const queryString = window.location.search
+const urlParams = new URLSearchParams(queryString)
+
+if (urlParams.get("success") == 1) {
+    console.log("HEE")
+    document.querySelector(".dialogue").classList.add("success")
+}

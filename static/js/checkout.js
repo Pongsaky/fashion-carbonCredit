@@ -267,7 +267,7 @@ function purchase(productSelected) {
                     cc_price: cc_price
                 })
             }).then((res) => {
-                if (res.ok) window.location.href = "/"
+                if (res.ok) window.location.href = "/?success=1"
             })
 
             // if (response.ok) window.location.href = "/"

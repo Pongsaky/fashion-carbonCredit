@@ -3,7 +3,7 @@ from fastapi import APIRouter, UploadFile, File
 from typing import List
 from backend.database.connectDB import checkoutDB
 from backend.schema import Checkout
-from backend.gcs import GCStorage
+from backend.utils.gcs import GCStorage
 
 router = APIRouter(
     prefix="/checkout",

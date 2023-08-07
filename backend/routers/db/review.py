@@ -2,7 +2,7 @@ from fastapi import APIRouter, UploadFile, File
 
 from backend.database.connectDB import reviewDB
 from backend.schema import Review
-from backend.gcs import GCStorage
+from backend.utils.gcs import GCStorage
 
 router = APIRouter(
     prefix="/review",

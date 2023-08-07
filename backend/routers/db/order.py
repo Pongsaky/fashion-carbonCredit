@@ -2,7 +2,7 @@ from fastapi import APIRouter, UploadFile, File
 
 from backend.database.connectDB import orderDB
 from backend.schema import Order, OrderUpdate
-from backend.gcs import GCStorage
+from backend.utils.gcs import GCStorage
 
 router = APIRouter(
     prefix="/order",

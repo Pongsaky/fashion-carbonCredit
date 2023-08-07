@@ -3,7 +3,7 @@ from fastapi import APIRouter, UploadFile, File
 from typing import List
 from backend.database.connectDB import product_typeDB
 from backend.schema import Product_type
-from backend.gcs import GCStorage
+from backend.utils.gcs import GCStorage
 
 router = APIRouter(
     prefix="/type",

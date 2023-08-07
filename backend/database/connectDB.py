@@ -187,20 +187,20 @@ class orderDB:
         result = {}
         sql = f"""SELECT * FROM `orders` LIMIT {limit}"""
         self.mycursor.execute(sql)
-        column = ["id", "user_id", "product_id", "select_property", "neutral_mark", "status"]
+        column = ["id", "serial_number", "user_id", "product_id", "select_property", "neutral_mark", "status"]
         row = self.mycursor.fetchall()
 
         for row_i in row:
             for idx, r in enumerate(row_i[:-1]):
                 result[row_i[0]] = {column[1]: row_i[1], column[2]: row_i[2], column[3]: row_i[3],
-                                    column[4]: row_i[4], column[5]: row_i[5]}
+                                    column[4]: row_i[4], column[5]: row_i[5], column[6]: row_i[6]}
         return result
 
     def select_one(self, id: int):
         result = {}
         sql = f"""SELECT * FROM `orders` WHERE orders.id={id}"""
         self.mycursor.execute(sql)
-        column = ["id", "user_id", "product_id", "select_property", "amount", "neutral_mark", "status"]
+        column = ["id", "serial_number", "user_id", "product_id", "select_property", "neutral_mark", "status"]
 
         row = self.mycursor.fetchone()
         if row == None:
@@ -216,9 +216,31 @@ class orderDB:
                 VALUES ('{user_id}', '{product_id}', '{select_property}', '{neutral_mark}', '{status}');"""
         self.mycursor.execute(sql)
         self.mydb.commit()
+
+        sql_select_null_serialNumber = f"""SELECT orders.id FROM orders
+                                            WHERE orders.serial_number IS NULL;"""
+        self.mycursor.execute(sql_select_null_serialNumber)
+        row = self.mycursor.fetchone()
+        result = {}
+        
+        result["id"] = row[0]
+
+        order_id = result["id"]
+        serial_number = serviceAPI().generate_serial_number(order_id=order_id)
+        print(serial_number)
+
+        # Update Serial number
+        sql_update_serialNumber = f"""UPDATE `orders` SET `serial_number`='{serial_number}'
+                WHERE `id`={order_id};"""
+        
+        print(sql_update_serialNumber)
+
+        self.mycursor.execute(sql_update_serialNumber)
+        self.mydb.commit()
+
         return {"msg": "OrderDB INSERT sucessfully"}
     
-    def update(self, id: int, user_id="", product_id="", select_property="", neutral_mark="", status=""):
+    def update(self, id: int, user_id:int, product_id:int, select_property:dict, neutral_mark:int, status:int):
         select_property = json.dumps(select_property)
         sql = f"""UPDATE `orders` SET `user_id`='{user_id}', `product_id`='{product_id}', `select_property`='{select_property}', `neutral_mark`='{neutral_mark}', `status`='{status}'
                 WHERE `id`={id};"""
@@ -478,7 +500,7 @@ class serviceAPI:
         if res["msg"] == "UserDB INSERT SUCESSFULLY":
             return {"status": 1}
         
-    def order(self, user_id:int, product_id:int, order_property:dict, amount:int, neutral_mark:int):
+    def order(self, serial_number:str, user_id:int, product_id:int, order_property:dict, amount:int, neutral_mark:int):
         res = orderDB().insert(user_id, product_id, order_property, amount, neutral_mark)
         if res["msg"] == "OrderDB INSERT SUCESSFULLY":
             return {"msg" : "Ordering is sucessful"}
@@ -641,3 +663,31 @@ class serviceAPI:
         co2e_material = {"0": 6, "1": 11.7} # Co2e Kg unit
 
         return amount * co2e_material[str(material_type)]
+
+    def generate_serial_number(self, order_id):
+        import hashlib
+
+        usedSerialNumbers = set()
+        # Fetch order serial-number
+        sql = f"""SELECT orders.serial_number FROM orders"""
+        self.mycursor.execute(sql)
+        result = self.mycursor.fetchall()
+        
+        for r in result:
+            usedSerialNumbers.add(r[0])
+
+        print(usedSerialNumbers)
+
+        # Use SHA-256 hash function to create the serial number
+        hash_object = hashlib.sha256(str(order_id).encode())
+        serial_number = 'CL-' + hash_object.hexdigest()[:6]
+
+        # Check if the serial number is already used, if not, add it to the set and return it
+        if serial_number not in usedSerialNumbers:
+            return serial_number   
+            
+    def checkSerialNumberIsNetZero(self, serial_number:str):
+        sql = f""" SELECT orders.neutral_mark FROM orders WHERE `serial_number`='{serial_number}' """
+        self.mycursor.execute(sql)
+        isNetZero = self.mycursor.fetchone()
+        return isNetZero[0]

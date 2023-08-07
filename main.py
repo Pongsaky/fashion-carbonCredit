@@ -74,6 +74,7 @@ chat_messages: dict = {}
 
 @app.websocket("/ws/{user_id}/{user_shop_id}/{shop_id}/{isShop}")
 async def websocket_endpoint(websocket: WebSocket, user_id: int, user_shop_id: int, shop_id: int, isShop :int):
+
     await websocket.accept()
 
     # Add user and shop to the private room
@@ -115,3 +116,52 @@ async def websocket_endpoint(websocket: WebSocket, user_id: int, user_shop_id: i
         active_connections.pop(room_id, None)
         if room_id in private_rooms:
             private_rooms.remove(room_id)
+
+# Serial number process
+# import hashlib
+# from backend.database.connectDB import orderDB
+
+# class HashSerialGenerator:
+#     def __init__(self):
+#         self.order_to_serial = {}
+
+#         # set order_to_serial
+#         orderRes = orderDB().select_all()
+
+#         for key, value in orderRes.items():
+#             print(key, value)
+
+#     def generate_serial_number(self, order_id):
+#         # Use SHA-256 hash function to create the serial number
+#         hash_object = hashlib.sha256(str(order_id).encode())
+#         serial_number = 'CL-' + hash_object.hexdigest()[:6]
+
+#         # Store the mapping of order ID to serial number in the lookup table
+#         self.order_to_serial[order_id] = serial_number
+
+#         return serial_number
+
+#     def get_serial_number_by_order_id(self, order_id):
+#         return self.order_to_serial.get(order_id)
+    
+#     def get_orderRes(self):
+#         return self.orderRes
+
+# # Example usage:
+# order_ids = [1, 2, 3, 4]
+
+# # Create the hash serial number generator
+# serial_generator = HashSerialGenerator()
+
+# print(serial_generator.get_orderRes())
+
+# # Convert order IDs to unique serial numbers
+# unique_serial_numbers = [serial_generator.generate_serial_number(order_id) for order_id in order_ids]
+
+# # Print the result
+# print(unique_serial_numbers)
+
+# # Retrieve serial numbers from order IDs
+# for order_id in order_ids:
+#     serial_number = serial_generator.get_serial_number_by_order_id(order_id)
+#     print(f"Order ID: {order_id}, Serial Number: {serial_number}")

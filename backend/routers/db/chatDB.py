@@ -2,7 +2,7 @@ from fastapi import APIRouter, UploadFile, File
 
 from backend.database.connectDB import chatDB
 from backend.schema import Chat
-from backend.gcs import GCStorage
+from backend.utils.gcs import GCStorage
 
 router = APIRouter(
     prefix="/chat",

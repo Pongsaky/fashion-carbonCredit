@@ -187,7 +187,7 @@ class orderDB:
         result = {}
         sql = f"""SELECT * FROM `orders` LIMIT {limit}"""
         self.mycursor.execute(sql)
-        column = ["id", "user_id", "product_id", "select_property", "amount", "neutral_mark"]
+        column = ["id", "user_id", "product_id", "select_property", "neutral_mark", "status"]
         row = self.mycursor.fetchall()
 
         for row_i in row:
@@ -200,7 +200,7 @@ class orderDB:
         result = {}
         sql = f"""SELECT * FROM `orders` WHERE orders.id={id}"""
         self.mycursor.execute(sql)
-        column = ["id", "user_id", "product_id", "select_property", "amount", "neutral_mark"]
+        column = ["id", "user_id", "product_id", "select_property", "amount", "neutral_mark", "status"]
 
         row = self.mycursor.fetchone()
         if row == None:
@@ -633,3 +633,11 @@ class serviceAPI:
     
         return result
 
+    def get_co2e(self, material_type:int, amount:int):
+        """
+        0 -> Cotton
+        1 -> Polyester
+        """
+        co2e_material = {"0": 6, "1": 11.7} # Co2e Kg unit
+
+        return amount * co2e_material[str(material_type)]

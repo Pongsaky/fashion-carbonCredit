@@ -80,6 +80,10 @@ async def fetch_chat(user_id:int):
     res =  serviceAPI().fetch_historyPurchase(user_id=user_id)
     return res
 
+@router.get("/get-co2e/{material_type}/{amount}", tags=["service"])
+async def get_co2e(material_type: int, amount:int):
+    return serviceAPI().get_co2e(material_type=material_type, amount=amount)
+
 @router.post("/multi-uploadfile/", tags=["service"])
 async def upload_file(files :List[UploadFile] = File(...)):
     url_path = []

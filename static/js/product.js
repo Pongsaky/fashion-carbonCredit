@@ -333,9 +333,19 @@ function updateTshirtImage(imageURL) {
 
 // Update the TShirt color according to the selected color by the user
 document.getElementById("tshirt-color").addEventListener("change", function () {
-    console.log(this.value)
+    // console.log(this.value)
     document.getElementById("tshirt-img").style.backgroundColor = this.value;
 }, false);
+
+document.getElementById("dropdown-color").addEventListener("click", (event) => {
+    const target = event.target;
+    // console.log(target)
+    if (target.tagName == "LI") {
+        // console.log(target)
+        // console.log(target.getAttribute("value"))
+        document.getElementById("tshirt-img").style.backgroundColor = target.getAttribute("value");
+    }
+})
 
 // Update the TShirt color according to the selected color by the user
 document.getElementById("tshirt-design").addEventListener("change", function () {

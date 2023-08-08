@@ -27,7 +27,7 @@ async def insert_data(order : Order):
 
 @router.put("/{id}", tags=["order"])
 async def update_data(id :int, order : Order):
-    res =  orderDB().update(id=id, user_id=order.user_id, product_id=order.product_id, select_property=order.select_property, neutral_mark=order.neutral_mark, status=order.status)
+    res =  orderDB().update(id=id, user_id=order.user_id, product_id=order.product_id, select_property=order.select_property, neutral_mark=order.neutral_mark, order_image=order.order_image, status=order.status)
     return res
 
 @router.put("/update_status/", tags=["order"])

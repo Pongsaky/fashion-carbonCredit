@@ -181,7 +181,7 @@ class productDB:
 class orderDB:
     def __init__(self):
         self.mydb = mydb
-        self.mycursor = self.mydb.cursor(buffered=True)
+        self.mycursor = self.mydb.cursor()
 
     def select_all(self, limit=1000):
         result = {}
@@ -241,9 +241,9 @@ class orderDB:
 
         return {"msg": "OrderDB INSERT sucessfully"}
     
-    def update(self, id: int, user_id:int, product_id:int, select_property:dict, neutral_mark:int, status:int):
+    def update(self, id: int, user_id:int, product_id:int, select_property:dict, neutral_mark:int, status:int, order_image:str):
         select_property = json.dumps(select_property)
-        sql = f"""UPDATE `orders` SET `user_id`='{user_id}', `product_id`='{product_id}', `select_property`='{select_property}', `neutral_mark`='{neutral_mark}', `status`='{status}'
+        sql = f"""UPDATE `orders` SET `user_id`='{user_id}', `product_id`='{product_id}', `select_property`='{select_property}', `neutral_mark`='{neutral_mark}', `status`='{status}', `order_image`='{order_image}'
                 WHERE `id`={id};"""
 
         self.mycursor.execute(sql)
@@ -590,7 +590,7 @@ class serviceAPI:
     def fetch_order(self, user_id:int):
         result = []
         sql = f"""SELECT orders.id, orders.product_id, orders.select_property, orders.neutral_mark, 
-                    orders.status, products.shop_id, shops.name, products.name, products.product_image  FROM orders 
+                    orders.status, products.shop_id, shops.name, products.name, products.product_image, orders.order_image  FROM orders 
                     RIGHT JOIN products
                     ON orders.product_id = products.id
                     LEFT JOIN shops
@@ -598,7 +598,7 @@ class serviceAPI:
                     WHERE orders.user_id = {user_id} AND orders.status=0
                     ORDER BY orders.created_at DESC, orders.product_id ASC;"""
         self.mycursor.execute(sql)
-        column = ["id", "product_id", "select_property", "neutral_mark", "status", "shop_id", "shop_name", "product_name", "product_image"]
+        column = ["id", "product_id", "select_property", "neutral_mark", "status", "shop_id", "shop_name", "product_name", "product_image", "order_image"]
         row = self.mycursor.fetchall()
 
         for row_i in row:
@@ -617,7 +617,7 @@ class serviceAPI:
         result_string = "(" + ",".join(order_idx_str) + ")"
 
         sql = f"""SELECT orders.id, orders.product_id, orders.select_property, orders.neutral_mark, 
-                    orders.status, products.shop_id, shops.name, products.name, products.product_image FROM orders
+                    orders.status, products.shop_id, shops.name, products.name, products.product_image, orders.order_image FROM orders
                 RIGHT JOIN products
                 ON orders.product_id = products.id
                 LEFT JOIN shops
@@ -625,7 +625,7 @@ class serviceAPI:
                 WHERE orders.id IN {result_string}
                 ORDER BY orders.created_at DESC, orders.product_id ASC ;"""
         self.mycursor.execute(sql)
-        column = ["id", "product_id", "select_property", "neutral_mark", "status", "shop_id", "shop_name", "product_name", "product_image"]
+        column = ["id", "product_id", "select_property", "neutral_mark", "status", "shop_id", "shop_name", "product_name", "product_image", "order_image"]
         row = self.mycursor.fetchall()
 
         for row_i in row:

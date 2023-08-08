@@ -154,9 +154,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Add size amount
         let sizeHTML = getSizeHTML(JSON.parse(order['select_property']))
 
+        let HTML_image
+        if (order['order_image']) {
+            // console.log("HELLO")
+            HTML_image = order['order_image'].replace(/"/g, "")
+        } else {
+            HTML_image = JSON.parse(order['product_image'])[1].replace(/"/g, "")
+        }
+
         // Add order product 
         HTML_render += getOrderProductHTML(order['id'], order['shop_id'], order['product_name'], 
-                                            JSON.parse(order['product_image'])[1].replace(/"/g, ""), 
+                                            HTML_image, 
                                             order['neutral_mark'], categoryHTML, sizeHTML, i)
 
 
@@ -328,7 +336,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             orders[product_index]['select_property'] = update_property
 
             // Re stucture of orders
-            const order_col = ["user_id", "product_id", "select_property", "neutral_mark", "status"]
+            const order_col = ["user_id", "product_id", "select_property", "neutral_mark", "status", "order_image"]
             const filteredObj = Object.fromEntries(Object.entries(orders[product_index]).filter(([key, value]) => order_col.includes(key)));
             filteredObj["user_id"] = user_id
             console.log(JSON.stringify(filteredObj))

@@ -286,9 +286,17 @@ if (isShop==0) {
                     // Add size amount
                     let sizeHTML = getSizeHTML(JSON.parse(checkout['select_property']))
 
+                    let HTML_image
+                    if (checkout['order_image']) {
+                        // console.log("HELLO")
+                        HTML_image = checkout['order_image'].replace(/"/g, "")
+                    } else {
+                        HTML_image = JSON.parse(checkout['product_image'])[1].replace(/"/g, "")
+                    }
+
                     // Add checkout product
                     HTML_render += getOrderProductHTML(checkout['id'], checkout['shop_id'], checkout['product_name'],
-                        JSON.parse(checkout['product_image'])[1].replace(/"/g, ""),
+                        HTML_image,
                         checkout['neutral_mark'], categoryHTML, sizeHTML)
 
 

@@ -22,7 +22,7 @@ mydb = mysql.connector.connect(
 class userDB:
     def __init__(self):
         self.mydb = mydb
-        self.mycursor = self.mydb.cursor()
+        self.mycursor = self.mydb.cursor(buffered=True)
 
     def select_all(self, limit=1000):
         result = {}
@@ -75,7 +75,7 @@ class userDB:
 class shopDB:
     def __init__(self):
         self.mydb = mydb
-        self.mycursor = self.mydb.cursor()
+        self.mycursor = self.mydb.cursor(buffered=True)
 
     def select_all(self, limit=1000):
         result = []
@@ -125,7 +125,7 @@ class shopDB:
 class productDB:
     def __init__(self):
         self.mydb = mydb
-        self.mycursor = self.mydb.cursor()
+        self.mycursor = self.mydb.cursor(buffered=True)
 
     def select_all(self, limit=1000):
         result = []
@@ -181,26 +181,27 @@ class productDB:
 class orderDB:
     def __init__(self):
         self.mydb = mydb
-        self.mycursor = self.mydb.cursor()
+        self.mycursor = self.mydb.cursor(buffered=True)
 
     def select_all(self, limit=1000):
         result = {}
         sql = f"""SELECT * FROM `orders` LIMIT {limit}"""
         self.mycursor.execute(sql)
-        column = ["id", "serial_number", "user_id", "product_id", "select_property", "neutral_mark", "status"]
+        column = ["id", "serial_number", "user_id", "product_id", "select_property", "neutral_mark", "order_image", "status"]
         row = self.mycursor.fetchall()
 
         for row_i in row:
             for idx, r in enumerate(row_i[:-1]):
                 result[row_i[0]] = {column[1]: row_i[1], column[2]: row_i[2], column[3]: row_i[3],
-                                    column[4]: row_i[4], column[5]: row_i[5], column[6]: row_i[6]}
+                                    column[4]: row_i[4], column[5]: row_i[5], column[6]: row_i[6],
+                                    column[7]: row_i[7]}
         return result
 
     def select_one(self, id: int):
         result = {}
         sql = f"""SELECT * FROM `orders` WHERE orders.id={id}"""
         self.mycursor.execute(sql)
-        column = ["id", "serial_number", "user_id", "product_id", "select_property", "neutral_mark", "status"]
+        column = ["id", "serial_number", "user_id", "product_id", "select_property", "neutral_mark", "order_image", "status"]
 
         row = self.mycursor.fetchone()
         if row == None:
@@ -210,10 +211,10 @@ class orderDB:
             result[column[idx]] = r
         return result
 
-    def insert(self, user_id:int, product_id:int, select_property:dict, neutral_mark:int, status:int):
+    def insert(self, user_id:int, product_id:int, select_property:dict, neutral_mark:int, status:int, order_image:str):
         select_property = json.dumps(select_property)
-        sql = f"""INSERT INTO `orders` (`user_id`, `product_id`, `select_property`, `neutral_mark`, `status`) 
-                VALUES ('{user_id}', '{product_id}', '{select_property}', '{neutral_mark}', '{status}');"""
+        sql = f"""INSERT INTO `orders` (`user_id`, `product_id`, `select_property`, `neutral_mark`, `status`, `order_image`) 
+                VALUES ('{user_id}', '{product_id}', '{select_property}', '{neutral_mark}', '{status}', '{order_image}');"""
         self.mycursor.execute(sql)
         self.mydb.commit()
 
@@ -270,7 +271,7 @@ class orderDB:
 class reviewDB:
     def __init__(self):
         self.mydb = mydb
-        self.mycursor = self.mydb.cursor()
+        self.mycursor = self.mydb.cursor(buffered=True)
 
     def select_all(self, limit=1000):
         result = {}
@@ -323,7 +324,7 @@ class reviewDB:
 class chatDB:
     def __init__(self):
         self.mydb = mydb
-        self.mycursor = self.mydb.cursor()
+        self.mycursor = self.mydb.cursor(buffered=True)
 
     def select_all(self, limit=1000):
         result = {}
@@ -376,7 +377,7 @@ class chatDB:
 class product_typeDB:
     def __init__(self):
         self.mydb = mydb
-        self.mycursor = self.mydb.cursor()
+        self.mycursor = self.mydb.cursor(buffered=True)
 
     def select_all(self, limit=1000):
         result = {}
@@ -428,7 +429,7 @@ class product_typeDB:
 class checkoutDB:
     def __init__(self):
         self.mydb = mydb
-        self.mycursor = self.mydb.cursor()
+        self.mycursor = self.mydb.cursor(buffered=True)
 
     def select_all(self, limit=1000):
         result = {}
@@ -480,7 +481,7 @@ class checkoutDB:
 class serviceAPI:
     def __init__(self):
         self.mydb = mydb
-        self.mycursor = self.mydb.cursor()
+        self.mycursor = self.mydb.cursor(buffered=True)
 
     def login(self, username, password):
         result = {}

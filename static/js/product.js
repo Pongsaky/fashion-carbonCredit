@@ -1,5 +1,7 @@
 // Stage of page
 
+// const domtoimage = require("./library/dom-to-image");
+
 var productInfo = document.querySelector(".product-info");
 var shirtOption = document.querySelector(".shirt-option");
 var optionParts = document.querySelectorAll(".option-part");
@@ -50,6 +52,28 @@ function stepBtnAppearance(id) {
 }
 
 showPart(1); // Show the first part on page load
+
+// Design Part
+$('.color-dropdown').click(function () {
+    $(this).attr('tabindex', 1).focus();
+    $(this).toggleClass('active');
+    $(this).find('.color-dropdown-menu').slideToggle(300);
+});
+
+// let color_dropdown = document.querySelector(".color-dropdown")
+// color_dropdown.addEventListener("click", () => {
+//     color_dropdown.setAttribute("tabindex", 1)
+// })
+
+$('.color-dropdown').focusout(function () {
+    $(this).removeClass('active');
+    $(this).find('.color-dropdown-menu').slideUp(300);
+});
+
+$('.color-option').click(function () {
+    $(this).parents('.color-dropdown').find('span').text($(this).text());
+    $(this).parents('.color-dropdown').find('input').attr('value', $(this).attr('id'));
+});
 
 
 // Order T-shrit
@@ -110,6 +134,30 @@ if (isShop == 0) {
 
         console.log(select_property)
 
+        // Upload image
+        // const imageName = 'exportYourDesignTshirt.png'; // Replace this with the desired image filename
+        // const file = await imageUrlToFile(imageUrl, imageName)
+        const dataUrl = await domtoimage.toPng(node)
+        let imageName = "order_image.png"
+
+        const file = base64ToFile(dataUrl.replace("data:image/png;base64,", ""), imageName, "image/png")
+
+        if (file) {
+            const formData = new FormData();
+            formData.append('file', file)
+
+            const response = await fetch("/service/single-uploadfile/", {
+                method: "POST",
+                body: formData
+            })
+
+            if (response.ok) {
+                order_image = await response.text();
+                console.log("File uploaded: ", order_image);
+            }
+        }
+
+
         // fetch
         const data = {}
         data["user_id"] = user_id
@@ -117,8 +165,10 @@ if (isShop == 0) {
         data["select_property"] = select_property
         data["neutral_mark"] = formDataObj["save-world"] == "on" ? 1 : 0
         data["status"] = 0
+        data['order_image'] = order_image.replace(/"/g, "")
+        
 
-
+        // console.log(domtoimage.toPng(node))
         console.log(JSON.stringify(data))
         fetch("/order/", {
             method: "POST",
@@ -172,7 +222,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.log("Property Template", JSON.parse(propertyTemplate['property']))
 
     productName.innerHTML = product['name']
-    productPreivew.src = JSON.parse(product['product_image'])["1"]
+    // productPreivew.src = JSON.parse(product['product_image'])["1"]
 
     // Part 1
     const columns = ["fabric", "neckline", "sleeve", "fit", "size"]
@@ -248,3 +298,142 @@ document.addEventListener("DOMContentLoaded", async () => {
 if (urlParams.get("success") == 1) {
     document.querySelector(".dialogue").classList.add("success")
 }
+
+// Design Part
+let canvas = new fabric.Canvas('tshirt-canvas');
+
+var node = document.getElementById('tshirt-img');
+// Define as node the T-Shirt Div
+const exportBtn = document.getElementById("export-image")
+const exportImgArea = document.getElementById("export-image-area")
+
+function exportDesign() {
+    domtoimage.toPng(node).then(function (dataUrl) {
+        // Print the data URL of the picture in the Console
+        console.log(dataUrl);
+
+        // You can for example to test, add the image at the end of the document
+        var img = new Image();
+        img.src = dataUrl;
+        exportImgArea.innerHTML = img.outerHTML
+    }).catch(function (error) {
+        console.error('oops, something went wrong!', error);
+    });
+}
+
+function updateTshirtImage(imageURL) {
+    fabric.Image.fromURL(imageURL, function (img) {
+        img.scaleToHeight(300);
+        img.scaleToWidth(300);
+        canvas.centerObject(img);
+        canvas.add(img);
+        canvas.renderAll();
+    });
+}
+
+// Update the TShirt color according to the selected color by the user
+document.getElementById("tshirt-color").addEventListener("change", function () {
+    console.log(this.value)
+    document.getElementById("tshirt-img").style.backgroundColor = this.value;
+}, false);
+
+// Update the TShirt color according to the selected color by the user
+document.getElementById("tshirt-design").addEventListener("change", function () {
+
+    // Call the updateTshirtImage method providing as first argument the URL
+    // of the image provided by the select
+    updateTshirtImage(this.value);
+
+}, false);
+
+// When the user clicks on upload a custom picture
+document.getElementById('design-upload').addEventListener("change", function (e) {
+    var reader = new FileReader();
+
+    reader.onload = function (event) {
+        var imgObj = new Image();
+        imgObj.src = event.target.result;
+
+        // When the picture loads, create the image in Fabric.js
+        imgObj.onload = function () {
+            var img = new fabric.Image(imgObj);
+
+            img.scaleToHeight(300);
+            img.scaleToWidth(300);
+            canvas.centerObject(img);
+            canvas.add(img);
+            canvas.renderAll();
+        };
+    };
+
+    // If the user selected a picture, load it
+    if (e.target.files[0]) {
+        reader.readAsDataURL(e.target.files[0]);
+    }
+}, false);
+
+// When the user selects a picture that has been added and press the DEL key
+// The object will be removed !
+document.addEventListener("keydown", function (e) {
+    var keyCode = e.keyCode;
+
+    if (keyCode == 46) {
+        console.log("Removing selected element on Fabric.js on DELETE key !");
+        canvas.remove(canvas.getActiveObject());
+    }
+}, false);
+
+// Function to download an image
+function downloadImage(url, filename) {
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = filename;
+    anchor.style.display = 'none';
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+}
+
+// Convert base64 data to a File object
+function base64ToFile(base64Data, filename, mimeType) {
+    const byteCharacters = atob(base64Data);
+    const byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+        const slice = byteCharacters.slice(offset, offset + 512);
+
+        const byteNumbers = new Array(slice.length);
+        for (let i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+
+        const byteArray = new Uint8Array(byteNumbers);
+        byteArrays.push(byteArray);
+    }
+
+    const blob = new Blob(byteArrays, { type: mimeType });
+    return new File([blob], filename, { type: mimeType });
+}
+
+// Usage example
+// const base64Data = "iVBORw0KGgoAAAANSUhEUgAAAXUAAAFBCAYAAACIFj9zAAAAAXNSR0IArs4c6QAAIABJREFUeF7svQmUVdWZ9n/nW/MAFFVAiYwiAiIOEBSxJaAY45Q4oMYMmnR";
+// const filename = "image.png";
+// const mimeType = "image/png";
+
+// const file = base64ToFile(base64Data, filename, mimeType);
+// console.log('File object:', file);
+
+
+// Event listener for the download button
+document.getElementById('downloadButton').addEventListener('click', async () => {
+    const dataUrl = await domtoimage.toPng(node)
+    console.log(dataUrl)
+    const imageUrl = dataUrl; // Replace this with the actual image URL
+    const imageName = 'exportYourDesignTshirt.png'; // Replace this with the desired image filename
+    const file = base64ToFile(dataUrl.replace("data:image/png;base64,", ""), imageName, "image/png")
+    // const file = await imageUrlToFile(imageUrl, imageName)
+    console.log(file)
+
+    // Trigger the download
+    downloadImage(imageUrl, imageName);
+});

@@ -16,8 +16,15 @@ Product
             Add To Cart Successfully!
         </div>
         
-        <div class="product-preview">
-            <img src="" alt="T-shirt-Preview">
+        <div class="product-preview" id="tshirt-div">
+            <div id="tshirt-img">
+                <img src="/static/image/background_tshirt.png" alt="T-shirt-Preview">
+                <div id="drawingArea" class="drawing-area">
+                    <div class="canvas-container">
+                        <canvas id="tshirt-canvas" width="200" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
     
         <!-- Product-info -->
@@ -47,9 +54,51 @@ Product
         <!-- Product-info -->
 
         <div class="shirt-option">
+            <!-- Design Part -->
+            <div class="option-part" id="stage-2">
+                <h4 class="progress"><span>Step 3 of 2</span> : Product Design</h4>
+                <h1 class="product-name">Product Name</h1>
+
+                <!-- <label for="design-upload">Upload your own design:</label> -->
+                <input type="file" name="design-upload" id="design-upload" class="design-upload">
+            
+                <div class="color-dropdown">
+                    <div class="select" id="tshirt-design">
+                        <span>Select one of Colors</span>
+                    </div>
+                    <input type="hidden" name="color">
+                    <ul class="color-dropdown-menu" >
+                            <li class="color-option" id="red">
+                                White
+                            </li>
+                            <li class="color-option" id="red">
+                                Red
+                            </li>
+                            <li class="color-option" id="blue">
+                                Blue
+                            </li>
+                            <li class="color-option" id="black">Black
+                            </li>
+                    </ul>
+                </div>
+
+                <select id="tshirt-color">
+                        <option value="#fff" selected>White</option>
+                        <option value="#f00">Red</option>
+                        <option value="#0000FF">Blue</option>
+                        <option value="#000">Black</option>
+                </select>
+
+
+                <button type="button" id="design-upload-btn">Upload your own design</button>
+                <button type="button" id="downloadButton">Download you own design</button>
+                
+            </div>
+            <!-- Design Part -->
+
             <form id="shirt-option-form" action="/order" method="post">
                 <!-- Form: Part 1 -->
-                <div class="option-part " id="stage-2">
+                <div class="option-part " id="stage-3">
                     <h4 class="progress"><span>Step 1 of 2</span> : Product Design</h4>
                     <h1 class="product-name">Product Name</h1>
                     <div class="input-row-group">
@@ -118,7 +167,7 @@ Product
                 <!-- Form: Part 1 -->
 
                 <!-- Form: Part 2 -->
-                <div class="option-part" id="stage-3">
+                <div class="option-part" id="stage-4">
                     <h4 class="progress"><span>Step 2 of 2</span> : Product Design</h4>
                     <h1 class="product-name">Product Name</h1>
                     <div class="size-amount-group">
@@ -273,5 +322,8 @@ Product
 </div>
 <!-- Container -->
 
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="crossorigin="anonymous"></script>
+<script src="/static/js/library/fabric/fabric@5.3.0_dist_fabric.min.js"></script>
+<script src="/static/js/library/dom-to-image.js"></script>
 <script src="/static/js/product.js"></script>
 {% endblock %}

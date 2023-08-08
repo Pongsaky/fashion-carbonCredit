@@ -40,6 +40,7 @@ class Order(BaseModel):
                                "fit" : 1
                             }
     neutral_mark: int
+    order_image : str
     status :int
 
 class Review(BaseModel):

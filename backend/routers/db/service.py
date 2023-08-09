@@ -4,7 +4,7 @@ from typing import List
 
 from backend.database.connectDB import serviceAPI, orderDB
 from backend.schema import Login, User, Order, Shop, Product
-# from backend.utils.gcs import GCStorage
+from backend.utils.gcs import GCStorage
 
 router = APIRouter(
     prefix='/service',

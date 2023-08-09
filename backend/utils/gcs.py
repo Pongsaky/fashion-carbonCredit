@@ -3,7 +3,8 @@ import hashlib
 from datetime import datetime
 from google.cloud import storage
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "./backend/cert/carboncredit-391108-464488a6345e.json"
+# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "./backend/cert/carboncredit-391108-464488a6345e.json"
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "/etc/secrets/carboncredit-391108-464488a6345e.json"
 
 class GCStorage:
     def __init__(self):

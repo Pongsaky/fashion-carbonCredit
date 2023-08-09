@@ -66,12 +66,12 @@ document.addEventListener(("DOMContentLoaded"), async () => {
                 if (isNetZero == 1) {
 
                     if (fabricType == 0) {
-                        ccNumber += 6
+                        ccNumber += 6 * parseInt(sizeAmount)
                         ccPrice += 6 * parseInt(sizeAmount) * 0.1
                     }
 
                     if (fabricType == 1) {
-                        ccNumber += 11.7
+                        ccNumber += 11.7 * parseInt(sizeAmount)
                         ccPrice += 11.7 * parseInt(sizeAmount) * 0.1
                     }
 

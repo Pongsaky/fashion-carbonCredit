@@ -15,11 +15,11 @@ Product
         </div>
         
         <div class="product-preview" id="tshirt-div">
-            <div >
-                <img id="tshirt-img" src="/static/image/background_tshirt.png" alt="T-shirt-Preview">
+            <div id="tshirt-node">
+                <img id="tshirt-img" src="/static/image/background_tshirt.png" style="background-color: #fff;" alt="T-shirt-Preview">
                 <div id="drawingArea" class="drawing-area">
                     <div class="canvas-container">
-                        <canvas id="tshirt-canvas" width="200" height="400"></canvas>
+                        <canvas id="tshirt-canvas" width="150" height="350"></canvas>
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@ Product
             
                 <div class="color-dropdown"  id="dropdown-color">
                     <div class="select" id="tshirt-design">
-                        <span>Select one of Colors</span>
+                        <span>White</span>
                     </div>
                     <input type="hidden" name="color">
                     <ul class="color-dropdown-menu">
@@ -79,8 +79,8 @@ Product
                             </li>
                     </ul>
                 </div>
-<!-- 
-                <button type="button" id="design-upload-btn">Upload your own design</button>
+
+                <!-- <button type="button" id="design-upload-btn">Upload your own design</button>
                 <button type="button" id="downloadButton">Download you own design</button> -->
                 
             </div>

@@ -302,7 +302,7 @@ if (urlParams.get("success") == 1) {
 // Design Part
 let canvas = new fabric.Canvas('tshirt-canvas');
 
-var node = document.getElementById('tshirt-img');
+var node = document.getElementById('tshirt-node');
 // Define as node the T-Shirt Div
 const exportBtn = document.getElementById("export-image")
 const exportImgArea = document.getElementById("export-image-area")
@@ -332,10 +332,10 @@ function updateTshirtImage(imageURL) {
 }
 
 // Update the TShirt color according to the selected color by the user
-document.getElementById("tshirt-color").addEventListener("change", function () {
-    // console.log(this.value)
-    document.getElementById("tshirt-img").style.backgroundColor = this.value;
-}, false);
+// document.getElementById("tshirt-color").addEventListener("change", function () {
+//     // console.log(this.value)
+//     document.getElementById("tshirt-img").style.backgroundColor = this.value;
+// }, false);
 
 document.getElementById("dropdown-color").addEventListener("click", (event) => {
     const target = event.target;
@@ -435,15 +435,16 @@ function base64ToFile(base64Data, filename, mimeType) {
 
 
 // Event listener for the download button
-document.getElementById('downloadButton').addEventListener('click', async () => {
-    const dataUrl = await domtoimage.toPng(node)
-    console.log(dataUrl)
-    const imageUrl = dataUrl; // Replace this with the actual image URL
-    const imageName = 'exportYourDesignTshirt.png'; // Replace this with the desired image filename
-    const file = base64ToFile(dataUrl.replace("data:image/png;base64,", ""), imageName, "image/png")
-    // const file = await imageUrlToFile(imageUrl, imageName)
-    console.log(file)
+// document.getElementById('downloadButton').addEventListener('click', async () => {
+//     console.log(node);
+//     const dataUrl = await domtoimage.toPng(node)
+//     console.log(dataUrl)
+//     const imageUrl = dataUrl; // Replace this with the actual image URL
+//     const imageName = 'exportYourDesignTshirt.png'; // Replace this with the desired image filename
+//     const file = base64ToFile(dataUrl.replace("data:image/png;base64,", ""), imageName, "image/png")
+//     // const file = await imageUrlToFile(imageUrl, imageName)
+//     console.log(file)
 
-    // Trigger the download
-    downloadImage(imageUrl, imageName);
-});
+//     // Trigger the download
+//     downloadImage(imageUrl, imageName);
+// });

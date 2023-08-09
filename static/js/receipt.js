@@ -217,11 +217,21 @@ document.addEventListener(("DOMContentLoaded"), async () => {
             let sizeHTML = getSizeHTML(JSON.parse(checkout['select_property']))
             // console.log(sizeHTML)
 
+            let HTML_image
+            if (checkout['order_image']) {
+                // console.log("HELLO")
+                HTML_image = checkout['order_image'].replace(/"/g, "")
+            } else {
+                HTML_image = JSON.parse(checkout['product_image'])[1].replace(/"/g, "")
+            }
+
             // Add checkout product
             HTML_render += getProductHTML(checkout['shop_name'], checkout['product_name'],
-                JSON.parse(checkout['product_image'])[1].replace(/"/g, ""), categoryHTML, sizeHTML)
+                HTML_image, categoryHTML, sizeHTML)
 
-
+            // HTML_render += getProductHTML(checkout['shop_name'], checkout['product_name'],
+            //     JSON.parse(checkout['product_image'])[1].replace(/"/g, ""), categoryHTML, sizeHTML)
+            
             i += 1
             // This if have problem in case of have two shop
             // put </div> only last order but when shop change?
@@ -232,12 +242,14 @@ document.addEventListener(("DOMContentLoaded"), async () => {
         })
 
         itemDiv.innerHTML = HTML_render
-
+        console.log(itemDiv);
         // Update Price
         itemDiv.querySelectorAll(".item-amount").forEach(amountDiv => {
+            console.log(amountDiv)
             let total_price = 0;
             let total_item = 0;
-            const itemProduct = amountDiv.closest(".items")
+            const itemProduct = amountDiv.closest(".item-info")
+            console.log(itemProduct)
 
             amountDiv.querySelectorAll(".size-amount").forEach((amountPerSize) => {
                 const amount = parseInt(amountPerSize.querySelector(".amount").innerText);

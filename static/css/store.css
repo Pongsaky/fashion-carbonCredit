@@ -170,17 +170,20 @@ button:not(:has(i)) {
 .dialogue {
     position: absolute;
     padding: 25px 40px;
-    z-index: 9999;
+    z-index: 999;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 14px;
     font-weight: 600;
-    color: #fefefe;
+    color: #000;
     border-radius: 12px;
-    background-color: #00ff0040;
+    background-color: #e3e3e3;
     /* display: none; */
     opacity: 0;
+    z-index: -1;
+    /* visibility: hidden; */
+    /* appearance: none; */
 
     &.success {
         animation: success 2s linear;
@@ -191,6 +194,7 @@ button:not(:has(i)) {
     0% {
         display: block;
         opacity: 0;
+        z-index: 999;
     }
 
     20% {

@@ -157,7 +157,6 @@ if (isShop == 0) {
             }
         }
 
-
         // fetch
         const data = {}
         data["user_id"] = user_id
@@ -167,7 +166,6 @@ if (isShop == 0) {
         data["status"] = 0
         data['order_image'] = order_image.replace(/"/g, "")
         
-
         // console.log(domtoimage.toPng(node))
         console.log(JSON.stringify(data))
         fetch("/order/", {
@@ -175,10 +173,9 @@ if (isShop == 0) {
             headers: { "Content-type": "application/json" },
             body: JSON.stringify(data)
         }).then((res) => {
-            if (res.ok) {
-                window.location.href = `/product?product_id=${urlParams.get("product_id")}&success=1`
-            }
+            window.location.href = `/product?product_id=${urlParams.get("product_id")}&success=1`
         })
+        // window.location.href = `/product?product_id=${urlParams.get("product_id")}&success=1`
 
     })
 }
